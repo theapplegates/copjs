@@ -1,11 +1,9 @@
 // next-auth.d.ts
-import { User as PrismaUser } from ".prisma/client";
-
-import NextAuth from "next-auth";
+import type { User as PrismaUser } from '@prisma/client';
 
 // Extend the types using module augmentation
 // For more information on each option (and a full list of options) go to https://next-auth.js.org/configuration/options
-declare module "next-auth" {
+declare module 'next-auth' {
   interface User extends PrismaUser {}
 
   interface Session {

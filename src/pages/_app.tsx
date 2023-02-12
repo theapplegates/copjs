@@ -1,13 +1,12 @@
-import "windi.css";
-import "../styles/globals.css";
+import 'windi.css';
+import '../styles/globals.css';
 
-import type { AppProps } from "next/app";
+import type { AppProps } from 'next/app';
+import { SessionProvider } from 'next-auth/react';
+import { appWithTranslation } from 'next-i18next';
+import { useEffect, useState } from 'react';
 
-import { SessionProvider } from "next-auth/react";
-
-import { appWithTranslation } from "next-i18next";
-import { useEffect, useState } from "react";
-import { ThemeProvider } from "@/providers/ThemeProvider";
+import { ThemeProvider } from '@/providers/ThemeProvider';
 
 // The app
 const App = ({ Component, pageProps: { session, ...pageProps } }: AppProps) => {

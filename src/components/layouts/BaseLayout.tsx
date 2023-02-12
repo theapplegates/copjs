@@ -7,7 +7,7 @@ type Props = {
 export default function BaseLayout({ children }: Props) {
   // Return the base layout
   return (
-    <div className="h-full w-full bg-white dark:(bg-gray-900 text-white)">
+    <div className="dark:(bg-gray-900 text-white) h-full w-full bg-white">
       {children}
     </div>
   );

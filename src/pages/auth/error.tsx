@@ -1,12 +1,11 @@
-import type { GetServerSidePropsContext } from "next";
+import type { GetServerSidePropsContext } from 'next';
+import { useRouter } from 'next/router';
+import { getProviders, useSession } from 'next-auth/react';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 
-import { getProviders, useSession } from "next-auth/react";
-
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-
-import SignIn from "./signin";
-import { useEffect } from "react";
-import { useRouter } from "next/router";
+import SignIn from './signin';
 
 // The props for the error page
 type Props = {
@@ -19,16 +18,18 @@ export default function Error({ providers }: Props) {
 
   const { status } = useSession(); // Get the session
 
+  const { t } = useTranslation(); // Get the translation function
+
   // If the user is authenticated, redirect to the housekeeping page
   useEffect(() => {
-    if (status == "authenticated") {
-      router.push("/housekeeping");
+    if (status === 'authenticated') {
+      router.push('/housekeeping');
     }
   }, [status, router]);
 
   // If the session is loading, return an empty fragment
-  if (status == "loading" || status == "authenticated") {
-    return <></>;
+  if (status === 'loading' || status === 'authenticated') {
+    return <>{t('Loading')}</>;
   }
 
   // Return the sign in page
@@ -47,9 +48,9 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     props: {
       providers: Object.values(providers) ?? [],
       ...(await serverSideTranslations(context.locale as string, [
-        "common",
-        "auth",
-      ])),
-    },
+        'common',
+        'auth'
+      ]))
+    }
   };
 }

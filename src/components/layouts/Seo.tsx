@@ -1,4 +1,4 @@
-import { NextSeo } from "next-seo";
+import { NextSeo } from 'next-seo';
 
 // The props for the SEO component
 type Props = {
@@ -15,7 +15,7 @@ export default function Seo({
   siteName,
   title,
   description,
-  canonical,
+  canonical
 }: Props) {
   // Return the SEO component with the title and meta tags for SEO purposes and the favicon for the browser
   return (
@@ -27,12 +27,12 @@ export default function Seo({
         url,
         title,
         description,
-        siteName,
+        siteName
       }}
       twitter={{
-        handle: "@handle",
-        site: "@site",
-        cardType: "summary_large_image",
+        handle: '@handle',
+        site: '@site',
+        cardType: 'summary_large_image'
       }}
     />
   );

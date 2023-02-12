@@ -1,26 +1,17 @@
-import { useEffect } from "react";
+import type { GetServerSidePropsContext } from 'next';
+import Image from 'next/image';
+import { useRouter } from 'next/router';
+import { signOut, useSession } from 'next-auth/react';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 
-import { GetServerSidePropsContext } from "next";
-
-import { useTranslation } from "react-i18next";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-
-import { useRouter } from "next/router";
-import { useSession } from "next-auth/react";
-
-import { signOut } from "next-auth/react";
-
-import Image from "next/image";
-
-import AppLayout from "@/components/layouts/AppLayout";
-import Seo from "@/components/layouts/Seo";
-import Button from "@/components/atoms/buttons/Button";
-
-// The props for the housekeeping page
-type Props = {};
+import Button from '@/components/atoms/buttons/Button';
+import AppLayout from '@/components/layouts/AppLayout';
+import Seo from '@/components/layouts/Seo';
 
 // The housekeeping page
-export default function Index({}: Props) {
+export default function Index() {
   const router = useRouter(); // Get the router
 
   const { t } = useTranslation(); // Get the translation function
@@ -29,21 +20,21 @@ export default function Index({}: Props) {
 
   useEffect(() => {
     // If the user is not authenticated
-    if (status == "unauthenticated") {
+    if (status === 'unauthenticated') {
       // Redirect to the homepage
-      router.push("/");
+      router.push('/');
     }
   }, [status, router]);
 
   // If the session is loading, return an empty fragment
-  if (status == "loading" || status == "unauthenticated") {
-    return <></>;
+  if (status === 'loading' || status === 'unauthenticated') {
+    return <>{t('Loading')}</>;
   }
 
   // Return the housekeeping page
   return (
     <>
-      <Seo title={"App"} />
+      <Seo title={'App'} />
       <AppLayout>
         <div className="flex items-center gap-2">
           {Boolean(session?.user?.image) && (
@@ -58,22 +49,22 @@ export default function Index({}: Props) {
 
           <div>
             <div className="">
-              {t("Signed in as {{email}}", {
-                email: session?.user?.email ?? "",
+              {t('Signed in as {{email}}', {
+                email: session?.user?.email ?? ''
               })}
             </div>
 
             <Button
-              color={"secondary"}
+              color={'secondary'}
               className="my-2"
               clickHandler={() => {
                 signOut({
-                  callbackUrl: `/${router.locale || ""}`,
-                  redirect: true,
+                  callbackUrl: `/${router.locale || ''}`,
+                  redirect: true
                 });
               }}
             >
-              {t("Sign out")}
+              {t('Sign out')}
             </Button>
           </div>
         </div>
@@ -85,7 +76,7 @@ export default function Index({}: Props) {
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   return {
     props: {
-      ...(await serverSideTranslations(context.locale ?? "en", ["common"])),
-    },
+      ...(await serverSideTranslations(context.locale ?? 'en', ['common']))
+    }
   };
 }

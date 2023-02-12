@@ -1,4 +1,4 @@
-import classNames from "classnames";
+import classNames from 'classnames';
 
 // The props for the component
 type Props = {
@@ -6,7 +6,7 @@ type Props = {
   clickHandler?: React.MouseEventHandler<HTMLButtonElement>;
   disabled?: boolean;
   isLoading?: boolean;
-  color?: "primary" | "secondary" | "cornflower-blue";
+  color?: 'primary' | 'secondary' | 'cornflower-blue';
   icon?: React.ReactNode | null;
   className?: string;
 };
@@ -17,24 +17,24 @@ export default function Button({
   clickHandler,
   disabled,
   isLoading,
-  color = "primary",
+  color = 'primary',
   icon,
-  className,
+  className
 }: Props) {
   // Define the color variants
   const colorVariants = {
     secondary:
-      "bg-transparent border-2 border-black hover:(bg-black text-white) text-black dark:(border-white text-white) dark:hover:(bg-white text-black) focus:(ring ring-gray-400) dark:focus:(ring ring-gray-400)",
+      'bg-transparent border-2 border-black hover:(bg-black text-white) text-black dark:(border-white text-white) dark:hover:(bg-white text-black) focus:(ring ring-gray-400) dark:focus:(ring ring-gray-400)',
     primary:
-      "bg-black text-white dark:(bg-white text-black) focus:(ring ring-gray-400) dark:focus:(ring ring-gray-400)",
-    "cornflower-blue":
-      "bg-cornflower-blue-500 focus:(ring ring-cornflower-blue-400) text-white",
+      'bg-black text-white dark:(bg-white text-black) focus:(ring ring-gray-400) dark:focus:(ring ring-gray-400)',
+    'cornflower-blue':
+      'bg-cornflower-blue-500 focus:(ring ring-cornflower-blue-400) text-white'
   };
 
   // Return the button
   return (
     <button
-      onClick={(e) => {
+      onClick={e => {
         // If the button is not loading, disabled or the click handler is undefined, call the click handler
         if (!isLoading && !disabled && clickHandler !== undefined) {
           clickHandler(e); // Call the click handler
@@ -42,16 +42,16 @@ export default function Button({
       }}
       disabled={isLoading || disabled} // Disable the button if it is loading or disabled
       className={classNames(
-        "flex items-center gap-2",
-        "transition duration-200 font-semibold rounded-md py-2 px-5",
+        'flex items-center gap-2',
+        'transition duration-200 font-semibold rounded-md py-2 px-5',
         colorVariants[color],
-        (isLoading || disabled) && "opacity-70 cursor-not-allowed",
+        (isLoading || disabled) && 'opacity-70 cursor-not-allowed',
         className
       )}
     >
       {isLoading ? (
         <svg
-          className="w-5 h-5 mr-3 -ml-1 text-white animate-spin"
+          className="mr-3 -ml-1 h-5 w-5 animate-spin text-white"
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"

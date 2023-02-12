@@ -1,4 +1,4 @@
-import classNames from "classnames";
+import classNames from 'classnames';
 
 // The props for the component
 type Props = {
@@ -10,7 +10,7 @@ type Props = {
 export default function Subtitle({ children, className }: Props) {
   // Return the subtitle
   return (
-    <div className={classNames("text-gray-600 text-xl font-normal", className)}>
+    <div className={classNames('text-gray-600 text-xl font-normal', className)}>
       {children}
     </div>
   );

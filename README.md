@@ -2,7 +2,7 @@
 
 <p align="center">
   <a href="https://github.com/caglarop/copjs/">
-    <img src="preview.svg" />
+    <img src="preview.png" />
   </a>
 </p>
 
@@ -24,11 +24,16 @@ Build web applications that are scalable, efficient and user-friendly with CopJS
 - [Next-i18next](https://next.i18next.com/): 🌍 An internationalization (i18n) library for Next.js that makes it easy to translate your application.
 - [Windicss](https://windicss.org/): 🎨 A modern and customizable styling solution for Next.js applications.
 - [Storybook](https://storybook.js.org/): 📚 Storybook is a frontend workshop for building UI components and pages in isolation.
-- [Classnames](https://www.npmjs.com/package/classnames): 💅 A utility for conditionally joining class names together.
-- [Prettier](https://prettier.io/): 💖 Code Formatter
-- [Eslint](https://eslint.org/) 📏 Linter with ESLint (default NextJS, NextJS Core Web Vitals)
 
-## Key Features
+## Developer Experience
+
+- 💅 [Classnames](https://www.npmjs.com/package/classnames) A utility for conditionally joining class names together.
+- 📏 [Eslint](https://eslint.org/) Linter (default NextJS, NextJS Core Web Vitals)
+- 💖 [Prettier](https://prettier.io/) Code Formatter
+- 🦊 Husky for Git Hooks
+- 🚫 Lint-staged for running linters on Git staged files
+
+## Features
 
 - 💡 Dynamic Theme Provider for Dark Mode
 - 🔗 Seamless Absolute Imports using @ Prefix
