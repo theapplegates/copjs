@@ -8,7 +8,6 @@
     "source.addMissingImports",
     "source.fixAll.eslint"
   ],
-
   // Jest settings
   "jest.autoRun": {
     "watch": false // Start the jest with the watch flag
@@ -16,16 +15,13 @@
   },
   "jest.showCoverageOnLoad": true, // Show code coverage when the project is launched
   "jest.showTerminalOnLaunch": false, // Don't automatically open test explorer terminal on launch
-
   // Multiple language settings for json and jsonc files
   "[json][jsonc][yaml]": {
     "editor.formatOnSave": true,
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-
   // Prettier settings
   "prettier.ignorePath": ".gitignore", // Don't run prettier for files listed in .gitignore,
-
   // Search settings
   "search.exclude": {
     "package-lock.json": true,
@@ -33,9 +29,13 @@
     "**/node_modules": true,
     "**/tmp": true
   },
-
   // Tailwind CSS settings
   "tailwindCSS.experimental.classRegex": [
-    ["clsx|classNames|cls\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"]
-  ]
+    [
+      "clsx|classNames|cls\\(([^)]*)\\)",
+      "(?:'|\"|`)([^']*)(?:'|\"|`)"
+    ]
+  ],
+  "typescript.tsdk": "node_modules\\typescript\\lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true
 }
