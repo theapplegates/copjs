@@ -35,7 +35,9 @@ Build web applications that are scalable, efficient and user-friendly with CopJS
 - 🗂 Customized VSCode Configuration for Better Coding Experience
 - 🤖 Improved SEO with Next SEO for metadata, JSON-LD, and Open Graph tags
 - 🗺️ Automatic Generation of Sitemap.xml and robots.txt with next-sitemap
-- 🔑 User Role Management using next-auth and Prisma with extended session types.
+- 🔑 User Role Management using next-auth and Prisma with extended session types
+- 🛡️ Custom 404 and 500 error pages for improved user experience
+- 🔒 Custom Sign In Page
 
 ## Built-in Advantages from Next.js
 
