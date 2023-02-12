@@ -22,10 +22,10 @@ export default function Index({}: Props) {
 
   const { status } = useSession(); // Get the session
 
-  // If the user is not authenticated, redirect to the homepage
   useEffect(() => {
+    // If the user is authenticated
     if (status == "authenticated") {
-      router.push("/housekeeping");
+      router.push("/housekeeping"); // Redirect to the housekeeping page
     }
   }, [status]);
 

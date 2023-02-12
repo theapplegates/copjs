@@ -27,9 +27,10 @@ export default function SignIn({ providers, hasError }: Props) {
 
   const { status } = useSession(); // Get the session
 
-  // If the user is authenticated, redirect to the housekeeping page
   useEffect(() => {
+    // If the user is authenticated
     if (status == "authenticated") {
+      // Redirect to the housekeeping page
       router.push("/housekeeping");
     }
   }, [status, router]);
