@@ -34,13 +34,16 @@ Build web applications that are scalable, efficient and user-friendly with CopJS
 
 ## Features
 
-- 💡 Dynamic Theme Provider for Dark Mode
-- 🔗 Seamless Absolute Imports using @ Prefix
+- 🌗 Dynamic Theme Provider for Dark Mode
+- 📂 Seamless Absolute Imports using @ Prefix
 - 🗂 Customized VSCode Configuration for Better Coding Experience
 - 🤖 Improved SEO with Next SEO for metadata, JSON-LD, and Open Graph tags
 - 🗺️ Automatic Generation of Sitemap.xml and robots.txt with next-sitemap
+- 🕰️ Activity tracking with Timestamps added to the Prisma schema
+- 🚫 Custom 404 and 500 error pages for improved user experience
 - 🔑 User Role Management using next-auth and Prisma with extended session types
-- 🛡️ Custom 404 and 500 error pages for improved user experience
+- 🛡️ Protected API routes with user role management
+- 🔐 User authentication with NextAuth and CredentialsProvider for Sign-In and Sign-Up functionality
 - 🔒 Custom Sign In Page
 
 ## Built-in Advantages from Next.js
