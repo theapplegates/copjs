@@ -44,7 +44,7 @@ Build web applications that are scalable, efficient and user-friendly with CopJS
 - 🔑 User Role Management using next-auth and Prisma with extended session types
 - 🛡️ Protected API routes with user role management
 - 🔐 User authentication with NextAuth and CredentialsProvider for Sign-In and Sign-Up functionality
-- 🔒 Custom Sign In Page
+- 🔒 Custom Sign-In and Sign-Up Page
 
 ## Built-in Advantages from Next.js
 
