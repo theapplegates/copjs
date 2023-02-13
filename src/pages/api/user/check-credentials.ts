@@ -1,8 +1,8 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
+import type { User } from '@prisma/client';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 import { prisma } from '@/lib/prisma';
-import { User } from '@prisma/client';
 import { hashPassword } from '@/utils/hash';
 
 export default async function handler(
@@ -29,7 +29,7 @@ export default async function handler(
       }
     });
 
-    if (user && user.password == hashPassword(password)) {
+    if (user && user.password === hashPassword(password)) {
       // If the credentials are valid, return a success message
       res.status(200).json(user);
     } else {

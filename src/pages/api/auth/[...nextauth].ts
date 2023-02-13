@@ -1,10 +1,8 @@
 import { PrismaAdapter } from '@next-auth/prisma-adapter'; // Import the adapter
 import type { NextAuthOptions, Session, User } from 'next-auth';
-
 import NextAuth from 'next-auth'; // Import the types from the package
-
-import DiscordProvider from 'next-auth/providers/discord'; // Import the Discord provider
 import CredentialsProvider from 'next-auth/providers/credentials'; // Import the Credentials provider
+import DiscordProvider from 'next-auth/providers/discord'; // Import the Discord provider
 
 import { prisma } from '@/lib/prisma'; // The adapter requires a prisma instance
 
@@ -54,8 +52,7 @@ export const authOptions: NextAuthOptions = {
 
         try {
           // Get the base URL of the site
-          const baseUrl =
-            window.location.protocol + '//' + window.location.host;
+          const baseUrl = `${window.location.protocol}//${window.location.host}`;
 
           // Make a request to your API to validate the credentials
           const response = await fetch(
@@ -81,8 +78,6 @@ export const authOptions: NextAuthOptions = {
 
           user = data;
         } catch (err) {
-          console.error(err);
-
           return null;
         }
 
@@ -90,12 +85,11 @@ export const authOptions: NextAuthOptions = {
         if (user) {
           // Any object returned will be saved in `user` property of the JWT
           return user;
-        } else {
-          // If you return null then an error will be displayed advising the user to check their details.
-          return null;
-
-          // You can also Reject this callback with an Error thus the user will be sent to the error page with the error message as a query parameter
         }
+
+        // If you return null then an error will be displayed advising the user to check their details.
+        // You can also Reject this callback with an Error thus the user will be sent to the error page with the error message as a query parameter
+        return null;
       }
     })
   ],
