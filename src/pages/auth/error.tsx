@@ -5,7 +5,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import SignIn from './signin';
+import SignIn from '@/pages/auth/signin';
 
 // The props for the error page
 type Props = {

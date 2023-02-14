@@ -4,7 +4,7 @@ import { getServerSession } from 'next-auth';
 
 import { prisma } from '@/lib/prisma';
 
-import { authOptions } from '../auth/[...nextauth]';
+import { authOptions } from '@/pages/api/auth/[...nextauth]';
 
 // GET /api/user/:id
 async function handleGET(id: string, res: NextApiResponse) {

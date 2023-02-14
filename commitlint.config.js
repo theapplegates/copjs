@@ -1,1 +1,4 @@
-module.exports = { extends: ['@commitlint/config-conventional'] };
+module.exports = {
+  // https://commitlint.js.org/#/reference-configuration
+  extends: ['@commitlint/config-conventional']
+};

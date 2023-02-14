@@ -5,9 +5,9 @@ import { MdOutlineDarkMode, MdOutlineLight } from 'react-icons/md';
 
 import { useTheme } from '@/providers/ThemeProvider';
 
-import Button from '../atoms/buttons/Button';
-import Subtitle from '../atoms/typography/Subtitle';
-import Title from '../atoms/typography/Title';
+import Button from '@/components/atoms/buttons/Button';
+import Subtitle from '@/components/atoms/typography/Subtitle';
+import Title from '@/components/atoms/typography/Title';
 
 // The props for the app layout
 type Props = {
