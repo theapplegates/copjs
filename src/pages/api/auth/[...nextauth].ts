@@ -11,11 +11,19 @@ export interface ExtendedSession extends Session {
   role: string;
 }
 
+export function getBaseUrl(req: any): string {
+  const isHttps = req?.url?.startsWith('https://');
+  const protocol = isHttps ? 'https' : 'http';
+  const host = req.headers['x-forwarded-host'] || req.headers.host;
+
+  return `${protocol}://${host}`;
+}
+
 /**
  * @see https://next-auth.js.org/configuration/options
  */
 export const authOptions: NextAuthOptions = {
-  secret: process.env.TOKEN_SECRET || '570d6a646386', // The secret used to encrypt the cookie
+  secret: process.env.SECRET || '570d6a646386', // The secret used to encrypt the cookie
   adapter: PrismaAdapter(prisma), // The adapter is what connects NextAuth to your database
 
   /**
@@ -41,7 +49,7 @@ export const authOptions: NextAuthOptions = {
         password: { label: 'Password', type: 'password' }
       },
 
-      async authorize(credentials): Promise<User | null> {
+      async authorize(credentials, req): Promise<User | null> {
         // If no credentials were provided
         if (!credentials) {
           return null;
@@ -52,11 +60,9 @@ export const authOptions: NextAuthOptions = {
 
         try {
           // Get the base URL of the site
-          const baseUrl = `${window.location.protocol}//${window.location.host}`;
-
           // Make a request to your API to validate the credentials
           const response = await fetch(
-            `${baseUrl}/api/user/check-credentials`,
+            `${getBaseUrl(req)}/api/user/check-credentials`,
             {
               method: 'POST',
               headers: {
@@ -69,14 +75,12 @@ export const authOptions: NextAuthOptions = {
             }
           );
 
-          if (!response.ok) {
+          if (response.status !== 200) {
             // If the credentials were invalid, return null
             throw new Error('Login failed');
           }
 
-          const data = await response.json();
-
-          user = data;
+          user = await response.json();
         } catch (err) {
           return null;
         }
@@ -99,18 +103,58 @@ export const authOptions: NextAuthOptions = {
    */
   callbacks: {
     /**
+     * JWT
+     */
+    async jwt({ token, user, account }) {
+      if (account && user) {
+        return {
+          ...user,
+          ...token
+        };
+      }
+
+      return token;
+    },
+
+    /**
      * Extend the session with custom properties
      */
-    session({ session, user }: { session: Session; user: User }) {
-      // Cast the session to the extended session type
-      const newSession: any = { ...session };
-
-      // Add the role to the session
-      newSession.user.role = user.role || 'user';
+    session({ session, token }: { session: Session; token: any; user: User }) {
+      // JWT
+      session.user = token;
 
       // Return the session to be stored in the cookie
-      return newSession;
+      return session;
     }
+  },
+
+  session: {
+    // Use JSON Web Tokens for session instead of database sessions.
+    // This option can be used with or without a database for users/accounts.
+    // Note: `strategy` should be set to 'jwt' if no database is used.
+    strategy: 'jwt'
+
+    // Seconds - How long until an idle session expires and is no longer valid.
+    // maxAge: 30 * 24 * 60 * 60, // 30 days
+
+    // Seconds - Throttle how frequently to write to database to extend a session.
+    // Use it to limit write operations. Set to 0 to always update the database.
+    // Note: This option is ignored if using JSON Web Tokens
+    // updateAge: 24 * 60 * 60, // 24 hours
+  },
+
+  // JSON Web tokens are only used for sessions if the `strategy: 'jwt'` session
+  // option is set - or by default if no database is specified.
+  // https://next-auth.js.org/configuration/options#jwt
+  jwt: {
+    // A secret to use for key generation (you should set this explicitly)
+    secret: process.env.SECRET
+    // Set to true to use encryption (default: false)
+    // encryption: true,
+    // You can define your own encode/decode functions for signing and encryption
+    // if you want to override the default behaviour.
+    // encode: async ({ secret, token, maxAge }) => {},
+    // decode: async ({ secret, token, maxAge }) => {},
   },
 
   /**

@@ -9,15 +9,15 @@ import { FaDiscord } from 'react-icons/fa';
 import Button from '@/components/atoms/buttons/Button';
 import BaseLayout from '@/components/layouts/BaseLayout';
 import Seo from '@/components/layouts/Seo';
+import { isValidEmail } from '@/utils/validate';
 
 // The props for the sign in page
 type Props = {
   providers: any[];
-  errorMessage?: string;
 };
 
 // The sign in page
-export default function SignIn({ providers, errorMessage = '' }: Props) {
+export default function SignUp({ providers }: Props) {
   const router = useRouter(); // Get the router
 
   const { t } = useTranslation(); // Get the translation function
@@ -26,7 +26,8 @@ export default function SignIn({ providers, errorMessage = '' }: Props) {
 
   const [email, setEmail] = useState(''); // State for the email address
   const [password, setPassword] = useState(''); // State for the password
-  const [error, setError] = useState(errorMessage); // State for the error message
+  const [passwordConfirm, setPasswordConfirm] = useState(''); // State for the password confirmation
+  const [error, setError] = useState(''); // State for the error message
 
   useEffect(() => {
     // If the user is authenticated
@@ -36,21 +37,50 @@ export default function SignIn({ providers, errorMessage = '' }: Props) {
     }
   }, [status, router]);
 
-  const handleSignIn = async (email: string, password: string) => {
-    // Sign in the user
-    const result = await signIn('credentials', {
-      email,
-      password,
-      redirect: false
+  const handleSignUp = async (email: string, password: string) => {
+    // Validation
+    if (!isValidEmail(email)) {
+      return setError(t('Invalid email address.') || '');
+    }
+
+    if (email.length > 100) {
+      return setError(t('Email address to long.') || '');
+    }
+
+    if (password.length < 6) {
+      return setError(t('Password to short.') || '');
+    }
+
+    if (password.length > 100) {
+      return setError(t('Password to long.') || '');
+    }
+
+    if (password !== passwordConfirm) {
+      return setError(t('Password confirmation incorrect.') || '');
+    }
+
+    // Check the credentials with the API endpoint
+    const response = await fetch('/api/user/create', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ email, password })
     });
 
-    if (result?.error) {
-      // Redirect the user when credentials are valid
-      return setError(t('Invalid credentials.') || '');
+    // Get the data from the response
+    const data = await response.json();
+
+    // Check response status
+    if (response.status === 200) {
+      // Sign in the user
+      await signIn('credentials', data);
+
+      return;
     }
 
     // Set the error message when the credentials are invalid
-    router.push('/housekeeping');
+    setError(t('The email address already exists.') || '');
   };
 
   // If the session is loading, return an empty fragment
@@ -61,7 +91,7 @@ export default function SignIn({ providers, errorMessage = '' }: Props) {
   // Return the sign in page
   return (
     <>
-      <Seo title={t('Sign in') || undefined} />
+      <Seo title={t('Sign up') || undefined} />
 
       <BaseLayout>
         <div className="flex h-full w-full items-center justify-center">
@@ -75,7 +105,7 @@ export default function SignIn({ providers, errorMessage = '' }: Props) {
               onSubmit={async e => {
                 e.preventDefault();
 
-                await handleSignIn(email, password);
+                await handleSignUp(email, password);
               }}
             >
               <div>
@@ -102,9 +132,22 @@ export default function SignIn({ providers, errorMessage = '' }: Props) {
                   />
                 </div>
               </div>
-
+              <div>
+                <label htmlFor="password_confirm">
+                  {t('Confirm password')}
+                </label>
+                <div>
+                  <input
+                    type="password"
+                    id="password_confirm"
+                    value={passwordConfirm}
+                    onChange={event => setPasswordConfirm(event.target.value)}
+                    className="p-2 border"
+                  />
+                </div>
+              </div>
               <Button color="primary" type="submit" className="my-2">
-                {t('Sign in')}
+                {t('Sign up')}
               </Button>
             </form>
 

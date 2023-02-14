@@ -10,12 +10,12 @@ export default async function handler(
   res: NextApiResponse<User | null>
 ) {
   try {
-    // Get the username and password from the request body
-    const { username, password } = req.body;
+    // Get the email and password from the request body
+    const { email, password } = req.body;
 
     // Check the credentials using the checkCredentials function
     const user: User | null = await prisma.user.findUnique({
-      where: { email: username },
+      where: { email },
       select: {
         id: true,
         name: true,
@@ -36,7 +36,8 @@ export default async function handler(
       // If the credentials are invalid, return null
       res.status(401).json(null);
     }
-  } catch (error) {
+  } catch (err) {
+    console.error(err);
     // If there was an error, return null
     res.status(500).json(null);
   } finally {

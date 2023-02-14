@@ -2,6 +2,7 @@ import classNames from 'classnames';
 
 // The props for the component
 type Props = {
+  type?: 'button' | 'submit' | 'reset';
   children?: React.ReactNode;
   clickHandler?: React.MouseEventHandler<HTMLButtonElement>;
   disabled?: boolean;
@@ -13,6 +14,7 @@ type Props = {
 
 // The button component
 export default function Button({
+  type = 'button',
   children,
   clickHandler,
   disabled,
@@ -34,6 +36,7 @@ export default function Button({
   // Return the button
   return (
     <button
+      type={type}
       onClick={e => {
         // If the button is not loading, disabled or the click handler is undefined, call the click handler
         if (!isLoading && !disabled && clickHandler !== undefined) {

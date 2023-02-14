@@ -35,7 +35,10 @@ export default function Error({ providers }: Props) {
   // Return the sign in page
   return (
     <>
-      <SignIn providers={providers} hasError={true} />
+      <SignIn
+        providers={providers}
+        errorMessage={t('Invalid credentials.') || ''}
+      />
     </>
   );
 }

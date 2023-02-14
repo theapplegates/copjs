@@ -4,6 +4,7 @@
   "Back to homepage": "Zurück zur Startseite",
 
   "Sign in": "Anmelden",
+  "Sign up": "Registrieren",
   "Sign out": "Abmelden",
   "Signed in as {{email}}": "Eingeloggt als {{email}}",
   "Not signed in.": "Du bist nicht eingeloggt.",
@@ -12,5 +13,17 @@
   "Dashboard": "Übersicht",
   "Welcome, {{name}}!": "Willkommen, {{name}}!",
 
-  "Authentication failed.": "Authentifizierung fehlgeschlagen."
+  "Authentication failed.": "Authentifizierung fehlgeschlagen.",
+
+  "The email address already exists.": "Die E-Mail-Adresse existiert bereits.",
+  "Invalid credentials.": "Ungültige Zugangsdaten.",
+
+  "Email": "E-Mail",
+  "Password": "Passwort",
+  "Confirm password": "Passwort bestätigen",
+  "Password confirmation incorrect.": "Passwortbestätigung falsch.",
+  "Password to short.": "Passwort zu kurz.",
+  "Password to long.": "Passwort zu lang.",
+  "Email address to long.": "E-Mail-Adresse zu lang.",
+  "Invalid email address.": "Ungültige E-Mail-Adresse"
 }
