@@ -9,13 +9,23 @@ import { authOptions } from '../auth/[...nextauth]';
 // GET /api/user/:id
 async function handleGET(id: string, res: NextApiResponse) {
   // Get the user from the database
-  const user = await prisma.user.findUnique({
-    where: { id }
-    // include: { id: true, name: true, email: true, image: true },
-  });
-
-  // Return the user object
-  res.json(user);
+  await prisma.user
+    .findUnique({
+      where: { id }
+      // include: { id: true, name: true, email: true, image: true },
+    })
+    .then(user => {
+      // Return the user object
+      res.json(user);
+    })
+    .catch(() => {
+      // If there was an error, return null
+      res.json(null);
+    })
+    .finally(async () => {
+      // Disconnect from the database
+      await prisma.$disconnect();
+    });
 }
 
 // GET /api/user/:id
@@ -25,24 +35,40 @@ async function handlePOST(
   req: NextApiRequest
 ) {
   // Update the user in the database
-  const user = await prisma.user.update({
-    where: { id },
-    data: { ...req.body }
-  });
-
-  // Return the user object
-  return res.json(user);
+  await prisma.user
+    .update({
+      where: { id },
+      data: { ...req.body }
+    })
+    .then(() => {
+      res.json({ success: true });
+    })
+    .catch(() => {
+      res.json({ success: false });
+    })
+    .finally(async () => {
+      // Disconnect from the database
+      await prisma.$disconnect();
+    });
 }
 
 // DELETE /api/user/:id
 async function handleDELETE(id: string, res: NextApiResponse) {
   // Delete the user from the database
-  const user = await prisma.user.delete({
-    where: { id }
-  });
-
-  // Return the user object
-  res.json(user);
+  await prisma.user
+    .delete({
+      where: { id }
+    })
+    .then(() => {
+      res.json({ success: true });
+    })
+    .catch(() => {
+      res.json({ success: false });
+    })
+    .finally(async () => {
+      // Disconnect from the database
+      await prisma.$disconnect();
+    });
 }
 
 export default async function handler(

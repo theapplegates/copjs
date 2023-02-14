@@ -22,18 +22,22 @@ async function handlePOST(req: NextApiRequest, res: NextApiResponse) {
   }
 
   // Create a new user in the database
-  const user = await prisma.user
+  await prisma.user
     .create({
       data: { email, password: hashPassword(password) }
     })
-    .catch(() => null);
-
-  // Return the user object
-  if (user) {
-    res.json(user);
-  } else {
-    res.status(500).json(null);
-  }
+    .then(user => {
+      // Return the user object
+      res.json(user);
+    })
+    .catch(() => {
+      // If there was an error, return null
+      res.status(500).json(null);
+    })
+    .finally(async () => {
+      // Disconnect from the database
+      await prisma.$disconnect();
+    });
 }
 
 export default async function handler(

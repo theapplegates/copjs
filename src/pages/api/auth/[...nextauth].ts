@@ -120,7 +120,6 @@ export const authOptions: NextAuthOptions = {
      * Extend the session with custom properties
      */
     session({ session, token }: { session: Session; token: any; user: User }) {
-      // JWT
       session.user = token;
 
       // Return the session to be stored in the cookie

@@ -116,7 +116,7 @@ export default function SignUp({ providers }: Props) {
                     id="email"
                     value={email}
                     onChange={event => setEmail(event.target.value)}
-                    className="p-2 border"
+                    className="p-2 border dark:text-black"
                   />
                 </div>
               </div>
@@ -128,7 +128,7 @@ export default function SignUp({ providers }: Props) {
                     id="password"
                     value={password}
                     onChange={event => setPassword(event.target.value)}
-                    className="p-2 border"
+                    className="p-2 border dark:text-black"
                   />
                 </div>
               </div>
@@ -142,7 +142,7 @@ export default function SignUp({ providers }: Props) {
                     id="password_confirm"
                     value={passwordConfirm}
                     onChange={event => setPasswordConfirm(event.target.value)}
-                    className="p-2 border"
+                    className="p-2 border dark:text-black"
                   />
                 </div>
               </div>

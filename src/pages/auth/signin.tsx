@@ -9,6 +9,7 @@ import { FaDiscord } from 'react-icons/fa';
 import Button from '@/components/atoms/buttons/Button';
 import BaseLayout from '@/components/layouts/BaseLayout';
 import Seo from '@/components/layouts/Seo';
+import { hashPassword } from '@/utils/hash';
 
 // The props for the sign in page
 type Props = {
@@ -40,7 +41,7 @@ export default function SignIn({ providers, errorMessage = '' }: Props) {
     // Sign in the user
     const result = await signIn('credentials', {
       email,
-      password,
+      password: hashPassword(password),
       redirect: false
     });
 
@@ -86,7 +87,7 @@ export default function SignIn({ providers, errorMessage = '' }: Props) {
                     id="email"
                     value={email}
                     onChange={event => setEmail(event.target.value)}
-                    className="p-2 border"
+                    className="p-2 border dark:text-black"
                   />
                 </div>
               </div>
@@ -98,7 +99,7 @@ export default function SignIn({ providers, errorMessage = '' }: Props) {
                     id="password"
                     value={password}
                     onChange={event => setPassword(event.target.value)}
-                    className="p-2 border"
+                    className="p-2 border dark:text-black"
                   />
                 </div>
               </div>
