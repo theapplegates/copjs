@@ -6,13 +6,13 @@ type Props = {
   className?: string;
 };
 
-// The subtitle component
-export default function Subtitle({ children, className }: Props) {
-  // Return the subtitle
+// The card component
+export default function Card({ children, className }: Props) {
+  // Return the card
   return (
     <div
       className={classNames(
-        'text-gray-600 dark:text-gray-400 text-md font-normal',
+        'bg-white text-black dark:(bg-gray-800 text-white) p-8 rounded-lg shadow-xl',
         className
       )}
     >

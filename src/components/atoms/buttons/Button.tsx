@@ -2,6 +2,7 @@ import classNames from 'classnames';
 
 // The props for the component
 type Props = {
+  forwardRef?: React.Ref<HTMLButtonElement>;
   type?: 'button' | 'submit' | 'reset';
   children?: React.ReactNode;
   clickHandler?: React.MouseEventHandler<HTMLButtonElement>;
@@ -14,6 +15,7 @@ type Props = {
 
 // The button component
 export default function Button({
+  forwardRef,
   type = 'button',
   children,
   clickHandler,
@@ -26,9 +28,9 @@ export default function Button({
   // Define the color variants
   const colorVariants = {
     secondary:
-      'bg-transparent border-2 border-black hover:(bg-black text-white) text-black dark:(border-white text-white) dark:hover:(bg-white text-black) focus:(ring ring-gray-400) dark:focus:(ring ring-gray-400)',
+      'bg-transparent border-2 border-primary hover:(bg-primary text-white) text-primary dark:(border-white text-white) dark:hover:(bg-white text-black) focus:(ring ring-primary/20) dark:focus:(ring ring-white/20)',
     primary:
-      'bg-black text-white dark:(bg-white text-black) focus:(ring ring-gray-400) dark:focus:(ring ring-gray-400)',
+      'bg-primary text-white dark:(bg-white text-primary) focus:(ring ring-primary/20) dark:focus:(ring ring-white/20)',
     'cornflower-blue':
       'bg-cornflower-blue-500 focus:(ring ring-cornflower-blue-400) text-white'
   };
@@ -36,6 +38,7 @@ export default function Button({
   // Return the button
   return (
     <button
+      ref={forwardRef}
       type={type}
       onClick={e => {
         // If the button is not loading, disabled or the click handler is undefined, call the click handler
@@ -46,7 +49,7 @@ export default function Button({
       disabled={isLoading || disabled} // Disable the button if it is loading or disabled
       className={classNames(
         'flex items-center gap-2',
-        'transition duration-200 font-semibold rounded-md py-2 px-5',
+        'transition duration-200 font-semibold text-sm rounded-lg py-4 px-5',
         colorVariants[color],
         (isLoading || disabled) && 'opacity-70 cursor-not-allowed',
         className

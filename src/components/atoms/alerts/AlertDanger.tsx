@@ -6,13 +6,13 @@ type Props = {
   className?: string;
 };
 
-// The subtitle component
-export default function Subtitle({ children, className }: Props) {
-  // Return the subtitle
+// The component
+export default function AlertDanger({ children, className }: Props) {
+  // Return the component
   return (
     <div
       className={classNames(
-        'text-gray-600 dark:text-gray-400 text-md font-normal',
+        'bg-red-100 text-red-900 my-2 p-4 rounded-lg',
         className
       )}
     >

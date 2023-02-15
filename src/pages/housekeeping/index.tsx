@@ -26,7 +26,7 @@ export default function Index() {
     }
   }, [status, router]);
 
-  // If the session is loading, return an empty fragment
+  // If the session is loading or unauthenticated, return the loading message
   if (status === 'loading' || status === 'unauthenticated') {
     return <>{t('Loading')}</>;
   }

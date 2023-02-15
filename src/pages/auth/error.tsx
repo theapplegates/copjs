@@ -7,12 +7,12 @@ import { useTranslation } from 'react-i18next';
 
 import SignIn from '@/pages/auth/signin';
 
-// The props for the error page
+// The props
 type Props = {
   providers: any[];
 };
 
-// The error page
+// The error page for invalid credentials
 export default function Error({ providers }: Props) {
   const router = useRouter(); // Get the router
 
@@ -27,7 +27,7 @@ export default function Error({ providers }: Props) {
     }
   }, [status, router]);
 
-  // If the session is loading, return an empty fragment
+  // If the session is loading or authenticated, return the loading message
   if (status === 'loading' || status === 'authenticated') {
     return <>{t('Loading')}</>;
   }

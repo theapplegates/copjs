@@ -11,12 +11,12 @@ import BaseLayout from '@/components/layouts/BaseLayout';
 import Seo from '@/components/layouts/Seo';
 import { isValidEmail } from '@/utils/validate';
 
-// The props for the sign in page
+// The props
 type Props = {
   providers: any[];
 };
 
-// The sign in page
+// The sign up page
 export default function SignUp({ providers }: Props) {
   const router = useRouter(); // Get the router
 
@@ -59,7 +59,7 @@ export default function SignUp({ providers }: Props) {
       return setError(t('Password confirmation incorrect.') || '');
     }
 
-    // Check the credentials with the API endpoint
+    // Send the request to the API to create the user
     const response = await fetch('/api/user/create', {
       method: 'POST',
       headers: {
@@ -79,16 +79,16 @@ export default function SignUp({ providers }: Props) {
       return;
     }
 
-    // Set the error message when the credentials are invalid
+    // Set the error message
     setError(t('The email address already exists.') || '');
   };
 
-  // If the session is loading, return an empty fragment
+  // If the session is loading or authenticated, return the loading message
   if (status === 'loading' || status === 'authenticated') {
     return <>{t('Loading')}</>;
   }
 
-  // Return the sign in page
+  // Return the sign up page
   return (
     <>
       <Seo title={t('Sign up') || undefined} />

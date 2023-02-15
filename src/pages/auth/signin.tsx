@@ -10,6 +10,13 @@ import Button from '@/components/atoms/buttons/Button';
 import BaseLayout from '@/components/layouts/BaseLayout';
 import Seo from '@/components/layouts/Seo';
 import { hashPassword } from '@/utils/hash';
+import Card from '@/components/atoms/cards/Card';
+import Title from '@/components/atoms/typography/Title';
+import Subtitle from '@/components/atoms/typography/Subtitle';
+import Link from '@/components/atoms/typography/Link';
+import H1 from '@/components/atoms/typography/headings/H1';
+import InputText from '@/components/atoms/inputs/InputText';
+import AlertDanger from '@/components/atoms/alerts/AlertDanger';
 
 // The props for the sign in page
 type Props = {
@@ -25,6 +32,8 @@ export default function SignIn({ providers, errorMessage = '' }: Props) {
 
   const { status } = useSession(); // Get the session
 
+  const [isLoading, setLoading] = useState(false); // Loading state
+
   const [email, setEmail] = useState(''); // State for the email address
   const [password, setPassword] = useState(''); // State for the password
   const [error, setError] = useState(errorMessage); // State for the error message
@@ -38,6 +47,8 @@ export default function SignIn({ providers, errorMessage = '' }: Props) {
   }, [status, router]);
 
   const handleSignIn = async (email: string, password: string) => {
+    setLoading(true);
+
     // Sign in the user
     const result = await signIn('credentials', {
       email,
@@ -45,16 +56,20 @@ export default function SignIn({ providers, errorMessage = '' }: Props) {
       redirect: false
     });
 
+    // If the user is not authenticated
     if (result?.error) {
-      // Redirect the user when credentials are valid
-      return setError(t('Invalid credentials.') || '');
+      // Set the error message
+      setError(t('Invalid credentials.') || '');
+      setLoading(false); // Stop loading
+
+      return;
     }
 
-    // Set the error message when the credentials are invalid
+    // Redirect to the housekeeping page if the user is authenticated
     router.push('/housekeeping');
   };
 
-  // If the session is loading, return an empty fragment
+  // If the session is loading or authenticated, return the loading message
   if (status === 'loading' || status === 'authenticated') {
     return <>{t('Loading')}</>;
   }
@@ -67,53 +82,13 @@ export default function SignIn({ providers, errorMessage = '' }: Props) {
       <BaseLayout>
         <div className="flex h-full w-full items-center justify-center">
           <div>
-            {error && (
-              <div className="bg-red-100 text-red-900 my-2 p-2 rounded">
-                {error}
-              </div>
-            )}
-            <form
-              onSubmit={async e => {
-                e.preventDefault();
-
-                await handleSignIn(email, password);
-              }}
-            >
-              <div>
-                <label htmlFor="email">{t('Email')}</label>
-                <div>
-                  <input
-                    type="email"
-                    id="email"
-                    value={email}
-                    onChange={event => setEmail(event.target.value)}
-                    className="p-2 border dark:text-black"
-                  />
-                </div>
-              </div>
-              <div>
-                <label htmlFor="password">{t('Password')}</label>
-                <div>
-                  <input
-                    type="password"
-                    id="password"
-                    value={password}
-                    onChange={event => setPassword(event.target.value)}
-                    className="p-2 border dark:text-black"
-                  />
-                </div>
-              </div>
-
-              <Button color="primary" type="submit" className="my-2">
-                {t('Sign in')}
-              </Button>
-            </form>
-
+            <H1 className="text-center mb-6">{t('Welcome back')}</H1>
             {Object.values(providers)
               .filter((provider: any) => provider.name !== 'Credentials')
               .map((provider: any) => (
                 <div key={provider.name}>
                   <Button
+                    className="justify-center w-full mb-3 !py-2"
                     color="cornflower-blue"
                     clickHandler={() => signIn(provider.id)}
                     icon={
@@ -127,6 +102,57 @@ export default function SignIn({ providers, errorMessage = '' }: Props) {
                   </Button>
                 </div>
               ))}
+
+            <Card>
+              <div className="mb-3">
+                <Title>{t('Welcome back')}</Title>
+                <Subtitle>
+                  {t("You don't have an account?")}{' '}
+                  <Link href="/auth/signup">{t('Create one')}</Link>
+                </Subtitle>
+              </div>
+
+              {error && <AlertDanger>{error}</AlertDanger>}
+              <form
+                onSubmit={async e => {
+                  e.preventDefault();
+
+                  await handleSignIn(email, password);
+                }}
+              >
+                <div className="mb-2">
+                  <InputText
+                    type="email"
+                    id="email"
+                    placeholder={t('Email') || ''}
+                    value={email}
+                    changeHandler={event => setEmail(event.target.value)}
+                    floatingLabel={true}
+                    className="w-full"
+                  />
+                </div>
+                <div className="mb-2">
+                  <InputText
+                    type="password"
+                    id="password"
+                    placeholder={t('Password') || ''}
+                    value={password}
+                    changeHandler={event => setPassword(event.target.value)}
+                    floatingLabel={true}
+                    className="w-full"
+                  />
+                </div>
+
+                <Button
+                  color="primary"
+                  type="submit"
+                  isLoading={isLoading}
+                  className="justify-center w-full my-2"
+                >
+                  {t('Sign in')}
+                </Button>
+              </form>
+            </Card>
           </div>
         </div>
       </BaseLayout>

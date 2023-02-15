@@ -27,5 +27,9 @@
   "Password to short.": "Passwort zu kurz.",
   "Password to long.": "Passwort zu lang.",
   "Email address to long.": "E-Mail-Adresse zu lang.",
-  "Invalid email address.": "Ungültige E-Mail-Adresse"
+  "Invalid email address.": "Ungültige E-Mail-Adresse",
+
+  "Welcome back": "Willkommen zurück",
+  "You don't have an account?": "Noch keinen Account?",
+  "Create one": "Fange gleich an"
 }

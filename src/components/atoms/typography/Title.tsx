@@ -10,7 +10,7 @@ type Props = {
 export default function Title({ children, className }: Props) {
   // Return the title
   return (
-    <div className={classNames('text-5xl font-bold', className)}>
+    <div className={classNames('text-xl font-semibold', className)}>
       {children}
     </div>
   );

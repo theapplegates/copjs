@@ -23,7 +23,7 @@ export default function Index() {
     }
   }, [status]);
 
-  // If the session is loading, return an empty fragment
+  // If the session is loading or authenticated, return the loading message
   if (status === 'loading' || status === 'authenticated') {
     return <>{t('Loading')}</>;
   }
