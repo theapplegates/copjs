@@ -80,7 +80,7 @@ export default function SignIn({ providers, errorMessage = '' }: Props) {
       <Seo title={t('Sign in') || undefined} />
 
       <BaseLayout>
-        <div className="flex h-full w-full items-center justify-center">
+        <div className="flex h-full w-full items-center justify-center px-5">
           <div>
             <H1 className="text-center mb-6">{t('Welcome back')}</H1>
             {Object.values(providers)
@@ -103,7 +103,7 @@ export default function SignIn({ providers, errorMessage = '' }: Props) {
                 </div>
               ))}
 
-            <Card>
+            <Card className="md:min-w-[350px] max-w-full">
               <div className="mb-3">
                 <Title>{t('Welcome back')}</Title>
                 <Subtitle>
@@ -120,7 +120,7 @@ export default function SignIn({ providers, errorMessage = '' }: Props) {
                   await handleSignIn(email, password);
                 }}
               >
-                <div className="mb-2">
+                <div className="mb-4">
                   <InputText
                     type="email"
                     id="email"
@@ -131,7 +131,7 @@ export default function SignIn({ providers, errorMessage = '' }: Props) {
                     className="w-full"
                   />
                 </div>
-                <div className="mb-2">
+                <div className="mb-4">
                   <InputText
                     type="password"
                     id="password"

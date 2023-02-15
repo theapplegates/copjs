@@ -1,4 +1,5 @@
 import classNames from 'classnames';
+import { useRouter } from 'next/router';
 
 // The props for the component
 type Props = {
@@ -18,10 +19,13 @@ export default function Link({
   title,
   target
 }: Props) {
+  // Get the router
+  const router = useRouter();
+
   // Return the link component
   return (
     <a
-      href={href}
+      href={href && href.startsWith('/') ? `/${router.locale}${href}` : href}
       title={title}
       target={target}
       className={classNames('font-semibold text-primary', className)}

@@ -70,7 +70,7 @@ export default function InputText({
         {floatingLabel && (
           <label
             htmlFor={id}
-            className="absolute px-4 text-sm font-semibold text-gray-400 duration-300 transform -translate-y-2 top-5 z-10 origin-[0] peer-placeholder-shown:translate-y-0 peer-focus:-translate-y-2"
+            className="absolute select-none cursor-text px-4 text-sm font-semibold text-gray-400 duration-300 transform -translate-y-2 top-5 z-10 origin-[0] peer-placeholder-shown:translate-y-0 peer-focus:-translate-y-2"
           >
             {placeholder}
           </label>

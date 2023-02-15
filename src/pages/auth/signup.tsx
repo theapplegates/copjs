@@ -10,6 +10,13 @@ import Button from '@/components/atoms/buttons/Button';
 import BaseLayout from '@/components/layouts/BaseLayout';
 import Seo from '@/components/layouts/Seo';
 import { isValidEmail } from '@/utils/validate';
+import AlertDanger from '@/components/atoms/alerts/AlertDanger';
+import H1 from '@/components/atoms/typography/headings/H1';
+import Card from '@/components/atoms/cards/Card';
+import Link from '@/components/atoms/typography/Link';
+import Subtitle from '@/components/atoms/typography/Subtitle';
+import Title from '@/components/atoms/typography/Title';
+import InputText from '@/components/atoms/inputs/InputText';
 
 // The props
 type Props = {
@@ -23,6 +30,8 @@ export default function SignUp({ providers }: Props) {
   const { t } = useTranslation(); // Get the translation function
 
   const { status } = useSession(); // Get the session
+
+  const [isLoading, setLoading] = useState(false); // Loading state
 
   const [email, setEmail] = useState(''); // State for the email address
   const [password, setPassword] = useState(''); // State for the password
@@ -38,25 +47,37 @@ export default function SignUp({ providers }: Props) {
   }, [status, router]);
 
   const handleSignUp = async (email: string, password: string) => {
+    setLoading(true);
+
     // Validation
     if (!isValidEmail(email)) {
-      return setError(t('Invalid email address.') || '');
+      setError(t('Invalid email address.') || '');
+      setLoading(false);
+      return;
     }
 
     if (email.length > 100) {
-      return setError(t('Email address to long.') || '');
+      setError(t('Email address to long.') || '');
+      setLoading(false);
+      return;
     }
 
     if (password.length < 6) {
-      return setError(t('Password to short.') || '');
+      setError(t('Password to short.') || '');
+      setLoading(false);
+      return;
     }
 
     if (password.length > 100) {
-      return setError(t('Password to long.') || '');
+      setError(t('Password to long.') || '');
+      setLoading(false);
+      return;
     }
 
     if (password !== passwordConfirm) {
-      return setError(t('Password confirmation incorrect.') || '');
+      setError(t('Password confirmation incorrect.') || '');
+      setLoading(false);
+      return;
     }
 
     // Send the request to the API to create the user
@@ -79,8 +100,9 @@ export default function SignUp({ providers }: Props) {
       return;
     }
 
-    // Set the error message
-    setError(t('The email address already exists.') || '');
+    // When the registration failed
+    setError(t('The email address already exists.') || ''); // Set the error message
+    setLoading(false); // Stop loading
   };
 
   // If the session is loading or authenticated, return the loading message
@@ -94,68 +116,15 @@ export default function SignUp({ providers }: Props) {
       <Seo title={t('Sign up') || undefined} />
 
       <BaseLayout>
-        <div className="flex h-full w-full items-center justify-center">
+        <div className="flex h-full w-full items-center justify-center px-5">
           <div>
-            {error && (
-              <div className="bg-red-100 text-red-900 my-2 p-2 rounded">
-                {error}
-              </div>
-            )}
-            <form
-              onSubmit={async e => {
-                e.preventDefault();
-
-                await handleSignUp(email, password);
-              }}
-            >
-              <div>
-                <label htmlFor="email">{t('Email')}</label>
-                <div>
-                  <input
-                    type="email"
-                    id="email"
-                    value={email}
-                    onChange={event => setEmail(event.target.value)}
-                    className="p-2 border dark:text-black"
-                  />
-                </div>
-              </div>
-              <div>
-                <label htmlFor="password">{t('Password')}</label>
-                <div>
-                  <input
-                    type="password"
-                    id="password"
-                    value={password}
-                    onChange={event => setPassword(event.target.value)}
-                    className="p-2 border dark:text-black"
-                  />
-                </div>
-              </div>
-              <div>
-                <label htmlFor="password_confirm">
-                  {t('Confirm password')}
-                </label>
-                <div>
-                  <input
-                    type="password"
-                    id="password_confirm"
-                    value={passwordConfirm}
-                    onChange={event => setPasswordConfirm(event.target.value)}
-                    className="p-2 border dark:text-black"
-                  />
-                </div>
-              </div>
-              <Button color="primary" type="submit" className="my-2">
-                {t('Sign up')}
-              </Button>
-            </form>
-
+            <H1 className="text-center mb-6">{t('Create an Account')}</H1>
             {Object.values(providers)
               .filter((provider: any) => provider.name !== 'Credentials')
               .map((provider: any) => (
                 <div key={provider.name}>
                   <Button
+                    className="justify-center w-full mb-3 !py-2"
                     color="cornflower-blue"
                     clickHandler={() => signIn(provider.id)}
                     icon={
@@ -169,6 +138,71 @@ export default function SignUp({ providers }: Props) {
                   </Button>
                 </div>
               ))}
+
+            <Card className="md:min-w-[350px] max-w-full">
+              <div className="mb-3">
+                <Title>{t('Create an Account')}</Title>
+                <Subtitle>
+                  {t('Already registered?')}{' '}
+                  <Link href="/auth/signin">{t('Sign in')}</Link>
+                </Subtitle>
+              </div>
+
+              {error && <AlertDanger>{error}</AlertDanger>}
+              <form
+                onSubmit={async e => {
+                  // Prevent the default behaviour
+                  e.preventDefault();
+
+                  // Handle the sign up
+                  await handleSignUp(email, password);
+                }}
+              >
+                <div className="mb-4">
+                  <InputText
+                    type="email"
+                    id="email"
+                    placeholder={t('Email') || ''}
+                    value={email}
+                    changeHandler={event => setEmail(event.target.value)}
+                    floatingLabel={true}
+                    className="w-full"
+                  />
+                </div>
+                <div className="mb-4">
+                  <InputText
+                    type="password"
+                    id="password"
+                    placeholder={t('Password') || ''}
+                    value={password}
+                    changeHandler={event => setPassword(event.target.value)}
+                    floatingLabel={true}
+                    className="w-full"
+                  />
+                </div>
+                <div className="mb-4">
+                  <InputText
+                    type="password"
+                    id="password_confirm"
+                    placeholder={t('Confirm password') || ''}
+                    value={passwordConfirm}
+                    changeHandler={event =>
+                      setPasswordConfirm(event.target.value)
+                    }
+                    floatingLabel={true}
+                    className="w-full"
+                  />
+                </div>
+                <Button
+                  color="primary"
+                  type="submit"
+                  isLoading={isLoading}
+                  className="justify-center w-full my-2"
+                >
+                  {t('Sign up')}
+                </Button>
+              </form>
+            </Card>
           </div>
         </div>
       </BaseLayout>
