@@ -12,7 +12,7 @@ export default function Subtitle({ children, className }: Props) {
   return (
     <div
       className={classNames(
-        'text-gray-600 dark:text-gray-400 text-md font-normal',
+        'text-gray dark:text-gray text-base font-regular',
         className
       )}
     >

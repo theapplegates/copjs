@@ -1,10 +1,10 @@
 import type { GetServerSidePropsContext } from 'next';
 import { useRouter } from 'next/router';
-import { getProviders, signIn, useSession } from 'next-auth/react';
+import { signIn, useSession } from 'next-auth/react';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useEffect, useState } from 'react';
-import { FaDiscord } from 'react-icons/fa';
+import { HiOutlineArrowSmRight } from 'react-icons/hi';
 
 import AlertDanger from '@/components/atoms/alerts/AlertDanger';
 import Button from '@/components/atoms/buttons/Button';
@@ -16,16 +16,17 @@ import Subtitle from '@/components/atoms/typography/Subtitle';
 import Title from '@/components/atoms/typography/Title';
 import BaseLayout from '@/components/layouts/BaseLayout';
 import Seo from '@/components/layouts/Seo';
+import Loading from '@/components/loading/Loading';
+import SignInButtons from '@/components/SignInButtons';
 import { hashPassword } from '@/utils/hash';
 
 // The props for the sign in page
 type Props = {
-  providers: any[];
   errorMessage?: string;
 };
 
 // The sign in page
-export default function SignIn({ providers, errorMessage = '' }: Props) {
+export default function SignIn({ errorMessage = '' }: Props) {
   const router = useRouter(); // Get the router
 
   const { t } = useTranslation(); // Get the translation function
@@ -71,7 +72,7 @@ export default function SignIn({ providers, errorMessage = '' }: Props) {
 
   // If the session is loading or authenticated, return the loading message
   if (status === 'loading' || status === 'authenticated') {
-    return <>{t('Loading')}</>;
+    return <Loading />;
   }
 
   // Return the sign in page
@@ -83,27 +84,9 @@ export default function SignIn({ providers, errorMessage = '' }: Props) {
         <div className="flex h-full w-full items-center justify-center px-5">
           <div>
             <H1 className="mb-6 text-center">{t('Welcome back')}</H1>
-            {Object.values(providers)
-              .filter((provider: any) => provider.name !== 'Credentials')
-              .map((provider: any) => (
-                <div key={provider.name}>
-                  <Button
-                    className="mb-3 w-full justify-center !py-2"
-                    color="cornflower-blue"
-                    clickHandler={() => signIn(provider.id)}
-                    icon={
-                      (provider.id === 'discord' && <FaDiscord size={24} />) ||
-                      null
-                    }
-                  >
-                    {t('Sign in with {{provider}}', {
-                      provider: provider.name
-                    })}
-                  </Button>
-                </div>
-              ))}
+            <SignInButtons />
 
-            <Card className="max-w-full md:min-w-[350px]">
+            <Card className="max-w-full md:min-w-[410px]">
               <div className="mb-3">
                 <Title>{t('Welcome back')}</Title>
                 <Subtitle>
@@ -148,6 +131,7 @@ export default function SignIn({ providers, errorMessage = '' }: Props) {
                   type="submit"
                   isLoading={isLoading}
                   className="my-2 w-full justify-center"
+                  rightIcon={<HiOutlineArrowSmRight />}
                 >
                   {t('Sign in')}
                 </Button>
@@ -162,11 +146,8 @@ export default function SignIn({ providers, errorMessage = '' }: Props) {
 
 // Get the server side props
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const providers: any = await getProviders();
-
   return {
     props: {
-      providers: Object.values(providers) ?? [],
       ...(await serverSideTranslations(context.locale ?? 'en', ['common']))
     }
   };

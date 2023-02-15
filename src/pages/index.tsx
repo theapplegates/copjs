@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 
 import AppLayout from '@/components/layouts/AppLayout';
 import Seo from '@/components/layouts/Seo';
+import Loading from '@/components/loading/Loading';
 
 // The index page
 export default function Index() {
@@ -25,7 +26,7 @@ export default function Index() {
 
   // If the session is loading or authenticated, return the loading message
   if (status === 'loading' || status === 'authenticated') {
-    return <>{t('Loading')}</>;
+    return <Loading />;
   }
 
   // Return the index page

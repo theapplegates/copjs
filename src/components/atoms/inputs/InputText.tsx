@@ -36,7 +36,7 @@ export default function InputText({
   // Define the color variants
   const colorVariants = {
     primary:
-      'bg-white text-black border-2 border-primary focus:(ring ring-primary/20) dark:(bg-white/5 text-white) placeholder-gray-400 outline-none'
+      'bg-white text-ebony border-2 border-primary focus:(ring ring-primary/20) dark:(bg-white/5 text-white) placeholder-gray outline-none'
   };
 
   // Return the input
@@ -58,9 +58,9 @@ export default function InputText({
           readOnly={readOnly}
           placeholder={floatingLabel ? ' ' : placeholder}
           className={classNames(
-            'peer appearance-none h-[60px]',
+            'peer appearance-none h-[70px]',
             'flex items-center gap-2',
-            'transition duration-200 font-semibold text-sm rounded-lg',
+            'transition duration-200 font-regular text-base rounded-xl',
             floatingLabel ? 'pt-7 pb-2 px-4' : 'py-4 px-4',
             colorVariants[color],
             disabled && 'opacity-70 cursor-not-allowed',
@@ -70,7 +70,7 @@ export default function InputText({
         {floatingLabel && (
           <label
             htmlFor={id}
-            className="absolute top-5 z-10 origin-[0] -translate-y-2 cursor-text select-none px-4 text-sm font-semibold text-gray-400 duration-300 peer-placeholder-shown:translate-y-0 peer-focus:-translate-y-2"
+            className="text-gray absolute top-6 z-10 origin-[0] -translate-y-4 px-4 duration-300 peer-placeholder-shown:translate-y-0 peer-focus:-translate-y-4"
           >
             {placeholder}
           </label>

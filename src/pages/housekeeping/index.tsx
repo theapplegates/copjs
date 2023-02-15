@@ -9,6 +9,7 @@ import { useTranslation } from 'react-i18next';
 import Button from '@/components/atoms/buttons/Button';
 import AppLayout from '@/components/layouts/AppLayout';
 import Seo from '@/components/layouts/Seo';
+import Loading from '@/components/loading/Loading';
 
 // The housekeeping page
 export default function Index() {
@@ -28,7 +29,7 @@ export default function Index() {
 
   // If the session is loading or unauthenticated, return the loading message
   if (status === 'loading' || status === 'unauthenticated') {
-    return <>{t('Loading')}</>;
+    return <Loading />;
   }
 
   // Return the housekeeping page

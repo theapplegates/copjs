@@ -12,7 +12,7 @@ export default function Card({ children, className }: Props) {
   return (
     <div
       className={classNames(
-        'bg-white text-black dark:(bg-gray-800 text-white) p-8 rounded-lg shadow-xl',
+        'bg-white text-ebony dark:(bg-gray-800 text-white) p-8 rounded-xl shadow-xl',
         className
       )}
     >

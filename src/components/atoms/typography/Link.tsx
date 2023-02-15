@@ -28,7 +28,7 @@ export default function Link({
       href={href && href.startsWith('/') ? `/${router.locale}${href}` : href}
       title={title}
       target={target}
-      className={classNames('font-semibold text-primary', className)}
+      className={classNames('font-medium text-primary', className)}
     >
       {children}
     </a>

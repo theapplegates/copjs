@@ -9,7 +9,9 @@ type Props = {
   disabled?: boolean;
   isLoading?: boolean;
   color?: 'primary' | 'secondary' | 'cornflower-blue';
-  icon?: React.ReactNode | null;
+  size?: 'small' | 'medium' | 'large';
+  leftIcon?: React.ReactNode | null;
+  rightIcon?: React.ReactNode | null;
   className?: string;
 };
 
@@ -22,13 +24,15 @@ export default function Button({
   disabled,
   isLoading,
   color = 'primary',
-  icon,
+  size = 'medium',
+  leftIcon,
+  rightIcon,
   className
 }: Props) {
   // Define the color variants
   const colorVariants = {
     secondary:
-      'bg-transparent border-2 border-primary hover:(bg-primary text-white) text-primary dark:(border-white text-white) dark:hover:(bg-white text-black) focus:(ring ring-primary/20) dark:focus:(ring ring-white/20)',
+      'bg-transparent border-2 border-primary hover:(bg-primary text-white) text-primary dark:(border-white text-white) dark:hover:(bg-white text-ebony) focus:(ring ring-primary/20) dark:focus:(ring ring-white/20)',
     primary:
       'bg-primary text-white dark:(bg-white text-primary) focus:(ring ring-primary/20) dark:focus:(ring ring-white/20)',
     'cornflower-blue':
@@ -49,7 +53,10 @@ export default function Button({
       disabled={isLoading || disabled} // Disable the button if it is loading or disabled
       className={classNames(
         'flex items-center gap-2',
-        'transition duration-200 font-semibold text-sm rounded-lg py-4 px-5',
+        'transition duration-200 font-medium text-base rounded-xl py-4 px-5',
+        size === 'small' && 'h-[48px]',
+        size === 'medium' && 'h-[60px]',
+        size === 'large' && 'h-[70px]',
         colorVariants[color],
         (isLoading || disabled) && 'opacity-70 cursor-not-allowed',
         className
@@ -57,7 +64,7 @@ export default function Button({
     >
       {isLoading ? (
         <svg
-          className="mr-3 -ml-1 h-5 w-5 animate-spin text-white dark:text-black"
+          className="dark:text-ebony mr-3 -ml-1 h-5 w-5 animate-spin text-white"
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"
@@ -77,9 +84,10 @@ export default function Button({
           ></path>
         </svg>
       ) : (
-        icon
+        leftIcon
       )}
       {children}
+      {rightIcon}
     </button>
   );
 }

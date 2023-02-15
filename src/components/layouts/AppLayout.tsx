@@ -47,7 +47,7 @@ export default function AppLayout({ children }: Props) {
             </div>
             <div className="text-right">
               <div className="flex justify-end gap-2">
-                <Button clickHandler={() => toggleTheme()}>
+                <Button clickHandler={() => toggleTheme()} size="small">
                   {theme === 'dark' ? (
                     <MdOutlineDarkMode />
                   ) : (
@@ -62,6 +62,7 @@ export default function AppLayout({ children }: Props) {
                         redirect: true
                       });
                     }}
+                    size="small"
                   >
                     {t('Sign out')}
                   </Button>
@@ -70,6 +71,7 @@ export default function AppLayout({ children }: Props) {
                     clickHandler={() => {
                       router.push(`/auth/signin`);
                     }}
+                    size="small"
                   >
                     {t('Sign in')}
                   </Button>
@@ -81,7 +83,9 @@ export default function AppLayout({ children }: Props) {
       </div>
       <div className="flex w-full">
         <div className="w-[250px] py-6 px-10">
-          <Button className="mb-3 w-full">{t('Dashboard')}</Button>
+          <Button className="mb-3 w-full" size="small">
+            {t('Dashboard')}
+          </Button>
         </div>
         <div className="py-6 px-4">
           <div>{children}</div>

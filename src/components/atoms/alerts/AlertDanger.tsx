@@ -12,7 +12,7 @@ export default function AlertDanger({ children, className }: Props) {
   return (
     <div
       className={classNames(
-        'bg-red-100 text-red-900 my-2 p-4 rounded-lg',
+        'bg-red-100 text-red-900 my-2 p-4 rounded-xl',
         className
       )}
     >
