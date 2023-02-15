@@ -2,7 +2,7 @@
 
 <p align="center">
   <a href="https://github.com/caglarop/copjs/">
-    <img src="preview.png" />
+    <img src="previews/sign-in.png" />
   </a>
 </p>
 

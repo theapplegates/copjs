@@ -21,6 +21,7 @@ export default defineConfig({
           800: '#000000',
           900: '#000000'
         },
+        secondary: '#C2C8D0',
         gray: {
           DEFAULT: '#667085',
           50: '#CBCFD7',

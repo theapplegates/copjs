@@ -52,7 +52,7 @@ export default function Button({
       }}
       disabled={isLoading || disabled} // Disable the button if it is loading or disabled
       className={classNames(
-        'flex items-center gap-2',
+        'group flex items-center gap-2',
         'transition duration-200 font-medium text-base rounded-xl py-4 px-5',
         size === 'small' && 'h-[48px]',
         size === 'medium' && 'h-[60px]',
@@ -87,7 +87,9 @@ export default function Button({
         leftIcon
       )}
       {children}
-      {rightIcon}
+      {rightIcon && (
+        <div className="duration-300 group-hover:pl-1">{rightIcon}</div>
+      )}
     </button>
   );
 }

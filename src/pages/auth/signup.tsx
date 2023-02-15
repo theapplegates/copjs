@@ -4,7 +4,7 @@ import { signIn, useSession } from 'next-auth/react';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useEffect, useState } from 'react';
-import { HiOutlineArrowSmRight } from 'react-icons/hi';
+import { HiOutlineArrowSmLeft, HiOutlineArrowSmRight } from 'react-icons/hi';
 
 import AlertDanger from '@/components/atoms/alerts/AlertDanger';
 import Button from '@/components/atoms/buttons/Button';
@@ -114,17 +114,17 @@ export default function SignUp() {
       <Seo title={t('Sign up') || undefined} />
 
       <BaseLayout>
-        <div className="flex h-full w-full items-center justify-center px-5">
-          <div>
-            <H1 className="mb-6 text-center">{t('Create an Account')}</H1>
+        <div className="flex h-full w-full items-center justify-center">
+          <div className="mx-auto w-full max-w-[410px]">
+            <H1 className="mb-10 text-center">{t('Create an Account')}</H1>
 
             <SignInButtons />
 
             <HorizontalDivider>{t('or register with email')}</HorizontalDivider>
 
-            <Card className="max-w-full md:min-w-[410px]">
-              <div className="mb-3">
-                <Title>{t('Create an Account')}</Title>
+            <Card>
+              <div className="my-5">
+                <Title className="mb-2">{t('Create an Account')}</Title>
                 <Subtitle>
                   {t('Already registered?')}{' '}
                   <Link href="/auth/signin">{t('Sign in')}</Link>
@@ -145,6 +145,7 @@ export default function SignUp() {
                   <InputText
                     type="email"
                     id="email"
+                    autoFocus={true}
                     placeholder={t('Email') || ''}
                     value={email}
                     changeHandler={event => setEmail(event.target.value)}
@@ -152,7 +153,7 @@ export default function SignUp() {
                     className="w-full"
                   />
                 </div>
-                <div className="mb-4">
+                <div className="mb-5">
                   <InputText
                     type="password"
                     id="password"
@@ -163,7 +164,7 @@ export default function SignUp() {
                     className="w-full"
                   />
                 </div>
-                <div className="mb-4">
+                <div className="mb-5">
                   <InputText
                     type="password"
                     id="password_confirm"
@@ -186,6 +187,16 @@ export default function SignUp() {
                   {t('Sign up')}
                 </Button>
               </form>
+
+              <Link
+                href="/"
+                className="group mt-4 flex w-full items-center justify-center gap-2"
+              >
+                <div className="inline-block duration-300 group-hover:pr-1">
+                  <HiOutlineArrowSmLeft />
+                </div>{' '}
+                {t('Back to homepage')}
+              </Link>
             </Card>
           </div>
         </div>

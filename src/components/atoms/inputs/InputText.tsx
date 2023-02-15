@@ -40,7 +40,7 @@ export default function InputText({
   // Define the color variants
   const colorVariants = {
     primary:
-      'bg-white text-ebony border-2 border-primary focus:(ring ring-primary/20) dark:(bg-transparent text-white) placeholder-gray outline-none'
+      'bg-white text-ebony border border-secondary hover:(border-2 border-primary) focus:(border-2 border-primary) dark:(bg-transparent text-white) dark:hover:(border-white) dark:focus:(border-white) placeholder-gray outline-none'
   };
 
   // Return the input

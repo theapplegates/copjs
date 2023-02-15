@@ -1,12 +1,14 @@
 import { useRouter } from 'next/router';
 import { signOut, useSession } from 'next-auth/react';
 import { useTranslation } from 'next-i18next';
-import { MdOutlineDarkMode, MdOutlineLight } from 'react-icons/md';
 
+import backgroundImage from '@/assets/images/bg.png';
 import Button from '@/components/atoms/buttons/Button';
 import Subtitle from '@/components/atoms/typography/Subtitle';
 import Title from '@/components/atoms/typography/Title';
 import { useTheme } from '@/providers/ThemeProvider';
+
+import Footer from './Footer';
 
 // The props for the app layout
 type Props = {
@@ -21,76 +23,80 @@ export default function AppLayout({ children }: Props) {
 
   const router = useRouter(); // Get the router
 
-  const { theme, toggleTheme } = useTheme(); // Get the theme
+  const { theme } = useTheme(); // Get the theme
 
   // Return the app layout
   return (
-    <div className="dark:(bg-gray-900 text-white) h-full w-full bg-blue-50 selection:(bg-primary text-white)">
-      <div className="flex w-full">
-        <div className="w-[250px] py-6 px-10">
-          <div className="text-2xl font-bold">LOGO</div>
-        </div>
-        <div className="w-full px-10 pt-12 pb-6">
-          <div className="grid grid-cols-2 gap-2">
-            <div>
-              {session && (
-                <>
-                  <Title className="mb-1">{t('Dashboard')}</Title>
-                  <Subtitle>
-                    {t('Welcome, {{name}}!', {
-                      name: session.user.name
-                    })}
-                  </Subtitle>
-                  {session.user.role}
-                </>
-              )}
-            </div>
-            <div className="text-right">
-              <div className="flex justify-end gap-2">
-                <Button clickHandler={() => toggleTheme()} size="small">
-                  {theme === 'dark' ? (
-                    <MdOutlineDarkMode />
+    <div
+      className="dark:(bg-gray-900 text-white) selection:(bg-primary text-white) h-full w-full"
+      style={
+        theme === 'dark'
+          ? {
+              backgroundColor: '#101828',
+              backgroundPosition: 'center',
+              backgroundSize: 'cover'
+            }
+          : {
+              backgroundImage: `url(${backgroundImage.src})`,
+              backgroundColor: '#ECF3FB',
+              backgroundPosition: 'center',
+              backgroundSize: 'cover'
+            }
+      }
+    >
+      <div className="h-[calc(100%-90px)] overflow-auto">
+        <div className="h-full w-full overflow-auto">
+          <div className="lg:(py-[50px]) h-full w-full py-[50px] px-4">
+            <div className="flex h-full w-full items-center justify-center">
+              <div className="p-[50px]">
+                <div>
+                  <div className="mb-3">
+                    {session && (
+                      <>
+                        <Title className="mb-1">{t('Dashboard')}</Title>
+                        <Subtitle>
+                          {t('Welcome, {{name}}!', {
+                            name: session.user.name
+                          })}
+                        </Subtitle>
+                        {session.user.role}
+                      </>
+                    )}
+                  </div>
+
+                  {session ? (
+                    <Button
+                      clickHandler={() => {
+                        signOut({
+                          callbackUrl: `/${router.locale || ''}`,
+                          redirect: true
+                        });
+                      }}
+                      size="small"
+                      className="mb-3"
+                    >
+                      {t('Sign out')}
+                    </Button>
                   ) : (
-                    <MdOutlineLight />
+                    <Button
+                      clickHandler={() => {
+                        router.push(`/auth/signin`);
+                      }}
+                      size="small"
+                      className="mb-3"
+                    >
+                      {t('Sign in')}
+                    </Button>
                   )}
-                </Button>
-                {session ? (
-                  <Button
-                    clickHandler={() => {
-                      signOut({
-                        callbackUrl: `/${router.locale || ''}`,
-                        redirect: true
-                      });
-                    }}
-                    size="small"
-                  >
-                    {t('Sign out')}
-                  </Button>
-                ) : (
-                  <Button
-                    clickHandler={() => {
-                      router.push(`/auth/signin`);
-                    }}
-                    size="small"
-                  >
-                    {t('Sign in')}
-                  </Button>
-                )}
+
+                  <div className="relative">{children}</div>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div className="flex w-full">
-        <div className="w-[250px] py-6 px-10">
-          <Button className="mb-3 w-full" size="small">
-            {t('Dashboard')}
-          </Button>
-        </div>
-        <div className="py-6 px-4">
-          <div>{children}</div>
-        </div>
-      </div>
+      <Footer />
     </div>
   );
 }

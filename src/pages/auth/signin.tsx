@@ -4,7 +4,7 @@ import { signIn, useSession } from 'next-auth/react';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useEffect, useState } from 'react';
-import { HiOutlineArrowSmRight } from 'react-icons/hi';
+import { HiOutlineArrowSmLeft, HiOutlineArrowSmRight } from 'react-icons/hi';
 
 import AlertDanger from '@/components/atoms/alerts/AlertDanger';
 import Button from '@/components/atoms/buttons/Button';
@@ -82,17 +82,17 @@ export default function SignIn({ errorMessage = '' }: Props) {
       <Seo title={t('Sign in') || undefined} />
 
       <BaseLayout>
-        <div className="flex h-full w-full items-center justify-center px-5">
-          <div>
-            <H1 className="mb-6 text-center">{t('Welcome back')}</H1>
+        <div className="flex h-full w-full items-center justify-center">
+          <div className="mx-auto w-full max-w-[410px]">
+            <H1 className="mb-10 text-center">{t('Welcome back')}</H1>
 
             <SignInButtons />
 
             <HorizontalDivider>{t('or sign in with email')}</HorizontalDivider>
 
-            <Card className="max-w-full md:min-w-[410px]">
-              <div className="mb-3">
-                <Title>{t('Welcome back')}</Title>
+            <Card>
+              <div className="my-5">
+                <Title className="mb-2">{t('Welcome back')}</Title>
                 <Subtitle>
                   {t("You don't have an account?")}{' '}
                   <Link href="/auth/signup">{t('Create one')}</Link>
@@ -107,10 +107,11 @@ export default function SignIn({ errorMessage = '' }: Props) {
                   await handleSignIn();
                 }}
               >
-                <div className="mb-4">
+                <div className="mb-5">
                   <InputText
                     type="email"
                     id="email"
+                    autoFocus={true}
                     placeholder={t('Email') || ''}
                     value={email}
                     changeHandler={event => setEmail(event.target.value)}
@@ -118,7 +119,7 @@ export default function SignIn({ errorMessage = '' }: Props) {
                     className="w-full"
                   />
                 </div>
-                <div className="mb-4">
+                <div className="mb-5">
                   <InputText
                     type="password"
                     id="password"
@@ -140,6 +141,16 @@ export default function SignIn({ errorMessage = '' }: Props) {
                   {t('Sign in')}
                 </Button>
               </form>
+
+              <Link
+                href="/"
+                className="group mt-4 flex w-full items-center justify-center gap-2"
+              >
+                <div className="inline-block duration-300 group-hover:pr-1">
+                  <HiOutlineArrowSmLeft />
+                </div>{' '}
+                {t('Back to homepage')}
+              </Link>
             </Card>
           </div>
         </div>
