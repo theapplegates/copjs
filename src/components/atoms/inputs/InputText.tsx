@@ -11,6 +11,7 @@ type Props = {
   changeHandler?: (e: React.ChangeEvent<HTMLInputElement>) => void; // The change handler
   disabled?: boolean; // If the input is disabled
   readOnly?: boolean; // If the input is read only
+  autoFocus?: boolean; // If the input should be focused on mount
   /*
   leftIcon?: React.ReactNode | null; // The left icon
   rightIcon?: React.ReactNode | null; // The right icon
@@ -26,6 +27,7 @@ export default function InputText({
   forwardRef,
   type = 'text',
   color = 'primary',
+  autoFocus = false,
   placeholder,
   changeHandler,
   disabled,
@@ -36,7 +38,7 @@ export default function InputText({
   // Define the color variants
   const colorVariants = {
     primary:
-      'bg-white text-ebony border-2 border-primary focus:(ring ring-primary/20) dark:(bg-white/5 text-white) placeholder-gray outline-none'
+      'bg-white text-ebony border-2 border-primary focus:(ring ring-primary/20) dark:(bg-white/5 text-white) placeholder-gray :-moz-autofill:bg-red-500 outline-none'
   };
 
   // Return the input
@@ -48,6 +50,7 @@ export default function InputText({
           ref={forwardRef}
           type={type}
           value={value}
+          autoFocus={autoFocus}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
             // If the input is not read only, disabled or the change handler is undefined, call the change handler
             if (!readOnly && !disabled && changeHandler !== undefined) {
@@ -70,7 +73,13 @@ export default function InputText({
         {floatingLabel && (
           <label
             htmlFor={id}
-            className="text-gray absolute top-6 z-10 origin-[0] -translate-y-4 px-4 transform duration-300 peer-placeholder-shown:(translate-y-0) peer-focus:(-translate-y-4)"
+            className={classNames(
+              'absolute transform duration-300 px-4',
+              'cursor-text',
+              'top-6 z-10 origin-[0] -translate-y-4',
+              'peer-placeholder-shown:(translate-y-0) peer-focus:(-translate-y-4)',
+              'text-gray'
+            )}
           >
             {placeholder}
           </label>
