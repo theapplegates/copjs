@@ -4,7 +4,8 @@ import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 import Button from '@/components/atoms/buttons/Button';
-import AppLayout from '@/components/layouts/AppLayout';
+import H1 from '@/components/atoms/typography/headings/H1';
+import BaseLayout from '@/components/layouts/BaseLayout';
 import Seo from '@/components/layouts/Seo';
 
 // The 404 page
@@ -16,20 +17,25 @@ export default function Error404() {
   return (
     <>
       <Seo title={t('Page not found') || undefined} />
-      <AppLayout>
-        <div>{t('Page not found')}</div>
-        <div>
-          <Button
-            color={'primary'}
-            className={'my-2'}
-            clickHandler={() => {
-              router.push('/');
-            }}
-          >
-            {t('Back to homepage')}
-          </Button>
+      <BaseLayout>
+        <div className="flex h-full w-full items-center justify-center">
+          <div>
+            <H1 className="mb-3">{t('Page not found')}</H1>
+            <div>
+              <Button
+                color={'primary'}
+                className={'my-2 w-full justify-center'}
+                size="small"
+                clickHandler={() => {
+                  router.push('/');
+                }}
+              >
+                {t('Back to homepage')}
+              </Button>
+            </div>
+          </div>
         </div>
-      </AppLayout>
+      </BaseLayout>
     </>
   );
 }

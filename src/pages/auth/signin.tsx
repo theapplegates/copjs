@@ -9,6 +9,7 @@ import { HiOutlineArrowSmRight } from 'react-icons/hi';
 import AlertDanger from '@/components/atoms/alerts/AlertDanger';
 import Button from '@/components/atoms/buttons/Button';
 import Card from '@/components/atoms/cards/Card';
+import HorizontalDivider from '@/components/atoms/divider/HorizontalDivider';
 import InputText from '@/components/atoms/inputs/InputText';
 import H1 from '@/components/atoms/typography/headings/H1';
 import Link from '@/components/atoms/typography/Link';
@@ -84,7 +85,10 @@ export default function SignIn({ errorMessage = '' }: Props) {
         <div className="flex h-full w-full items-center justify-center px-5">
           <div>
             <H1 className="mb-6 text-center">{t('Welcome back')}</H1>
+
             <SignInButtons />
+
+            <HorizontalDivider>{t('or sign in with email')}</HorizontalDivider>
 
             <Card className="max-w-full md:min-w-[410px]">
               <div className="mb-3">

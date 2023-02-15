@@ -13,10 +13,11 @@ export default function SignInButtons() {
   const [providers, setProviders] = useState<Record<
     LiteralUnion<BuiltInProviderType, string>,
     ClientSafeProvider
-  > | null>(null);
+  > | null>(null); // State for the providers
 
   useEffect(() => {
     (async () => {
+      // Get the providers and set the state
       setProviders(await getProviders());
     })();
   }, []);

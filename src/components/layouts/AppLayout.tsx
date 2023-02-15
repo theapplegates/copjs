@@ -25,7 +25,7 @@ export default function AppLayout({ children }: Props) {
 
   // Return the app layout
   return (
-    <div className="dark:(bg-gray-900 text-white) h-full w-full bg-blue-50">
+    <div className="dark:(bg-gray-900 text-white) h-full w-full bg-blue-50 selection:(bg-primary text-white)">
       <div className="flex w-full">
         <div className="w-[250px] py-6 px-10">
           <div className="text-2xl font-bold">LOGO</div>

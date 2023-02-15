@@ -1,5 +1,7 @@
 import classNames from 'classnames';
 
+import style from './InputText.module.css';
+
 // The props for the component
 type Props = {
   id?: string;
@@ -38,7 +40,7 @@ export default function InputText({
   // Define the color variants
   const colorVariants = {
     primary:
-      'bg-white text-ebony border-2 border-primary focus:(ring ring-primary/20) dark:(bg-white/5 text-white) placeholder-gray :-moz-autofill:bg-red-500 outline-none'
+      'bg-white text-ebony border-2 border-primary focus:(ring ring-primary/20) dark:(bg-transparent text-white) placeholder-gray outline-none'
   };
 
   // Return the input
@@ -67,7 +69,8 @@ export default function InputText({
             floatingLabel ? 'pt-7 pb-2 px-4' : 'py-4 px-4',
             colorVariants[color],
             disabled && 'opacity-70 cursor-not-allowed',
-            className
+            className,
+            style.input
           )}
         />
         {floatingLabel && (
@@ -75,7 +78,7 @@ export default function InputText({
             htmlFor={id}
             className={classNames(
               'absolute transform duration-300 px-4',
-              'cursor-text',
+              'cursor-text select-none',
               'top-6 z-10 origin-[0] -translate-y-4',
               'peer-placeholder-shown:(translate-y-0) peer-focus:(-translate-y-4)',
               'text-gray'
