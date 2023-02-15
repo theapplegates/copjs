@@ -3,11 +3,10 @@ import { signOut, useSession } from 'next-auth/react';
 import { useTranslation } from 'next-i18next';
 import { MdOutlineDarkMode, MdOutlineLight } from 'react-icons/md';
 
-import { useTheme } from '@/providers/ThemeProvider';
-
 import Button from '@/components/atoms/buttons/Button';
 import Subtitle from '@/components/atoms/typography/Subtitle';
 import Title from '@/components/atoms/typography/Title';
+import { useTheme } from '@/providers/ThemeProvider';
 
 // The props for the app layout
 type Props = {

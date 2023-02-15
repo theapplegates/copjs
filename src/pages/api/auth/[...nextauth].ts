@@ -120,10 +120,12 @@ export const authOptions: NextAuthOptions = {
      * Extend the session with custom properties
      */
     session({ session, token }: { session: Session; token: any; user: User }) {
-      session.user = token;
+      const newSession = { ...session };
+
+      newSession.user = token;
 
       // Return the session to be stored in the cookie
-      return session;
+      return newSession;
     }
   },
 

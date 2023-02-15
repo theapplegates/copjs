@@ -6,17 +6,17 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useEffect, useState } from 'react';
 import { FaDiscord } from 'react-icons/fa';
 
+import AlertDanger from '@/components/atoms/alerts/AlertDanger';
 import Button from '@/components/atoms/buttons/Button';
+import Card from '@/components/atoms/cards/Card';
+import InputText from '@/components/atoms/inputs/InputText';
+import H1 from '@/components/atoms/typography/headings/H1';
+import Link from '@/components/atoms/typography/Link';
+import Subtitle from '@/components/atoms/typography/Subtitle';
+import Title from '@/components/atoms/typography/Title';
 import BaseLayout from '@/components/layouts/BaseLayout';
 import Seo from '@/components/layouts/Seo';
 import { hashPassword } from '@/utils/hash';
-import Card from '@/components/atoms/cards/Card';
-import Title from '@/components/atoms/typography/Title';
-import Subtitle from '@/components/atoms/typography/Subtitle';
-import Link from '@/components/atoms/typography/Link';
-import H1 from '@/components/atoms/typography/headings/H1';
-import InputText from '@/components/atoms/inputs/InputText';
-import AlertDanger from '@/components/atoms/alerts/AlertDanger';
 
 // The props for the sign in page
 type Props = {
@@ -46,7 +46,7 @@ export default function SignIn({ providers, errorMessage = '' }: Props) {
     }
   }, [status, router]);
 
-  const handleSignIn = async (email: string, password: string) => {
+  const handleSignIn = async () => {
     setLoading(true);
 
     // Sign in the user
@@ -82,13 +82,13 @@ export default function SignIn({ providers, errorMessage = '' }: Props) {
       <BaseLayout>
         <div className="flex h-full w-full items-center justify-center px-5">
           <div>
-            <H1 className="text-center mb-6">{t('Welcome back')}</H1>
+            <H1 className="mb-6 text-center">{t('Welcome back')}</H1>
             {Object.values(providers)
               .filter((provider: any) => provider.name !== 'Credentials')
               .map((provider: any) => (
                 <div key={provider.name}>
                   <Button
-                    className="justify-center w-full mb-3 !py-2"
+                    className="mb-3 w-full justify-center !py-2"
                     color="cornflower-blue"
                     clickHandler={() => signIn(provider.id)}
                     icon={
@@ -103,7 +103,7 @@ export default function SignIn({ providers, errorMessage = '' }: Props) {
                 </div>
               ))}
 
-            <Card className="md:min-w-[350px] max-w-full">
+            <Card className="max-w-full md:min-w-[350px]">
               <div className="mb-3">
                 <Title>{t('Welcome back')}</Title>
                 <Subtitle>
@@ -117,7 +117,7 @@ export default function SignIn({ providers, errorMessage = '' }: Props) {
                 onSubmit={async e => {
                   e.preventDefault();
 
-                  await handleSignIn(email, password);
+                  await handleSignIn();
                 }}
               >
                 <div className="mb-4">
@@ -147,7 +147,7 @@ export default function SignIn({ providers, errorMessage = '' }: Props) {
                   color="primary"
                   type="submit"
                   isLoading={isLoading}
-                  className="justify-center w-full my-2"
+                  className="my-2 w-full justify-center"
                 >
                   {t('Sign in')}
                 </Button>

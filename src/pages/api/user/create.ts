@@ -18,7 +18,8 @@ async function handlePOST(req: NextApiRequest, res: NextApiResponse) {
     password.length > 100 ||
     email.length > 100
   ) {
-    return res.status(400).json(null);
+    res.status(400).json(null);
+    return;
   }
 
   // Create a new user in the database
