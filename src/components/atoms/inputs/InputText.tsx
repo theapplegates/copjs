@@ -42,7 +42,7 @@ export default function InputText({
   // Return the input
   return (
     <>
-      <div className="relative">
+      <div className="group relative z-0">
         <input
           id={id}
           ref={forwardRef}
@@ -70,7 +70,7 @@ export default function InputText({
         {floatingLabel && (
           <label
             htmlFor={id}
-            className="text-gray absolute top-6 z-10 origin-[0] -translate-y-4 px-4 duration-300 peer-placeholder-shown:translate-y-0 peer-focus:-translate-y-4"
+            className="text-gray absolute top-6 z-10 origin-[0] -translate-y-4 px-4 transform duration-300 peer-placeholder-shown:(translate-y-0) peer-focus:(-translate-y-4)"
           >
             {placeholder}
           </label>
