@@ -3,6 +3,7 @@ import type { NextAuthOptions, Session, User } from 'next-auth';
 import NextAuth from 'next-auth'; // Import the types from the package
 import CredentialsProvider from 'next-auth/providers/credentials'; // Import the Credentials provider
 import DiscordProvider from 'next-auth/providers/discord'; // Import the Discord provider
+import GithubProvider from 'next-auth/providers/github'; // Import the Discord provider
 
 import { prisma } from '@/lib/prisma'; // The adapter requires a prisma instance
 
@@ -36,6 +37,12 @@ export const authOptions: NextAuthOptions = {
     DiscordProvider({
       clientId: `${process.env.DISCORD_CLIENT_ID}`, // The client ID can be found on the application page
       clientSecret: `${process.env.DISCORD_CLIENT_SECRET}` // The client secret can be found on the application page
+    }),
+
+    // Github
+    GithubProvider({
+      clientId: `${process.env.GITHUB_CLIENT_ID}`, // The client ID can be found on the application page
+      clientSecret: `${process.env.GITHUB_CLIENT_SECRET}` // The client secret can be found on the application page
     }),
 
     // Credentials

@@ -56,16 +56,14 @@ export default function Index() {
                 <H2 className="mb-2">Button</H2>
                 <div className="mb-3 grid w-full grid-cols-2 gap-2">
                   <Button isLoading={true}>Loading</Button>
-                  <Button color="cornflower-blue">Discord</Button>
+                  <Button color="discord">Discord</Button>
+                  <Button color="github">GitHub</Button>
                   <Button color="primary">Primary</Button>
                   <Button color="secondary">Secondary</Button>
                 </div>
 
                 <H2 className="mb-2">Button with left icon</H2>
                 <div className="mb-3 grid w-full grid-cols-2 gap-2">
-                  <Button color="cornflower-blue" leftIcon={<BiLeftArrowAlt />}>
-                    Discord
-                  </Button>
                   <Button color="primary" leftIcon={<BiLeftArrowAlt />}>
                     Primary
                   </Button>
@@ -76,12 +74,6 @@ export default function Index() {
 
                 <H2 className="mb-2">Button with right icon</H2>
                 <div className="mb-3 grid w-full grid-cols-2 gap-2">
-                  <Button
-                    color="cornflower-blue"
-                    rightIcon={<BiRightArrowAlt />}
-                  >
-                    Discord
-                  </Button>
                   <Button color="primary" rightIcon={<BiRightArrowAlt />}>
                     Primary
                   </Button>
@@ -92,9 +84,6 @@ export default function Index() {
 
                 <H2 className="mb-2">Button disabled</H2>
                 <div className="mb-3 grid w-full grid-cols-2 gap-2">
-                  <Button color="cornflower-blue" disabled={true}>
-                    Discord
-                  </Button>
                   <Button color="primary" disabled={true}>
                     Primary
                   </Button>

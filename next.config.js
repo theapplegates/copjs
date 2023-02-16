@@ -10,7 +10,11 @@ const nextConfig = {
 
   // https://nextjs.org/docs/api-reference/next.config.js/images
   images: {
-    domains: ['localhost', 'cdn.discordapp.com'], // Add your domains here
+    domains: [
+      'localhost',
+      'cdn.discordapp.com',
+      'avatars.githubusercontent.com'
+    ], // Add your domains here
     formats: ['image/webp'] // Add your formats here
   },
 

@@ -8,7 +8,7 @@ type Props = {
   clickHandler?: React.MouseEventHandler<HTMLButtonElement>;
   disabled?: boolean;
   isLoading?: boolean;
-  color?: 'primary' | 'secondary' | 'cornflower-blue';
+  color?: 'primary' | 'secondary' | 'discord' | 'github';
   size?: 'small' | 'medium' | 'large';
   leftIcon?: React.ReactNode | null;
   rightIcon?: React.ReactNode | null;
@@ -35,8 +35,8 @@ export default function Button({
       'bg-transparent border-2 border-primary hover:(bg-primary text-white) text-primary dark:(border-white text-white) dark:hover:(bg-white text-ebony) focus:(ring ring-primary/20) dark:focus:(ring ring-white/20)',
     primary:
       'bg-primary text-white dark:(bg-white text-primary) focus:(ring ring-primary/20) dark:focus:(ring ring-white/20)',
-    'cornflower-blue':
-      'bg-cornflower-blue-500 focus:(ring ring-cornflower-blue-400) text-white'
+    discord: 'bg-discord focus:(ring ring-discord-400) text-white',
+    github: 'bg-github focus:(ring ring-github-400) text-white'
   };
 
   // Return the button

@@ -3,7 +3,7 @@ import type { ClientSafeProvider, LiteralUnion } from 'next-auth/react';
 import { getProviders, signIn } from 'next-auth/react';
 import { useTranslation } from 'next-i18next';
 import { useEffect, useState } from 'react';
-import { FaDiscord } from 'react-icons/fa';
+import { FaDiscord, FaGithub } from 'react-icons/fa';
 
 import Button from '@/components/atoms/buttons/Button';
 
@@ -31,11 +31,17 @@ export default function SignInButtons() {
             <div key={provider.name}>
               <Button
                 className="mb-3 w-full justify-center !py-2"
-                color="cornflower-blue"
+                color={
+                  (provider.id === 'discord' && 'discord') ||
+                  (provider.id === 'github' && 'github') ||
+                  'primary'
+                }
                 size="small"
                 clickHandler={() => signIn(provider.id)}
                 leftIcon={
-                  (provider.id === 'discord' && <FaDiscord size={16} />) || null
+                  (provider.id === 'discord' && <FaDiscord size={16} />) ||
+                  (provider.id === 'github' && <FaGithub size={16} />) ||
+                  null
                 }
               >
                 {t('Sign in with {{provider}}', {
