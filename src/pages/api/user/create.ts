@@ -8,7 +8,7 @@ import { isValidEmail } from '@/utils/validate';
 // POST /api/user/create
 async function handlePOST(req: NextApiRequest, res: NextApiResponse) {
   // Get email and password from request body
-  const { email, password } = req.body;
+  const { name, email, password } = req.body;
 
   if (
     !email ||
@@ -16,6 +16,8 @@ async function handlePOST(req: NextApiRequest, res: NextApiResponse) {
     !isValidEmail(email) ||
     password.length < 6 ||
     password.length > 100 ||
+    name.length < 3 ||
+    name.length > 100 ||
     email.length > 100
   ) {
     res.status(400).json(null);
@@ -25,7 +27,7 @@ async function handlePOST(req: NextApiRequest, res: NextApiResponse) {
   // Create a new user in the database
   await prisma.user
     .create({
-      data: { email, password: hashPassword(password) }
+      data: { name, email, password: hashPassword(password) }
     })
     .then(user => {
       // Return the user object

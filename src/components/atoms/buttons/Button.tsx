@@ -85,12 +85,12 @@ export default function Button({
         </svg>
       ) : (
         leftIcon && (
-          <div className="duration-300 group-hover:pr-1">{leftIcon}</div>
+          <div className="duration-200 group-hover:pr-1">{leftIcon}</div>
         )
       )}
       {children}
       {rightIcon && (
-        <div className="duration-300 group-hover:pl-1">{rightIcon}</div>
+        <div className="duration-200 group-hover:pl-1">{rightIcon}</div>
       )}
     </button>
   );

@@ -20,12 +20,15 @@
   "The email address already exists.": "Die E-Mail-Adresse existiert bereits.",
   "Invalid credentials.": "Ungültige Zugangsdaten.",
 
+  "Display name": "Anzeigename",
   "Email": "E-Mail",
   "Password": "Passwort",
   "Confirm password": "Passwort bestätigen",
   "Password confirmation incorrect.": "Passwortbestätigung falsch.",
   "Password to short.": "Passwort zu kurz.",
   "Password to long.": "Passwort zu lang.",
+  "Display name to short.": "Anzeigename zu kurz.",
+  "Display name to long.": "Anzeigename zu lang.",
   "Email address to long.": "E-Mail-Adresse zu lang.",
   "Invalid email address.": "Ungültige E-Mail-Adresse",
 

@@ -31,6 +31,7 @@ export default function SignUp() {
 
   const [isLoading, setLoading] = useState(false); // Loading state
 
+  const [name, setName] = useState(''); // State for the display name
   const [email, setEmail] = useState(''); // State for the email address
   const [password, setPassword] = useState(''); // State for the password
   const [passwordConfirm, setPasswordConfirm] = useState(''); // State for the password confirmation
@@ -48,6 +49,18 @@ export default function SignUp() {
     setLoading(true);
 
     // Validation
+    if (name.length < 3) {
+      setError(t('Display name to short.') || '');
+      setLoading(false);
+      return;
+    }
+
+    if (name.length > 100) {
+      setError(t('Display name to long.') || '');
+      setLoading(false);
+      return;
+    }
+
     if (!isValidEmail(email)) {
       setError(t('Invalid email address.') || '');
       setLoading(false);
@@ -84,7 +97,7 @@ export default function SignUp() {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ email, password })
+      body: JSON.stringify({ name, email, password })
     });
 
     // Get the data from the response
@@ -143,9 +156,20 @@ export default function SignUp() {
               >
                 <div className="mb-4">
                   <InputText
+                    type="text"
+                    id="name"
+                    autoFocus={true}
+                    placeholder={t('Display name') || ''}
+                    value={name}
+                    changeHandler={event => setName(event.target.value)}
+                    floatingLabel={true}
+                    className="w-full"
+                  />
+                </div>
+                <div className="mb-4">
+                  <InputText
                     type="email"
                     id="email"
-                    autoFocus={true}
                     placeholder={t('Email') || ''}
                     value={email}
                     changeHandler={event => setEmail(event.target.value)}

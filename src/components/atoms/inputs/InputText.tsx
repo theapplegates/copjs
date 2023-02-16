@@ -43,13 +43,13 @@ export default function InputText({
   // Define the color variants
   const colorVariants = {
     primary:
-      'bg-transparent text-ebony border border-secondary hover:(border-2 border-primary) focus:(border-2 border-primary) dark:(bg-transparent text-white) dark:hover:(border-white) dark:focus:(border-white) placeholder-gray outline-none'
+      'bg-transparent text-ebony ring-1 ring-secondary hover:(ring-2 ring-primary) focus:(ring-2 ring-primary) dark:(bg-transparent text-white) dark:hover:(ring-2 ring-white) dark:focus:(ring-2 ring-white) placeholder-gray outline-none'
   };
 
   // Return the input
   return (
     <>
-      <div className="group relative z-0">
+      <div className={classNames('group relative z-0')}>
         <input
           id={id}
           ref={ref}
@@ -89,7 +89,7 @@ export default function InputText({
               'cursor-text select-none',
               'top-6 -z-10 origin-[0] -translate-y-4',
               'peer-placeholder-shown:(translate-y-0) peer-focus:(-translate-y-4)',
-              'text-gray'
+              'text-gray dark:text-white'
             )}
           >
             {placeholder}
