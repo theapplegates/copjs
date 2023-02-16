@@ -32,8 +32,8 @@ export default function BaseLayout({ children }: Props) {
     >
       <div className="h-[calc(100%-90px)]">
         <div className="h-full w-full overflow-auto">
-          <div className="flex flex-col justify-center items-center min-h-full w-full">
-            <div className="py-[50px] px-4 w-full">{children}</div>
+          <div className="flex min-h-full w-full flex-col items-center justify-center">
+            <div className="w-full py-[50px] px-4">{children}</div>
           </div>
         </div>
       </div>

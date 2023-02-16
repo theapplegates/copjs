@@ -6,8 +6,6 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useEffect, useState } from 'react';
 import { HiOutlineArrowSmLeft, HiOutlineArrowSmRight } from 'react-icons/hi';
 
-import { isValidEmail } from '@/utils/validate';
-
 import Alert from '@/components/atoms/alerts/Alert';
 import Button from '@/components/atoms/buttons/Button';
 import Card from '@/components/atoms/cards/Card';
@@ -19,6 +17,7 @@ import Title from '@/components/atoms/typography/Title';
 import BaseLayout from '@/components/layouts/BaseLayout';
 import Seo from '@/components/layouts/Seo';
 import Loading from '@/components/loading/Loading';
+import { isValidEmail } from '@/utils/validate';
 
 // The sign in page
 export default function Index() {

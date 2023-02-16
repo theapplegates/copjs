@@ -131,7 +131,7 @@ export default function SignIn({ errorMessage = '' }: Props) {
                   />
                 </div>
 
-                <Link href="/auth/forgot-password" className="block mb-5">
+                <Link href="/auth/forgot-password" className="mb-5 block">
                   {t('Forgot password?')}
                 </Link>
 
