@@ -12,7 +12,8 @@
     "build-storybook": "build-storybook",
     "prepare": "husky install",
     "check-types": "tsc --noEmit --pretty",
-    "format": "next lint --fix && prettier '**/*.{json,yaml}' --write --ignore-path .gitignore"
+    "format": "next lint --fix && prettier '**/*.{json,yaml}' --write --ignore-path .gitignore",
+    "migrate": "prisma migrate dev"
   },
   "dependencies": {
     "@next-auth/prisma-adapter": "^1.0.5",
