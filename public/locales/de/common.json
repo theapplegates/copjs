@@ -8,7 +8,7 @@
   "Sign in": "Anmelden",
   "Sign up": "Registrieren",
   "Sign out": "Abmelden",
-  "Signed in as {{displayName}}": "Eingeloggt als {{displayName}}",
+  "Signed in as {{email}}": "Eingeloggt als {{email}}",
   "Not signed in.": "Du bist nicht eingeloggt.",
   "Sign in with {{provider}}": "Anmelden mit {{provider}}",
 
