@@ -13,7 +13,7 @@
 
 Build web applications that are scalable, efficient and user-friendly with CopJS. The boilerplate is designed with the latest technologies including [TypeScript](https://www.typescriptlang.org/), [React](https://reactjs.org/), [Next.js](https://nextjs.org/), [Turbo](https://turbo.build/), [Prisma](https://www.prisma.io/), and more. With a built-in theme provider for dark mode and absolute imports, your application will have a sleek and modern feel.
 
-[Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)([https://app.netlify.com/start/deploy?repository=your repo URL](https://devlifyio.netlify.app))
+[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](<[https://devlifyio.netlify.app](https://devlifyio.netlify.app)>)
 
 ## Dependencies
 
