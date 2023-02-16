@@ -30,9 +30,11 @@ export default function BaseLayout({ children }: Props) {
             }
       }
     >
-      <div className="h-[calc(100%-90px)] overflow-auto">
+      <div className="h-[calc(100%-90px)]">
         <div className="h-full w-full overflow-auto">
-          <div className="lg:(py-[50px]) py-[50px] px-4">{children}</div>
+          <div className="flex flex-col justify-center items-center min-h-full w-full">
+            <div className="py-[50px] px-4 w-full">{children}</div>
+          </div>
         </div>
       </div>
       <MainFooter />

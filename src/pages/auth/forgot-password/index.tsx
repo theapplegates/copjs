@@ -1,15 +1,16 @@
 import type { GetServerSidePropsContext } from 'next';
 import { useRouter } from 'next/router';
-import { signIn, useSession } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useEffect, useState } from 'react';
 import { HiOutlineArrowSmLeft, HiOutlineArrowSmRight } from 'react-icons/hi';
 
+import { isValidEmail } from '@/utils/validate';
+
 import Alert from '@/components/atoms/alerts/Alert';
 import Button from '@/components/atoms/buttons/Button';
 import Card from '@/components/atoms/cards/Card';
-import HorizontalDivider from '@/components/atoms/divider/HorizontalDivider';
 import InputText from '@/components/atoms/inputs/InputText';
 import H1 from '@/components/atoms/typography/headings/H1';
 import Link from '@/components/atoms/typography/Link';
@@ -18,16 +19,9 @@ import Title from '@/components/atoms/typography/Title';
 import BaseLayout from '@/components/layouts/BaseLayout';
 import Seo from '@/components/layouts/Seo';
 import Loading from '@/components/loading/Loading';
-import SignInButtons from '@/components/SignInButtons';
-import { hashPassword } from '@/utils/hash';
-
-// The props for the sign in page
-type Props = {
-  errorMessage?: string;
-};
 
 // The sign in page
-export default function SignIn({ errorMessage = '' }: Props) {
+export default function Index() {
   const router = useRouter(); // Get the router
 
   const { t } = useTranslation(); // Get the translation function
@@ -37,8 +31,9 @@ export default function SignIn({ errorMessage = '' }: Props) {
   const [isLoading, setLoading] = useState(false); // Loading state
 
   const [email, setEmail] = useState(''); // State for the email address
-  const [password, setPassword] = useState(''); // State for the password
-  const [error, setError] = useState(errorMessage); // State for the error message
+
+  const [success, setSuccess] = useState(''); // State for the success message
+  const [error, setError] = useState(''); // State for the error message
 
   useEffect(() => {
     // If the user is authenticated
@@ -48,27 +43,45 @@ export default function SignIn({ errorMessage = '' }: Props) {
     }
   }, [status, router]);
 
-  const handleSignIn = async () => {
+  const handleForgotPassword = async () => {
     setLoading(true);
 
-    // Sign in the user
-    const result = await signIn('credentials', {
-      email,
-      password: hashPassword(password),
-      redirect: false
+    // Validation
+    if (!isValidEmail(email)) {
+      setError(t('Invalid email address.') || '');
+      setSuccess('');
+      setLoading(false);
+      return;
+    }
+
+    // Send the email address to the API to send a password reset email
+    const response = await fetch('/api/auth/request-reset-link', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ email })
     });
 
     // If the user is not authenticated
-    if (result?.error) {
+    if (response.status !== 200) {
+      setSuccess(''); // Clear the success message
+
       // Set the error message
-      setError(t('Invalid credentials.') || '');
+      setError(t('This email address is not registered.') || '');
       setLoading(false); // Stop loading
 
       return;
     }
 
-    // Redirect to the housekeeping page if the user is authenticated
-    router.push('/housekeeping');
+    setError(''); // Clear the error message
+
+    // Set the success message
+    setSuccess(
+      t("We've sent you an email with a link to reset your password.") || ''
+    );
+
+    setLoading(false); // Stop loading
   };
 
   // If the session is loading or authenticated, return the loading message
@@ -79,32 +92,30 @@ export default function SignIn({ errorMessage = '' }: Props) {
   // Return the sign in page
   return (
     <>
-      <Seo title={t('Sign in') || undefined} />
+      <Seo title={t('Reset password') || undefined} />
 
       <BaseLayout>
         <div className="flex h-full w-full items-center justify-center">
           <div className="mx-auto w-full max-w-[410px]">
-            <H1 className="mb-10 text-center">{t('Welcome back')}</H1>
-
-            <SignInButtons />
-
-            <HorizontalDivider>{t('or sign in with email')}</HorizontalDivider>
+            <H1 className="mb-10 text-center">{t('Reset password')}</H1>
 
             <Card>
               <div className="my-5">
-                <Title className="mb-2">{t('Welcome back')}</Title>
+                <Title className="mb-2">{t('Reset your password')}</Title>
                 <Subtitle>
-                  {t("You don't have an account?")}{' '}
-                  <Link href="/auth/signup">{t('Create one')}</Link>
+                  {t('You remember your password again?')}{' '}
+                  <Link href="/auth/signin">{t('Sign in')}</Link>
                 </Subtitle>
               </div>
 
               {error && <Alert color="danger">{error}</Alert>}
+              {success && <Alert color="success">{success}</Alert>}
+
               <form
                 onSubmit={async e => {
                   e.preventDefault();
 
-                  await handleSignIn();
+                  await handleForgotPassword();
                 }}
               >
                 <div className="mb-5">
@@ -119,21 +130,6 @@ export default function SignIn({ errorMessage = '' }: Props) {
                     className="w-full"
                   />
                 </div>
-                <div className="mb-5">
-                  <InputText
-                    type="password"
-                    id="password"
-                    placeholder={t('Password') || ''}
-                    value={password}
-                    changeHandler={event => setPassword(event.target.value)}
-                    floatingLabel={true}
-                    className="w-full"
-                  />
-                </div>
-
-                <Link href="/auth/forgot-password" className="block mb-5">
-                  {t('Forgot password?')}
-                </Link>
 
                 <Button
                   color="primary"
@@ -142,7 +138,7 @@ export default function SignIn({ errorMessage = '' }: Props) {
                   className="my-2 w-full justify-center"
                   rightIcon={<HiOutlineArrowSmRight />}
                 >
-                  {t('Sign in')}
+                  {t('Send reset link')}
                 </Button>
               </form>
 
