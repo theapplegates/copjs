@@ -51,7 +51,7 @@ export default function Index() {
           <div>
             <div className="">
               {t('Signed in as {{email}}', {
-                displayName: session?.user?.email ?? ''
+                email: session?.user?.email ?? ''
               })}
             </div>
 
