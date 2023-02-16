@@ -36,5 +36,13 @@
   "Create an Account": "Erstelle einen Account",
 
   "or register with email": "oder mit E-Mail registrieren",
-  "or sign in with email": "oder mit E-Mail anmelden"
+  "or sign in with email": "oder mit E-Mail anmelden",
+
+  "Reset password": "Passwort zurücksetzen",
+  "Forgot password?": "Passwort vergessen?",
+  "Send reset link": "Link senden",
+  "You remember your password again?": "Du hast dein Passwort wieder?",
+  "Reset your password": "Setze dein Passwort zurück",
+  "This email address is not registered.": "Diese E-Mail-Adresse ist nicht registriert.",
+  "We've sent you an email with a link to reset your password.": "Wir haben dir eine E-Mail mit einem Link zum Zurücksetzen deines Passworts geschickt."
 }
