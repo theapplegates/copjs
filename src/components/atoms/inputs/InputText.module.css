@@ -1,3 +1,8 @@
-.input:autofill {
+.input:autofill,
+.input:-webkit-autofill,
+.input:-webkit-autofill:hover,
+.input:-webkit-autofill:focus,
+.input:-webkit-autofill:active {
   background: transparent !important;
+  background-clip: content-box !important;
 }
