@@ -1,7 +1,6 @@
 import backgroundImage from '@/assets/images/bg.png';
+import MainFooter from '@/components/layouts/MainFooter';
 import { useTheme } from '@/providers/ThemeProvider';
-
-import Footer from './Footer';
 
 // The props for the base layout
 type Props = {
@@ -36,7 +35,7 @@ export default function BaseLayout({ children }: Props) {
           <div className="lg:(py-[50px]) py-[50px] px-4">{children}</div>
         </div>
       </div>
-      <Footer />
+      <MainFooter />
     </div>
   );
 }

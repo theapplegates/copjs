@@ -1,12 +1,13 @@
 import classNames from 'classnames';
+import React from 'react';
 
-import style from './InputText.module.css';
+import style from '@/components/atoms/inputs/InputText.module.css';
 
 // The props for the component
 type Props = {
   id?: string;
   value?: string; // The value of the input
-  forwardRef?: React.Ref<HTMLInputElement>;
+  forwardRef?: any;
   type?: 'date' | 'email' | 'number' | 'password' | 'tel' | 'text' | 'url'; // The type of the input
   color?: 'primary'; // The color variant
   placeholder?: string; // The placeholder
@@ -37,10 +38,12 @@ export default function InputText({
   floatingLabel,
   className
 }: Props) {
+  const ref = forwardRef || React.createRef();
+
   // Define the color variants
   const colorVariants = {
     primary:
-      'bg-white text-ebony border border-secondary hover:(border-2 border-primary) focus:(border-2 border-primary) dark:(bg-transparent text-white) dark:hover:(border-white) dark:focus:(border-white) placeholder-gray outline-none'
+      'bg-transparent text-ebony border border-secondary hover:(border-2 border-primary) focus:(border-2 border-primary) dark:(bg-transparent text-white) dark:hover:(border-white) dark:focus:(border-white) placeholder-gray outline-none'
   };
 
   // Return the input
@@ -49,7 +52,7 @@ export default function InputText({
       <div className="group relative z-0">
         <input
           id={id}
-          ref={forwardRef}
+          ref={ref}
           type={type}
           value={value}
           autoFocus={autoFocus}
@@ -63,7 +66,7 @@ export default function InputText({
           readOnly={readOnly}
           placeholder={floatingLabel ? ' ' : placeholder}
           className={classNames(
-            'peer appearance-none h-[70px]',
+            'peer appearance-none h-[70px] w-full',
             'flex items-center gap-2',
             'transition duration-200 font-regular text-base rounded-xl',
             floatingLabel ? 'pt-7 pb-2 px-4' : 'py-4 px-4',
@@ -76,10 +79,15 @@ export default function InputText({
         {floatingLabel && (
           <label
             htmlFor={id}
+            onClick={() => {
+              if (forwardRef?.current) {
+                forwardRef.current.focus();
+              }
+            }}
             className={classNames(
               'absolute transform duration-300 px-4',
               'cursor-text select-none',
-              'top-6 z-10 origin-[0] -translate-y-4',
+              'top-6 -z-10 origin-[0] -translate-y-4',
               'peer-placeholder-shown:(translate-y-0) peer-focus:(-translate-y-4)',
               'text-gray'
             )}

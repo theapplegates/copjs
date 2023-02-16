@@ -1,14 +1,13 @@
 import { useRouter } from 'next/router';
-import { signOut, useSession } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
 import { useTranslation } from 'next-i18next';
 
 import backgroundImage from '@/assets/images/bg.png';
 import Button from '@/components/atoms/buttons/Button';
 import Subtitle from '@/components/atoms/typography/Subtitle';
 import Title from '@/components/atoms/typography/Title';
+import MainFooter from '@/components/layouts/MainFooter';
 import { useTheme } from '@/providers/ThemeProvider';
-
-import Footer from './Footer';
 
 // The props for the app layout
 type Props = {
@@ -64,20 +63,7 @@ export default function AppLayout({ children }: Props) {
                     )}
                   </div>
 
-                  {session ? (
-                    <Button
-                      clickHandler={() => {
-                        signOut({
-                          callbackUrl: `/${router.locale || ''}`,
-                          redirect: true
-                        });
-                      }}
-                      size="small"
-                      className="mb-3"
-                    >
-                      {t('Sign out')}
-                    </Button>
-                  ) : (
+                  {!session && (
                     <Button
                       clickHandler={() => {
                         router.push(`/auth/signin`);
@@ -96,7 +82,7 @@ export default function AppLayout({ children }: Props) {
           </div>
         </div>
       </div>
-      <Footer />
+      <MainFooter />
     </div>
   );
 }

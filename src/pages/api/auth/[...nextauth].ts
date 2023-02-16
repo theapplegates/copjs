@@ -23,7 +23,7 @@ export function getBaseUrl(req: any): string {
  * @see https://next-auth.js.org/configuration/options
  */
 export const authOptions: NextAuthOptions = {
-  secret: process.env.SECRET || '570d6a646386', // The secret used to encrypt the cookie
+  secret: process.env.SECRET, // The secret used to encrypt the cookie
   adapter: PrismaAdapter(prisma), // The adapter is what connects NextAuth to your database
 
   /**
@@ -150,12 +150,6 @@ export const authOptions: NextAuthOptions = {
   jwt: {
     // A secret to use for key generation (you should set this explicitly)
     secret: process.env.SECRET
-    // Set to true to use encryption (default: false)
-    // encryption: true,
-    // You can define your own encode/decode functions for signing and encryption
-    // if you want to override the default behaviour.
-    // encode: async ({ secret, token, maxAge }) => {},
-    // decode: async ({ secret, token, maxAge }) => {},
   },
 
   /**

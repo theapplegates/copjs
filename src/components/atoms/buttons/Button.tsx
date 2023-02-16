@@ -84,7 +84,9 @@ export default function Button({
           ></path>
         </svg>
       ) : (
-        leftIcon
+        leftIcon && (
+          <div className="duration-300 group-hover:pr-1">{leftIcon}</div>
+        )
       )}
       {children}
       {rightIcon && (

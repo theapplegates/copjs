@@ -6,7 +6,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useEffect, useState } from 'react';
 import { HiOutlineArrowSmLeft, HiOutlineArrowSmRight } from 'react-icons/hi';
 
-import AlertDanger from '@/components/atoms/alerts/AlertDanger';
+import Alert from '@/components/atoms/alerts/Alert';
 import Button from '@/components/atoms/buttons/Button';
 import Card from '@/components/atoms/cards/Card';
 import HorizontalDivider from '@/components/atoms/divider/HorizontalDivider';
@@ -99,7 +99,7 @@ export default function SignIn({ errorMessage = '' }: Props) {
                 </Subtitle>
               </div>
 
-              {error && <AlertDanger>{error}</AlertDanger>}
+              {error && <Alert color="danger">{error}</Alert>}
               <form
                 onSubmit={async e => {
                   e.preventDefault();

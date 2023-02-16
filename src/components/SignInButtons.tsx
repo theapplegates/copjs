@@ -5,7 +5,7 @@ import { useTranslation } from 'next-i18next';
 import { useEffect, useState } from 'react';
 import { FaDiscord } from 'react-icons/fa';
 
-import Button from './atoms/buttons/Button';
+import Button from '@/components/atoms/buttons/Button';
 
 export default function SignInButtons() {
   const { t } = useTranslation(); // Get the translation function

@@ -58,6 +58,7 @@ export default function Index() {
             <Button
               color={'secondary'}
               className="my-2"
+              size="small"
               clickHandler={() => {
                 signOut({
                   callbackUrl: `/${router.locale || ''}`,
