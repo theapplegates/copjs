@@ -45,6 +45,7 @@ export default function Index() {
               className="rounded-full"
               width={80}
               height={80}
+              priority
             />
           )}
 
