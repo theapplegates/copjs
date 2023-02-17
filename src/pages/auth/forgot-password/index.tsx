@@ -1,7 +1,6 @@
 import type { GetServerSidePropsContext } from 'next';
 import { useRouter } from 'next/router';
 import { useSession } from 'next-auth/react';
-import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useEffect, useState } from 'react';
 import { HiOutlineArrowSmLeft, HiOutlineArrowSmRight } from 'react-icons/hi';
@@ -17,13 +16,14 @@ import Title from '@/components/atoms/typography/Title';
 import BaseLayout from '@/components/layouts/BaseLayout';
 import Seo from '@/components/layouts/Seo';
 import Loading from '@/components/loading/Loading';
+import { useLocale } from '@/providers/LocaleProvider';
 import { isValidEmail } from '@/utils/validate';
 
 // The sign in page
 export default function Index() {
   const router = useRouter(); // Get the router
 
-  const { t } = useTranslation(); // Get the translation function
+  const { t } = useLocale(); // Get the translation function
 
   const { status } = useSession(); // Get the session
 
@@ -47,7 +47,7 @@ export default function Index() {
 
     // Validation
     if (!isValidEmail(email)) {
-      setError(t('Invalid email address.') || '');
+      setError(t('Invalid email address.'));
       setSuccess('');
       setLoading(false);
       return;
@@ -67,7 +67,7 @@ export default function Index() {
       setSuccess(''); // Clear the success message
 
       // Set the error message
-      setError(t('This email address is not registered.') || '');
+      setError(t('This email address is not registered.'));
       setLoading(false); // Stop loading
 
       return;
@@ -77,7 +77,7 @@ export default function Index() {
 
     // Set the success message
     setSuccess(
-      t("We've sent you an email with a link to reset your password.") || ''
+      t("We've sent you an email with a link to reset your password.")
     );
 
     setLoading(false); // Stop loading
@@ -122,7 +122,7 @@ export default function Index() {
                     type="email"
                     id="email"
                     autoFocus={true}
-                    placeholder={t('Email') || ''}
+                    placeholder={t('Email')}
                     value={email}
                     changeHandler={event => setEmail(event.target.value)}
                     floatingLabel={true}
@@ -142,13 +142,13 @@ export default function Index() {
               </form>
 
               <Link
-                href="/"
+                href="/auth/signin"
                 className="group mt-4 flex w-full items-center justify-center gap-2"
               >
                 <div className="inline-block duration-300 group-hover:pr-1">
                   <HiOutlineArrowSmLeft />
-                </div>{' '}
-                {t('Back to homepage')}
+                </div>
+                {t('Back to sign in')}
               </Link>
             </Card>
           </div>

@@ -1,12 +1,12 @@
 import { useRouter } from 'next/router';
 import { useSession } from 'next-auth/react';
-import { useTranslation } from 'next-i18next';
 
 import backgroundImage from '@/assets/images/bg.png';
 import Button from '@/components/atoms/buttons/Button';
 import Subtitle from '@/components/atoms/typography/Subtitle';
 import Title from '@/components/atoms/typography/Title';
 import MainFooter from '@/components/layouts/MainFooter';
+import { useLocale } from '@/providers/LocaleProvider';
 import { useTheme } from '@/providers/ThemeProvider';
 
 // The props for the app layout
@@ -16,7 +16,7 @@ type Props = {
 
 // The app layout
 export default function AppLayout({ children }: Props) {
-  const { t } = useTranslation(); // Get the translation function
+  const { t } = useLocale(); // Get the translation function
 
   const { data: session } = useSession(); // Get the session
 

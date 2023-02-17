@@ -1,7 +1,6 @@
 import type { GetServerSidePropsContext } from 'next';
 import { useRouter } from 'next/router';
 import { signIn, useSession } from 'next-auth/react';
-import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useEffect, useState } from 'react';
 import { HiOutlineArrowSmLeft, HiOutlineArrowSmRight } from 'react-icons/hi';
@@ -19,13 +18,14 @@ import BaseLayout from '@/components/layouts/BaseLayout';
 import Seo from '@/components/layouts/Seo';
 import Loading from '@/components/loading/Loading';
 import SignInButtons from '@/components/SignInButtons';
+import { useLocale } from '@/providers/LocaleProvider';
 import { isValidEmail } from '@/utils/validate';
 
 // The sign up page
 export default function SignUp() {
   const router = useRouter(); // Get the router
 
-  const { t } = useTranslation(); // Get the translation function
+  const { t } = useLocale(); // Get the translation function
 
   const { status } = useSession(); // Get the session
 
@@ -50,43 +50,43 @@ export default function SignUp() {
 
     // Validation
     if (name.length < 3) {
-      setError(t('Display name to short.') || '');
+      setError(t('Display name to short.'));
       setLoading(false);
       return;
     }
 
     if (name.length > 100) {
-      setError(t('Display name to long.') || '');
+      setError(t('Display name to long.'));
       setLoading(false);
       return;
     }
 
     if (!isValidEmail(email)) {
-      setError(t('Invalid email address.') || '');
+      setError(t('Invalid email address.'));
       setLoading(false);
       return;
     }
 
     if (email.length > 100) {
-      setError(t('Email address to long.') || '');
+      setError(t('Email address to long.'));
       setLoading(false);
       return;
     }
 
     if (password.length < 6) {
-      setError(t('Password to short.') || '');
+      setError(t('Password to short.'));
       setLoading(false);
       return;
     }
 
     if (password.length > 100) {
-      setError(t('Password to long.') || '');
+      setError(t('Password to long.'));
       setLoading(false);
       return;
     }
 
     if (password !== passwordConfirm) {
-      setError(t('Password confirmation incorrect.') || '');
+      setError(t('Password confirmation incorrect.'));
       setLoading(false);
       return;
     }
@@ -112,7 +112,7 @@ export default function SignUp() {
     }
 
     // When the registration failed
-    setError(t('The email address already exists.') || ''); // Set the error message
+    setError(t('The email address already exists.')); // Set the error message
     setLoading(false); // Stop loading
   };
 
@@ -159,7 +159,7 @@ export default function SignUp() {
                     type="text"
                     id="name"
                     autoFocus={true}
-                    placeholder={t('Display name') || ''}
+                    placeholder={t('Display name')}
                     value={name}
                     changeHandler={event => setName(event.target.value)}
                     floatingLabel={true}
@@ -170,7 +170,7 @@ export default function SignUp() {
                   <InputText
                     type="email"
                     id="email"
-                    placeholder={t('Email') || ''}
+                    placeholder={t('Email')}
                     value={email}
                     changeHandler={event => setEmail(event.target.value)}
                     floatingLabel={true}
@@ -181,7 +181,7 @@ export default function SignUp() {
                   <InputText
                     type="password"
                     id="password"
-                    placeholder={t('Password') || ''}
+                    placeholder={t('Password')}
                     value={password}
                     changeHandler={event => setPassword(event.target.value)}
                     floatingLabel={true}
@@ -192,7 +192,7 @@ export default function SignUp() {
                   <InputText
                     type="password"
                     id="password_confirm"
-                    placeholder={t('Confirm password') || ''}
+                    placeholder={t('Confirm password')}
                     value={passwordConfirm}
                     changeHandler={event =>
                       setPasswordConfirm(event.target.value)
@@ -213,13 +213,13 @@ export default function SignUp() {
               </form>
 
               <Link
-                href="/"
+                href="/auth/signin"
                 className="group mt-4 flex w-full items-center justify-center gap-2"
               >
                 <div className="inline-block duration-300 group-hover:pr-1">
                   <HiOutlineArrowSmLeft />
                 </div>{' '}
-                {t('Back to homepage')}
+                {t('Back to sign in')}
               </Link>
             </Card>
           </div>

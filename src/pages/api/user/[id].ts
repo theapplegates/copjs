@@ -9,7 +9,7 @@ import { authOptions } from '@/pages/api/auth/[...nextauth]';
 async function handleGET(id: string, res: NextApiResponse) {
   // Get the user from the database
   await prisma.user
-    .findUnique({
+    .findFirst({
       where: { id }
       // include: { id: true, name: true, email: true, image: true },
     })

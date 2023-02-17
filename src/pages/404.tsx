@@ -1,22 +1,22 @@
 import type { GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
-import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 import Button from '@/components/atoms/buttons/Button';
 import H1 from '@/components/atoms/typography/headings/H1';
 import BaseLayout from '@/components/layouts/BaseLayout';
 import Seo from '@/components/layouts/Seo';
+import { useLocale } from '@/providers/LocaleProvider';
 
 // The 404 page
 export default function Error404() {
   const router = useRouter(); // Get the router
 
-  const { t } = useTranslation(); // Get the translation function
+  const { t } = useLocale(); // Get the translation function
 
   return (
     <>
-      <Seo title={t('Page not found') || undefined} />
+      <Seo title={t('Page not found')} />
       <BaseLayout>
         <div className="flex h-full w-full items-center justify-center">
           <div>

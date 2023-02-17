@@ -13,7 +13,7 @@ export default async function handler(
 
   // Check the credentials using the checkCredentials function
   await prisma.user
-    .findUnique({
+    .findFirst({
       where: { email },
       select: {
         id: true,

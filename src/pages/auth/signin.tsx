@@ -1,7 +1,6 @@
 import type { GetServerSidePropsContext } from 'next';
 import { useRouter } from 'next/router';
 import { signIn, useSession } from 'next-auth/react';
-import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useEffect, useState } from 'react';
 import { HiOutlineArrowSmLeft, HiOutlineArrowSmRight } from 'react-icons/hi';
@@ -19,18 +18,14 @@ import BaseLayout from '@/components/layouts/BaseLayout';
 import Seo from '@/components/layouts/Seo';
 import Loading from '@/components/loading/Loading';
 import SignInButtons from '@/components/SignInButtons';
+import { useLocale } from '@/providers/LocaleProvider';
 import { hashPassword } from '@/utils/hash';
 
-// The props for the sign in page
-type Props = {
-  errorMessage?: string;
-};
-
 // The sign in page
-export default function SignIn({ errorMessage = '' }: Props) {
+export default function SignIn() {
   const router = useRouter(); // Get the router
 
-  const { t } = useTranslation(); // Get the translation function
+  const { t } = useLocale(); // Get the translation function
 
   const { status } = useSession(); // Get the session
 
@@ -38,13 +33,18 @@ export default function SignIn({ errorMessage = '' }: Props) {
 
   const [email, setEmail] = useState(''); // State for the email address
   const [password, setPassword] = useState(''); // State for the password
-  const [error, setError] = useState(errorMessage); // State for the error message
+  const [error, setError] = useState(''); // State for the error message
 
   useEffect(() => {
     // If the user is authenticated
     if (status === 'authenticated') {
       // Redirect to the housekeeping page
       router.push('/housekeeping');
+      return;
+    }
+
+    if (router.query.error) {
+      setError(t(router.query.error as string));
     }
   }, [status, router]);
 
@@ -61,7 +61,7 @@ export default function SignIn({ errorMessage = '' }: Props) {
     // If the user is not authenticated
     if (result?.error) {
       // Set the error message
-      setError(t('Invalid credentials.') || '');
+      setError(t('Invalid credentials.'));
       setLoading(false); // Stop loading
 
       return;
@@ -112,7 +112,7 @@ export default function SignIn({ errorMessage = '' }: Props) {
                     type="email"
                     id="email"
                     autoFocus={true}
-                    placeholder={t('Email') || ''}
+                    placeholder={t('Email')}
                     value={email}
                     changeHandler={event => setEmail(event.target.value)}
                     floatingLabel={true}
@@ -123,7 +123,7 @@ export default function SignIn({ errorMessage = '' }: Props) {
                   <InputText
                     type="password"
                     id="password"
-                    placeholder={t('Password') || ''}
+                    placeholder={t('Password')}
                     value={password}
                     changeHandler={event => setPassword(event.target.value)}
                     floatingLabel={true}

@@ -6,6 +6,7 @@ import { SessionProvider } from 'next-auth/react';
 import { appWithTranslation } from 'next-i18next';
 import { useEffect, useState } from 'react';
 
+import { LocaleProvider } from '@/providers/LocaleProvider';
 import { ThemeProvider } from '@/providers/ThemeProvider';
 
 // The app
@@ -24,9 +25,11 @@ const App = ({ Component, pageProps: { session, ...pageProps } }: AppProps) => {
   // Return the app
   return (
     <SessionProvider session={session}>
-      <ThemeProvider>
-        <Component {...pageProps} />
-      </ThemeProvider>
+      <LocaleProvider>
+        <ThemeProvider>
+          <Component {...pageProps} />
+        </ThemeProvider>
+      </LocaleProvider>
     </SessionProvider>
   );
 };

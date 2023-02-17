@@ -13,7 +13,7 @@ export default async function handler(
 
   // Check the user exists
   await prisma.user
-    .findUnique({
+    .findFirst({
       where: { email },
       select: {
         id: true,

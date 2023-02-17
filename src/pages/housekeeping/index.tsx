@@ -4,18 +4,18 @@ import { useRouter } from 'next/router';
 import { signOut, useSession } from 'next-auth/react';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
 
 import Button from '@/components/atoms/buttons/Button';
 import AppLayout from '@/components/layouts/AppLayout';
 import Seo from '@/components/layouts/Seo';
 import Loading from '@/components/loading/Loading';
+import { useLocale } from '@/providers/LocaleProvider';
 
 // The housekeeping page
 export default function Index() {
   const router = useRouter(); // Get the router
 
-  const { t } = useTranslation(); // Get the translation function
+  const { t } = useLocale(); // Get the translation function
 
   const { data: session, status } = useSession(); // Get the session
 
