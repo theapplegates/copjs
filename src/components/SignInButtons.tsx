@@ -1,26 +1,20 @@
 import type { BuiltInProviderType } from 'next-auth/providers';
 import type { ClientSafeProvider, LiteralUnion } from 'next-auth/react';
-import { getProviders, signIn } from 'next-auth/react';
-import { useEffect, useState } from 'react';
+import { signIn } from 'next-auth/react';
 import { FaDiscord, FaGithub } from 'react-icons/fa';
 
 import Button from '@/components/atoms/buttons/Button';
 import { useLocale } from '@/providers/LocaleProvider';
 
-export default function SignInButtons() {
-  const { t } = useLocale(); // Get the translation function
-
-  const [providers, setProviders] = useState<Record<
+type Props = {
+  providers: Record<
     LiteralUnion<BuiltInProviderType, string>,
     ClientSafeProvider
-  > | null>(null); // State for the providers
+  > | null;
+};
 
-  useEffect(() => {
-    (async () => {
-      // Get the providers and set the state
-      setProviders(await getProviders());
-    })();
-  }, []);
+export default function SignInButtons({ providers }: Props) {
+  const { t } = useLocale(); // Get the translation function
 
   return (
     <>

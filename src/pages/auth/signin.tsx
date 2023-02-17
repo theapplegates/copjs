@@ -1,6 +1,12 @@
 import type { GetServerSidePropsContext } from 'next';
 import { useRouter } from 'next/router';
-import { signIn, useSession } from 'next-auth/react';
+import {
+  ClientSafeProvider,
+  getProviders,
+  LiteralUnion,
+  signIn,
+  useSession
+} from 'next-auth/react';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useEffect, useState } from 'react';
 import { HiOutlineArrowSmLeft, HiOutlineArrowSmRight } from 'react-icons/hi';
@@ -20,6 +26,7 @@ import Loading from '@/components/loading/Loading';
 import SignInButtons from '@/components/SignInButtons';
 import { useLocale } from '@/providers/LocaleProvider';
 import { hashPassword } from '@/utils/hash';
+import { BuiltInProviderType } from 'next-auth/providers';
 
 // The sign in page
 export default function SignIn() {
@@ -71,8 +78,25 @@ export default function SignIn() {
     router.push('/housekeeping');
   };
 
+  // Get providers
+  const [providers, setProviders] = useState<Record<
+    LiteralUnion<BuiltInProviderType, string>,
+    ClientSafeProvider
+  > | null>(null); // State for the providers
+
+  useEffect(() => {
+    (async () => {
+      // Get the providers and set the state
+      setProviders(await getProviders());
+    })();
+  }, []);
+
   // If the session is loading or authenticated, return the loading message
-  if (status === 'loading' || status === 'authenticated') {
+  if (
+    providers === null ||
+    status === 'loading' ||
+    status === 'authenticated'
+  ) {
     return <Loading />;
   }
 
@@ -86,7 +110,7 @@ export default function SignIn() {
           <div className="mx-auto w-full max-w-[410px]">
             <H1 className="mb-10 text-center">{t('Welcome back')}</H1>
 
-            <SignInButtons />
+            <SignInButtons providers={providers} />
 
             <HorizontalDivider>{t('or sign in with email')}</HorizontalDivider>
 
