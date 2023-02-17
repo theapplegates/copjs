@@ -10,7 +10,7 @@ module.exports = {
   i18n: {
     defaultLocale: 'en',
     locales: ['en', 'de'],
-    basePath: '/:locale'
+    localeDetection: true
   },
   /** To avoid issues when deploying to some paas (vercel...) */
   localePath:
