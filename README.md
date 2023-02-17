@@ -47,6 +47,8 @@ Build web applications that are scalable, efficient and user-friendly with CopJS
 - 🛡️ Protected API routes with user role management
 - 🔐 User authentication with NextAuth and CredentialsProvider for Sign-In and Sign-Up functionality
 - 🔒 Custom Sign-In and Sign-Up Page
+- 🚫 Custom Error Messages for NextAuth Providers
+- 🔒 Multiple Accounts with the Same Email Address
 
 ## Built-in Advantages from Next.js
 
