@@ -1,5 +1,5 @@
+import React, { createContext, useContext, useEffect } from 'react';
 import { useTranslation } from 'next-i18next';
-import React, { createContext, useContext } from 'react';
 
 // The props for the context
 interface LocaleContextProps {
@@ -17,11 +17,21 @@ type Props = {
 
 // The provider
 const LocaleProvider = ({ children }: Props) => {
+  const { i18n } = useTranslation();
+
   const { t: translate } = useTranslation(); // Get the i18n instance
 
   const t = (text: string, replacements?: any) => {
     return translate(text, replacements) || '';
   };
+
+  useEffect(() => {
+    const storedLanguage = localStorage.getItem('language');
+
+    if (storedLanguage) {
+      i18n.changeLanguage(storedLanguage as any);
+    }
+  }, []);
 
   // Return the provider
   return (

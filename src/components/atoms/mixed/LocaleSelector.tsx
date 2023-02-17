@@ -13,6 +13,7 @@ export default function LocaleSelector() {
   const handleLocaleChange = async (locale: string) => {
     setLoading(true);
 
+    localStorage.setItem('language', locale);
     i18n.changeLanguage(locale);
 
     setLoading(false);
