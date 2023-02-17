@@ -1,14 +1,12 @@
-import type { GetServerSidePropsContext } from 'next';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { signOut, useSession } from 'next-auth/react';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useEffect } from 'react';
 
 import Button from '@/components/atoms/buttons/Button';
 import AppLayout from '@/components/layouts/AppLayout';
 import Seo from '@/components/layouts/Seo';
-import Loading from '@/components/loading/Loading';
+import Loader from '@/components/loading/Loader';
 import { useLocale } from '@/providers/LocaleProvider';
 
 // The housekeeping page
@@ -29,7 +27,7 @@ export default function Index() {
 
   // If the session is loading or unauthenticated, return the loading message
   if (status === 'loading' || status === 'unauthenticated') {
-    return <Loading />;
+    return <Loader />;
   }
 
   // Return the housekeeping page
@@ -62,7 +60,7 @@ export default function Index() {
               size="small"
               clickHandler={() => {
                 signOut({
-                  callbackUrl: `/${router.locale || ''}`,
+                  callbackUrl: `/`,
                   redirect: true
                 });
               }}
@@ -74,12 +72,4 @@ export default function Index() {
       </AppLayout>
     </>
   );
-}
-
-export async function getServerSideProps(context: GetServerSidePropsContext) {
-  return {
-    props: {
-      ...(await serverSideTranslations(context.locale ?? 'en', ['common']))
-    }
-  };
 }

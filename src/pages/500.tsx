@@ -1,6 +1,4 @@
-import type { GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 import Button from '@/components/atoms/buttons/Button';
 import H1 from '@/components/atoms/typography/headings/H1';
@@ -39,10 +37,3 @@ export default function Error500() {
     </>
   );
 }
-
-// Get the translations
-export const getStaticProps: GetStaticProps = async ({ locale }) => ({
-  props: {
-    ...(await serverSideTranslations(locale ?? 'en', ['common']))
-  }
-});

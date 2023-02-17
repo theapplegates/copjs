@@ -1,13 +1,7 @@
-import type { GetServerSidePropsContext } from 'next';
 import { useRouter } from 'next/router';
-import {
-  ClientSafeProvider,
-  getProviders,
-  LiteralUnion,
-  signIn,
-  useSession
-} from 'next-auth/react';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import type { BuiltInProviderType } from 'next-auth/providers';
+import type { ClientSafeProvider, LiteralUnion } from 'next-auth/react';
+import { getProviders, signIn, useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
 import { HiOutlineArrowSmLeft, HiOutlineArrowSmRight } from 'react-icons/hi';
 
@@ -22,11 +16,10 @@ import Subtitle from '@/components/atoms/typography/Subtitle';
 import Title from '@/components/atoms/typography/Title';
 import BaseLayout from '@/components/layouts/BaseLayout';
 import Seo from '@/components/layouts/Seo';
-import Loading from '@/components/loading/Loading';
+import Loader from '@/components/loading/Loader';
 import SignInButtons from '@/components/SignInButtons';
 import { useLocale } from '@/providers/LocaleProvider';
 import { hashPassword } from '@/utils/hash';
-import { BuiltInProviderType } from 'next-auth/providers';
 
 // The sign in page
 export default function SignIn() {
@@ -97,7 +90,7 @@ export default function SignIn() {
     status === 'loading' ||
     status === 'authenticated'
   ) {
-    return <Loading />;
+    return <Loader />;
   }
 
   // Return the sign in page
@@ -185,13 +178,4 @@ export default function SignIn() {
       </BaseLayout>
     </>
   );
-}
-
-// Get the server side props
-export async function getServerSideProps(context: GetServerSidePropsContext) {
-  return {
-    props: {
-      ...(await serverSideTranslations(context.locale ?? 'en', ['common']))
-    }
-  };
 }

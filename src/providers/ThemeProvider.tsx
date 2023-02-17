@@ -1,10 +1,10 @@
 import classNames from 'classnames';
 import React, { createContext, useContext, useEffect, useState } from 'react';
 
-// Theme type definition
+// Type definition
 type Theme = 'light' | 'dark';
 
-// The props for the theme context
+// The props for the context
 interface ThemeContextProps {
   theme: Theme;
   toggleTheme: () => void;
@@ -20,7 +20,7 @@ type Props = {
   children: React.ReactNode;
 };
 
-// The theme provider
+// The provider
 const ThemeProvider = ({ children }: Props) => {
   const [theme, setTheme] = useState<Theme>('light'); // Set the default theme
 
@@ -48,8 +48,8 @@ const ThemeProvider = ({ children }: Props) => {
   );
 };
 
-// Get the theme context
+// Get the context
 const useTheme = (): ThemeContextProps => useContext(ThemeContext);
 
-// Export the theme provider and the theme context
+// Export the provider and the context
 export { ThemeProvider, useTheme };

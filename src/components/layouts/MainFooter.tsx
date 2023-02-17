@@ -1,4 +1,5 @@
 import ThemeToggler from '../atoms/buttons/ThemeToggler';
+import LocaleSelector from '../atoms/mixed/LocaleSelector';
 import Footer from './Footer';
 
 export default function MainFooter() {
@@ -13,6 +14,7 @@ export default function MainFooter() {
             </a>
           </span>
           <ThemeToggler />
+          <LocaleSelector />
         </div>
       </Footer>
     </>

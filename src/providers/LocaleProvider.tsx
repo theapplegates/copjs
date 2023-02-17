@@ -1,7 +1,7 @@
 import { useTranslation } from 'next-i18next';
 import React, { createContext, useContext } from 'react';
 
-// The props for the locale context
+// The props for the context
 interface LocaleContextProps {
   t: (text: string, replacements?: any) => any;
 }
@@ -15,7 +15,7 @@ type Props = {
   children: React.ReactNode;
 };
 
-// The locale provider
+// The provider
 const LocaleProvider = ({ children }: Props) => {
   const { t: translate } = useTranslation(); // Get the i18n instance
 
@@ -35,8 +35,8 @@ const LocaleProvider = ({ children }: Props) => {
   );
 };
 
-// Get the locale context
+// Get the context
 const useLocale = (): LocaleContextProps => useContext(LocaleContext);
 
-// Export the locale provider and the locale context
+// Export the provider and the context
 export { LocaleProvider, useLocale };

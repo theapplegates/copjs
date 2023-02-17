@@ -1,7 +1,5 @@
-import type { GetServerSidePropsContext } from 'next';
 import { useRouter } from 'next/router';
 import { useSession } from 'next-auth/react';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useEffect, useState } from 'react';
 import { HiOutlineArrowSmLeft, HiOutlineArrowSmRight } from 'react-icons/hi';
 
@@ -15,7 +13,7 @@ import Subtitle from '@/components/atoms/typography/Subtitle';
 import Title from '@/components/atoms/typography/Title';
 import BaseLayout from '@/components/layouts/BaseLayout';
 import Seo from '@/components/layouts/Seo';
-import Loading from '@/components/loading/Loading';
+import Loader from '@/components/loading/Loader';
 import { useLocale } from '@/providers/LocaleProvider';
 import { isValidEmail } from '@/utils/validate';
 
@@ -85,7 +83,7 @@ export default function Index() {
 
   // If the session is loading or authenticated, return the loading message
   if (status === 'loading' || status === 'authenticated') {
-    return <Loading />;
+    return <Loader />;
   }
 
   // Return the sign in page
@@ -156,13 +154,4 @@ export default function Index() {
       </BaseLayout>
     </>
   );
-}
-
-// Get the server side props
-export async function getServerSideProps(context: GetServerSidePropsContext) {
-  return {
-    props: {
-      ...(await serverSideTranslations(context.locale ?? 'en', ['common']))
-    }
-  };
 }
