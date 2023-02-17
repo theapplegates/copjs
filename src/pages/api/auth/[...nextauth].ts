@@ -35,12 +35,14 @@ export const authOptions: NextAuthOptions = {
 
     // Discord
     DiscordProvider({
+      allowDangerousEmailAccountLinking: true,
       clientId: `${process.env.DISCORD_CLIENT_ID}`, // The client ID can be found on the application page
       clientSecret: `${process.env.DISCORD_CLIENT_SECRET}` // The client secret can be found on the application page
     }),
 
     // Github
     GithubProvider({
+      allowDangerousEmailAccountLinking: true,
       clientId: `${process.env.GITHUB_CLIENT_ID}`, // The client ID can be found on the application page
       clientSecret: `${process.env.GITHUB_CLIENT_SECRET}` // The client secret can be found on the application page
     }),
