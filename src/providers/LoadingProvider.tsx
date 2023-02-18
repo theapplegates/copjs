@@ -1,7 +1,7 @@
+import { useRouter } from 'next/router';
 import React, { createContext, useContext, useEffect, useState } from 'react';
 
 import Loader from '@/components/loading/Loader';
-import { useRouter } from 'next/router';
 
 // The props for the context
 interface LoadingContextProps {

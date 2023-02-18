@@ -1,5 +1,5 @@
-import React, { createContext, useContext, useEffect } from 'react';
 import { useTranslation } from 'next-i18next';
+import React, { createContext, useContext, useEffect } from 'react';
 
 // The props for the context
 interface LocaleContextProps {
