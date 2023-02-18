@@ -43,7 +43,7 @@ export default function InputText({
   // Define the color variants
   const colorVariants = {
     primary:
-      'bg-transparent text-ebony ring-1 ring-secondary hover:(ring-2 ring-primary) focus:(ring-2 ring-primary) dark:(text-white) dark:hover:(ring-2 ring-primary-300) dark:focus:(ring-2 ring-primary-300) placeholder-gray outline-none'
+      'bg-transparent text-ebony ring-1 ring-secondary hover:(ring-2 ring-primary) focus:(ring-2 ring-primary) dark:(ring-gray-600 text-white) dark:hover:(ring-2 ring-primary-300) dark:focus:(ring-2 ring-primary-300) placeholder-gray outline-none'
   };
 
   // Return the input
