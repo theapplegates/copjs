@@ -50,43 +50,43 @@ export default function SignUp() {
 
     // Validation
     if (name.length < 3) {
-      setError(t('Display name to short.'));
+      setError('Display name to short.');
       setLoading(false);
       return;
     }
 
     if (name.length > 100) {
-      setError(t('Display name to long.'));
+      setError('Display name to long.');
       setLoading(false);
       return;
     }
 
     if (!isValidEmail(email)) {
-      setError(t('Invalid email address.'));
+      setError('Invalid email address.');
       setLoading(false);
       return;
     }
 
     if (email.length > 100) {
-      setError(t('Email address to long.'));
+      setError('Email address to long.');
       setLoading(false);
       return;
     }
 
     if (password.length < 6) {
-      setError(t('Password to short.'));
+      setError('Password to short.');
       setLoading(false);
       return;
     }
 
     if (password.length > 100) {
-      setError(t('Password to long.'));
+      setError('Password to long.');
       setLoading(false);
       return;
     }
 
     if (password !== passwordConfirm) {
-      setError(t('Password confirmation incorrect.'));
+      setError('Password confirmation incorrect.');
       setLoading(false);
       return;
     }
@@ -112,7 +112,7 @@ export default function SignUp() {
     }
 
     // When the registration failed
-    setError(t('The email address already exists.')); // Set the error message
+    setError('The email address already exists.'); // Set the error message
     setLoading(false); // Stop loading
   };
 
@@ -161,7 +161,7 @@ export default function SignUp() {
                 </Subtitle>
               </div>
 
-              {error && <Alert color="danger">{error}</Alert>}
+              {error && <Alert color="danger">{t(error)}</Alert>}
               <form
                 onSubmit={async e => {
                   // Prevent the default behaviour

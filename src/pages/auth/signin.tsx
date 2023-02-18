@@ -44,7 +44,7 @@ export default function SignIn() {
     }
 
     if (router.query.error) {
-      setError(t(router.query.error as string));
+      setError(router.query.error as string);
     }
   }, [status, router]);
 
@@ -61,7 +61,7 @@ export default function SignIn() {
     // If the user is not authenticated
     if (result?.error) {
       // Set the error message
-      setError(t('Invalid credentials.'));
+      setError('Invalid credentials.');
       setLoading(false); // Stop loading
 
       return;
@@ -116,7 +116,7 @@ export default function SignIn() {
                 </Subtitle>
               </div>
 
-              {error && <Alert color="danger">{error}</Alert>}
+              {error && <Alert color="danger">{t(error)}</Alert>}
               <form
                 onSubmit={async e => {
                   e.preventDefault();

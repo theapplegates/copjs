@@ -45,7 +45,7 @@ export default function Index() {
 
     // Validation
     if (!isValidEmail(email)) {
-      setError(t('Invalid email address.'));
+      setError('Invalid email address.');
       setSuccess('');
       setLoading(false);
       return;
@@ -65,7 +65,7 @@ export default function Index() {
       setSuccess(''); // Clear the success message
 
       // Set the error message
-      setError(t('This email address is not registered.'));
+      setError('This email address is not registered.');
       setLoading(false); // Stop loading
 
       return;
@@ -74,9 +74,7 @@ export default function Index() {
     setError(''); // Clear the error message
 
     // Set the success message
-    setSuccess(
-      t("We've sent you an email with a link to reset your password.")
-    );
+    setSuccess("We've sent you an email with a link to reset your password.");
 
     setLoading(false); // Stop loading
   };
@@ -105,8 +103,8 @@ export default function Index() {
                 </Subtitle>
               </div>
 
-              {error && <Alert color="danger">{error}</Alert>}
-              {success && <Alert color="success">{success}</Alert>}
+              {error && <Alert color="danger">{t(error)}</Alert>}
+              {success && <Alert color="success">{t(success)}</Alert>}
 
               <form
                 onSubmit={async e => {
