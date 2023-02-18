@@ -35,9 +35,9 @@ export default function Button({
       'bg-transparent border-2 border-primary hover:(bg-primary text-white) text-primary dark:(border-white text-white) dark:hover:(bg-white text-ebony) focus:(ring ring-primary/20) dark:focus:(ring ring-white/20)',
     primary:
       'bg-primary text-white dark:(bg-white text-primary) focus:(ring ring-primary/20) dark:(bg-primary-300 text-ebony) dark:focus:(ring ring-primary-300/20)',
-    discord: 'bg-discord focus:(ring ring-discord-400) text-white',
+    discord: 'bg-discord focus:(ring ring-discord/20) text-white',
     github:
-      'bg-github focus:(ring ring-github-400) text-white dark:(bg-[#fafafa] text-github)'
+      'bg-github focus:(ring ring-github/20) text-white dark:(bg-github-light ring-github-light/20 text-github)'
   };
 
   // Return the button
