@@ -27,7 +27,7 @@ export default function AppLayout({ children }: Props) {
   // Return the app layout
   return (
     <div
-      className="dark:(bg-gray-900 text-white) selection:(bg-primary text-white) h-full w-full"
+      className="dark:(bg-ebony text-white) selection:(bg-primary text-white) h-full w-full"
       style={
         theme === 'dark'
           ? {

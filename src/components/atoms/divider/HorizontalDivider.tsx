@@ -9,7 +9,7 @@ export default function HorizontalDivider({ children }: Props) {
         <div>
           <div className="bg-gray/25 h-[2px] w-[50px]"></div>
         </div>
-        <span className="text-gray font-regular mx-4 text-center">
+        <span className="text-gray dark:text-gray-300 font-regular mx-4 text-center">
           {children}
         </span>
         <div>

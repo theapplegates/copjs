@@ -8,6 +8,10 @@ export default defineConfig({
         xl: '10px'
       },
       colors: {
+        card: {
+          DEFAULT: '#fff',
+          dark: '#1D2939'
+        },
         primary: {
           DEFAULT: '#016D77',
           50: '#32ECFD',
@@ -41,7 +45,7 @@ export default defineConfig({
           100: '#3F5E9D',
           200: '#334C7F',
           300: '#273B62',
-          400: '#1C2945',
+          400: '#1E293B',
           500: '#101828',
           600: '#000000',
           700: '#000000',

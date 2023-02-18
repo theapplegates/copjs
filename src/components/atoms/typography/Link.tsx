@@ -25,7 +25,7 @@ export default function Link({
       title={title}
       target={target}
       className={classNames(
-        'transition duration-300 font-medium text-primary dark:text-white hover:underline',
+        'transition duration-300 font-medium text-primary dark:text-primary-300 hover:underline',
         className
       )}
     >
