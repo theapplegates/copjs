@@ -28,7 +28,7 @@ export default function Index() {
   const [email, setEmail] = useState(''); // State for the email address
 
   const { mutate, isLoading, data, error } =
-    trpc.forgotPassword.requestLink.useMutation();
+    trpc.auth.requestLink.useMutation();
 
   useEffect(() => {
     // If the user is authenticated

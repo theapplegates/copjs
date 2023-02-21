@@ -42,8 +42,7 @@ export default function SignUp() {
     }
   }, [status, router]);
 
-  const { mutate, isLoading, data, error } =
-    trpc.userCreate.create.useMutation();
+  const { mutate, isLoading, data, error } = trpc.user.create.useMutation();
 
   useEffect(() => {
     (async () => {
