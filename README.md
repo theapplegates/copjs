@@ -11,7 +11,7 @@
 [![Issues](https://img.shields.io/github/issues/caglarop/copjs.svg)](https://github.com/caglarop/copjs/issues)
 [![Discord](https://img.shields.io/badge/Discord-Caglar%233780-%235865F2)](https://discordapp.com/users/910960195096674344)
 
-Build web applications that are scalable, efficient and user-friendly with CopJS. The boilerplate is designed with the latest technologies including [TypeScript](https://www.typescriptlang.org/), [React](https://reactjs.org/), [Next.js](https://nextjs.org/), [Turbo](https://turbo.build/), [Prisma](https://www.prisma.io/), and more. With a built-in theme provider for dark mode and absolute imports, your application will have a sleek and modern feel.
+Build web applications that are scalable, efficient and user-friendly with CopJS. The boilerplate is designed with the latest technologies including [TypeScript](https://www.typescriptlang.org/), [React](https://reactjs.org/), [Next.js](https://nextjs.org/), [Prisma](https://www.prisma.io/), [tRPC](https://trpc.io), and much more. With a built-in theme provider your application will have a sleek and modern feel.
 
 [![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://devlifyio.netlify.app)
 
@@ -20,6 +20,8 @@ Build web applications that are scalable, efficient and user-friendly with CopJS
 - [TypeScript](https://www.typescriptlang.org/): 💻 A statically typed, object-oriented programming language that builds on JavaScript.
 - [Next.js](https://nextjs.org/): 🚀 A framework for building server-rendered or statically-generated React applications.
 - [Turbo](https://turbo.build/): 🏋️‍♀️ High-performance build system for JavaScript and TypeScript codebases.
+- [tRPC](https://trpc.io): 🔌 A TypeScript-based RPC framework for building scalable and type-safe APIs with minimal boilerplate.
+- [Zod](https://github.com/colinhacks/zod): 🧩 A TypeScript-first schema builder for static type safety.
 - [Prisma](https://www.prisma.io/): 🗄️ A powerful and flexible database toolkit that makes it easy to work with databases in your application.
 - [Next-Auth](https://next-auth.js.org/): 🔒 A complete authentication solution for Next.js that supports multiple providers and local authentication.
 - [Next-i18next](https://next.i18next.com/): 🌍 An internationalization (i18n) library for Next.js that makes it easy to translate your application.
@@ -43,12 +45,11 @@ Build web applications that are scalable, efficient and user-friendly with CopJS
 - 🗺️ Automatic Generation of Sitemap.xml and robots.txt with next-sitemap
 - 🕰️ Activity tracking with Timestamps added to the Prisma schema
 - 🚫 Custom 404 and 500 error pages for improved user experience
-- 🔑 User Role Management using next-auth and Prisma with extended session types
-- 🛡️ Protected API routes with user role management
-- 🔐 User authentication with NextAuth and CredentialsProvider for Sign-In and Sign-Up functionality
-- 🔒 Custom Sign-In and Sign-Up Page
+- 🔑 User Roles using next-auth and Prisma with extended session types
+- 🛡️ Protected API routes using tRPC
+- 🔐 User authentication with NextAuth and CredentialsProvider with tRPC, Prisma and zod
+- 🔒 Custom Sign-In, Sign-Up Page & Password Reset Page
 - 🚫 Custom Error Messages for NextAuth Providers
-- 🔒 Multiple Accounts with the Same Email Address
 
 ## Built-in Advantages from Next.js
 

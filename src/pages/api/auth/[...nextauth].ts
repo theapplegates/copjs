@@ -4,6 +4,7 @@ import NextAuth from 'next-auth'; // Import the types from the package
 import CredentialsProvider from 'next-auth/providers/credentials'; // Import the Credentials provider
 import DiscordProvider from 'next-auth/providers/discord'; // Import the Discord provider
 import GithubProvider from 'next-auth/providers/github'; // Import the Discord provider
+import { z } from 'zod';
 
 import { prisma } from '@/lib/prisma'; // The adapter requires a prisma instance
 
@@ -58,51 +59,23 @@ export const authOptions: NextAuthOptions = {
         password: { label: 'Password', type: 'password' }
       },
 
-      async authorize(credentials, req): Promise<User | null> {
-        // If no credentials were provided
-        if (!credentials) {
+      async authorize(input): Promise<User | null> {
+        const credentials = await z
+          .object({
+            email: z.string().email().max(100),
+            password: z.string().min(6).max(100)
+          })
+          .parseAsync(input);
+
+        const user = await prisma.user.findFirst({
+          where: { email: credentials.email }
+        });
+
+        if (!user || credentials.password !== user.password) {
           return null;
         }
 
-        // If the credentials were provided, validate them
-        let user: User | null = null;
-
-        try {
-          // Get the base URL of the site
-          // Make a request to your API to validate the credentials
-          const response = await fetch(
-            `${getBaseUrl(req)}/api/user/check-credentials`,
-            {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json'
-              },
-              body: JSON.stringify({
-                email: credentials.email,
-                password: credentials.password
-              })
-            }
-          );
-
-          if (response.status !== 200) {
-            // If the credentials were invalid, return null
-            throw new Error('Login failed');
-          }
-
-          user = await response.json();
-        } catch (err) {
-          return null;
-        }
-
-        // If the credentials were valid, return the user object.
-        if (user) {
-          // Any object returned will be saved in `user` property of the JWT
-          return user;
-        }
-
-        // If you return null then an error will be displayed advising the user to check their details.
-        // You can also Reject this callback with an Error thus the user will be sent to the error page with the error message as a query parameter
-        return null;
+        return user;
       }
     })
   ],

@@ -19,7 +19,7 @@ import Seo from '@/components/layouts/Seo';
 import Loader from '@/components/loading/Loader';
 import SignInButtons from '@/components/SignInButtons';
 import { useLocale } from '@/providers/LocaleProvider';
-import { isValidEmail } from '@/utils/validate';
+import { trpc } from '@/utils/trpc';
 
 // The sign up page
 export default function SignUp() {
@@ -29,13 +29,10 @@ export default function SignUp() {
 
   const { status } = useSession(); // Get the session
 
-  const [isLoading, setLoading] = useState(false); // Loading state
-
   const [name, setName] = useState(''); // State for the display name
   const [email, setEmail] = useState(''); // State for the email address
   const [password, setPassword] = useState(''); // State for the password
   const [passwordConfirm, setPasswordConfirm] = useState(''); // State for the password confirmation
-  const [error, setError] = useState(''); // State for the error message
 
   useEffect(() => {
     // If the user is authenticated
@@ -45,75 +42,22 @@ export default function SignUp() {
     }
   }, [status, router]);
 
+  const { mutate, isLoading, data, error } =
+    trpc.userCreate.create.useMutation();
+
+  useEffect(() => {
+    (async () => {
+      // If the data is available
+      if (data) {
+        // Sign in the user
+        await signIn('credentials', data);
+      }
+    })();
+  }, [data, error]);
+
   const handleSignUp = async () => {
-    setLoading(true);
-
-    // Validation
-    if (name.length < 3) {
-      setError('Display name to short.');
-      setLoading(false);
-      return;
-    }
-
-    if (name.length > 100) {
-      setError('Display name to long.');
-      setLoading(false);
-      return;
-    }
-
-    if (!isValidEmail(email)) {
-      setError('Invalid email address.');
-      setLoading(false);
-      return;
-    }
-
-    if (email.length > 100) {
-      setError('Email address to long.');
-      setLoading(false);
-      return;
-    }
-
-    if (password.length < 6) {
-      setError('Password to short.');
-      setLoading(false);
-      return;
-    }
-
-    if (password.length > 100) {
-      setError('Password to long.');
-      setLoading(false);
-      return;
-    }
-
-    if (password !== passwordConfirm) {
-      setError('Password confirmation incorrect.');
-      setLoading(false);
-      return;
-    }
-
     // Send the request to the API to create the user
-    const response = await fetch('/api/user/create', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ name, email, password })
-    });
-
-    // Get the data from the response
-    const data = await response.json();
-
-    // Check response status
-    if (response.status === 200) {
-      // Sign in the user
-      await signIn('credentials', data);
-
-      return;
-    }
-
-    // When the registration failed
-    setError('The email address already exists.'); // Set the error message
-    setLoading(false); // Stop loading
+    mutate({ email, name, password });
   };
 
   // Get providers
@@ -161,7 +105,14 @@ export default function SignUp() {
                 </Subtitle>
               </div>
 
-              {error && <Alert color="danger">{t(error)}</Alert>}
+              {error && error.message && error.message.startsWith('[') && (
+                <Alert color="danger">
+                  {JSON.parse(error.message).map((err: any, i: number) => (
+                    <div key={i}>{t(err.message)}</div>
+                  ))}
+                </Alert>
+              )}
+
               <form
                 onSubmit={async e => {
                   // Prevent the default behaviour

@@ -15,7 +15,7 @@ import BaseLayout from '@/components/layouts/BaseLayout';
 import Seo from '@/components/layouts/Seo';
 import Loader from '@/components/loading/Loader';
 import { useLocale } from '@/providers/LocaleProvider';
-import { isValidEmail } from '@/utils/validate';
+import { trpc } from '@/utils/trpc';
 
 // The sign in page
 export default function Index() {
@@ -25,12 +25,10 @@ export default function Index() {
 
   const { status } = useSession(); // Get the session
 
-  const [isLoading, setLoading] = useState(false); // Loading state
-
   const [email, setEmail] = useState(''); // State for the email address
 
-  const [success, setSuccess] = useState(''); // State for the success message
-  const [error, setError] = useState(''); // State for the error message
+  const { mutate, isLoading, data, error } =
+    trpc.forgotPassword.requestLink.useMutation();
 
   useEffect(() => {
     // If the user is authenticated
@@ -41,42 +39,7 @@ export default function Index() {
   }, [status, router]);
 
   const handleForgotPassword = async () => {
-    setLoading(true);
-
-    // Validation
-    if (!isValidEmail(email)) {
-      setError('Invalid email address.');
-      setSuccess('');
-      setLoading(false);
-      return;
-    }
-
-    // Send the email address to the API to send a password reset email
-    const response = await fetch('/api/auth/request-reset-link', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ email })
-    });
-
-    // If the user is not authenticated
-    if (response.status !== 200) {
-      setSuccess(''); // Clear the success message
-
-      // Set the error message
-      setError('This email address is not registered.');
-      setLoading(false); // Stop loading
-
-      return;
-    }
-
-    setError(''); // Clear the error message
-
-    // Set the success message
-    setSuccess("We've sent you an email with a link to reset your password.");
-
-    setLoading(false); // Stop loading
+    mutate({ email });
   };
 
   // If the session is loading or authenticated, return the loading message
@@ -103,8 +66,21 @@ export default function Index() {
                 </Subtitle>
               </div>
 
-              {error && <Alert color="danger">{t(error)}</Alert>}
-              {success && <Alert color="success">{t(success)}</Alert>}
+              {error && error.message && error.message.startsWith('[') && (
+                <Alert color="danger">
+                  {JSON.parse(error.message).map((err: any, i: number) => (
+                    <div key={i}>{t(err.message)}</div>
+                  ))}
+                </Alert>
+              )}
+
+              {data && (
+                <Alert color="success">
+                  {t(
+                    "We've sent you an email with a link to reset your password."
+                  )}
+                </Alert>
+              )}
 
               <form
                 onSubmit={async e => {

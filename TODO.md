@@ -6,3 +6,40 @@
 - Profile page for logged in users
 - Profile settings page for logged in users
 - Autofill colors for input fields based on theme (light/dark)
+
+- Translations for TRPCClientError / zod (ex. "Invalid email")
+
+<pre>
+  next-dev.js?3515:20 TRPCClientError: [
+    {
+      "code": "too_small",
+      "minimum": 3,
+      "type": "string",
+      "inclusive": true,
+      "exact": false,
+      "message": "String must contain at least 3 character(s)",
+      "path": [
+        "name"
+      ]
+    },
+    {
+      "validation": "email",
+      "code": "invalid_string",
+      "message": "Invalid email",
+      "path": [
+        "email"
+      ]
+    },
+    {
+      "code": "too_small",
+      "minimum": 6,
+      "type": "string",
+      "inclusive": true,
+      "exact": false,
+      "message": "String must contain at least 6 character(s)",
+      "path": [
+        "password"
+      ]
+    }
+  ]
+  </pre>

@@ -8,11 +8,12 @@ import { useEffect, useState } from 'react';
 import { I18nextProvider, initReactI18next } from 'react-i18next';
 
 import translationDE from '@/assets/locales/de.json';
-// Import translations
 import translationEN from '@/assets/locales/en.json';
+import Loader from '@/components/loading/Loader';
 import { LoadingProvider } from '@/providers/LoadingProvider';
 import { LocaleProvider } from '@/providers/LocaleProvider';
 import { ThemeProvider } from '@/providers/ThemeProvider';
+import { trpc } from '@/utils/trpc';
 
 // Define an array of supported languages
 const supportedLanguages = ['en', 'de'];
@@ -51,7 +52,12 @@ const App = ({ Component, pageProps: { session, ...pageProps } }: AppProps) => {
   }, []);
 
   // If the initial render is not complete, return an empty fragment
-  if (!initialRenderComplete) return <></>;
+  if (!initialRenderComplete)
+    return (
+      <>
+        <Loader />
+      </>
+    );
 
   // Return the app
   return (
@@ -70,4 +76,4 @@ const App = ({ Component, pageProps: { session, ...pageProps } }: AppProps) => {
 };
 
 // Export the app
-export default App;
+export default trpc.withTRPC(App);
