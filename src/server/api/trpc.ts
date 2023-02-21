@@ -58,8 +58,6 @@ const t = initTRPC
   });
 
 /**
- * 3. ROUTER & PROCEDURE (THE IMPORTANT BIT)
- *
  * These are the pieces you use to build your tRPC API. You should import these
  * a lot in the /src/server/api/routers folder
  */
@@ -91,6 +89,33 @@ export const publicProcedure = t.procedure;
 export const protectedProcedure = t.procedure.use(
   t.middleware(({ ctx, next }) => {
     if (!ctx.session || !ctx.session.user) {
+      throw new TRPCError({ code: 'UNAUTHORIZED' });
+    }
+
+    return next({
+      ctx: {
+        // infers the `session` as non-nullable
+        session: { ...ctx.session, user: ctx.session.user }
+      }
+    });
+  })
+);
+
+/**
+ * Role procedure
+ *
+ * If you want a query or mutation to ONLY be accessible to users with a certain
+ * role, use this.
+ *
+ * @see https://trpc.io/docs/procedures
+ */
+export const roleProcedure = t.procedure.use(
+  t.middleware(({ ctx, next }) => {
+    if (
+      !ctx.session ||
+      !ctx.session.user ||
+      ctx.session.user.role !== 'admin'
+    ) {
       throw new TRPCError({ code: 'UNAUTHORIZED' });
     }
 

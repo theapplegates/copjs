@@ -8,9 +8,3 @@
 - Autofill colors for input fields based on theme (light/dark)
 
 - Storybook Preview Tailwind Fix
-
-## tRPC Todo's
-
-- Translations for zod errors (ex. "Invalid email")
-- SignUp check password confirmation (zod)
-- add adminProcedure middleware

@@ -7,6 +7,7 @@ import GithubProvider from 'next-auth/providers/github'; // Import the Discord p
 import { z } from 'zod';
 
 import { prisma } from '@/lib/prisma'; // The adapter requires a prisma instance
+import { zValidator } from '@/utils/validate';
 
 export interface ExtendedSession extends Session {
   // Add any custom properties to the session here
@@ -62,8 +63,8 @@ export const authOptions: NextAuthOptions = {
       async authorize(input): Promise<User | null> {
         const credentials = await z
           .object({
-            email: z.string().email().max(100),
-            password: z.string().min(6).max(100)
+            email: zValidator.email,
+            password: zValidator.password
           })
           .parseAsync(input);
 

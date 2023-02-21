@@ -20,6 +20,7 @@ import Loader from '@/components/loading/Loader';
 import SignInButtons from '@/components/SignInButtons';
 import { useLocale } from '@/providers/LocaleProvider';
 import { trpc } from '@/utils/trpc';
+import { hashPassword } from '@/utils/hash';
 
 // The sign up page
 export default function SignUp() {
@@ -56,7 +57,12 @@ export default function SignUp() {
 
   const handleSignUp = async () => {
     // Send the request to the API to create the user
-    mutate({ email, name, password });
+    mutate({
+      email,
+      name,
+      password: hashPassword(password),
+      passwordConfirm: hashPassword(passwordConfirm)
+    });
   };
 
   // Get providers

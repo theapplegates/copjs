@@ -3,14 +3,15 @@ import { z } from 'zod';
 import { prisma } from '@/lib/prisma';
 
 import { createTRPCRouter, publicProcedure } from '@/server/api/trpc';
+import { zValidator } from '@/utils/validate';
 
 // Auth Router
 export const authRouter = createTRPCRouter({
   checkCredentials: publicProcedure
     .input(
       z.object({
-        email: z.string().email().max(100),
-        password: z.string().min(6).max(100)
+        email: zValidator.email,
+        password: zValidator.password
       })
     )
     .query(async ({ input }) => {
@@ -42,7 +43,7 @@ export const authRouter = createTRPCRouter({
   requestLink: publicProcedure
     .input(
       z.object({
-        email: z.string().email().max(100)
+        email: zValidator.email
       })
     )
     .mutation(async ({ input }) => {
