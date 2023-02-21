@@ -7,6 +7,8 @@
 - Profile settings page for logged in users
 - Autofill colors for input fields based on theme (light/dark)
 
+- Storybook Preview Tailwind Fix
+
 ## tRPC
 
 - Translations for TRPCClientError / zod (ex. "Invalid email")
