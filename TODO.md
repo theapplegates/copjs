@@ -7,7 +7,12 @@
 - Profile settings page for logged in users
 - Autofill colors for input fields based on theme (light/dark)
 
+## tRPC
+
 - Translations for TRPCClientError / zod (ex. "Invalid email")
+- SignUp tRPC Route check password confirmation
+- Structure tRPC routes (userRouter, authRouter, etc.)
+- add adminProcedure like protectedProcedure, publicProcedure
 
 <pre>
   next-dev.js?3515:20 TRPCClientError: [
