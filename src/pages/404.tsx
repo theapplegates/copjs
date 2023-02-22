@@ -9,7 +9,7 @@ import Seo from '@/components/layouts/Seo';
 
 export async function getStaticProps({ locale }: any) {
   return {
-    props: { ...(await serverSideTranslations(locale, ['error', 'common'])) }
+    props: { ...(await serverSideTranslations(locale, ['common'])) }
   };
 }
 

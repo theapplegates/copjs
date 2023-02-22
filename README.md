@@ -22,6 +22,7 @@ Build web applications that are scalable, efficient and user-friendly with CopJS
 - [Turbo](https://turbo.build/): 🏋️‍♀️ High-performance build system for JavaScript and TypeScript codebases.
 - [tRPC](https://trpc.io): 🔌 A TypeScript-based RPC framework for building scalable and type-safe APIs with minimal boilerplate.
 - [Zod](https://github.com/colinhacks/zod): 🧩 A TypeScript-first schema builder for static type safety.
+- [Zod Internationalization](https://github.com/aiji42/zod-i18n): 🧩 Internationalization for Zod.
 - [Prisma](https://www.prisma.io/): 🗄️ A powerful and flexible database toolkit that makes it easy to work with databases in your application.
 - [Next-Auth](https://next-auth.js.org/): 🔒 A complete authentication solution for Next.js that supports multiple providers and local authentication.
 - [Next-i18next](https://next.i18next.com/): 🌍 An internationalization (i18n) library for Next.js that makes it easy to translate your application.
@@ -44,12 +45,13 @@ Build web applications that are scalable, efficient and user-friendly with CopJS
 - 🤖 Improved SEO with Next SEO for metadata, JSON-LD, and Open Graph tags
 - 🗺️ Automatic Generation of Sitemap.xml and robots.txt with next-sitemap
 - 🕰️ Activity tracking with Timestamps added to the Prisma schema
-- 🚫 Custom 404 and 500 error pages for improved user experience
-- 🔑 User Roles using next-auth and Prisma with extended session types
-- 🛡️ Protected API routes using tRPC
+- 🚫 Custom 404 and 500 error pages with localization for improved user experience
+- 🔑 User Roles using next-auth with extended session types
+- 🛡️ Protected API routes using tRPC and NextAuth with tRPC
 - 🔐 User authentication with NextAuth and CredentialsProvider with tRPC, Prisma and zod
-- 🔒 Custom Sign-In, Sign-Up Page & Password Reset Page
+- 🔒 Custom Sign-In, Sign-Up Page & Password Reset Page with NextAuth and tRPC with zod
 - 🚫 Custom Error Messages for NextAuth Providers
+- 🚫 Translated Zod Error Messages
 
 ## Built-in Advantages from Next.js
 

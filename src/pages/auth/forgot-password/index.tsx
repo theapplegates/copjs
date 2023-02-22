@@ -50,7 +50,7 @@ export default function Index() {
     defaultValues: {}
   });
 
-  const { mutate, error } = trpc.auth.requestLink.useMutation();
+  const { mutate } = trpc.auth.requestLink.useMutation();
 
   useEffect(() => {
     if (status === 'authenticated') {
