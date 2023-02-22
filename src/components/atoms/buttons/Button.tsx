@@ -1,6 +1,5 @@
 import classNames from 'classnames';
 
-// The props for the component
 type Props = {
   forwardRef?: React.Ref<HTMLButtonElement>;
   type?: 'button' | 'submit' | 'reset';
@@ -15,7 +14,6 @@ type Props = {
   className?: string;
 };
 
-// The button component
 export default function Button({
   forwardRef,
   type = 'button',
@@ -29,7 +27,6 @@ export default function Button({
   rightIcon,
   className
 }: Props) {
-  // Define the color variants
   const colorVariants = {
     secondary:
       'bg-transparent border-2 border-primary hover:(bg-primary text-white) text-primary dark:(border-white text-white) dark:hover:(bg-white text-ebony) focus:(ring ring-primary/20) dark:focus:(ring ring-white/20)',
@@ -40,7 +37,6 @@ export default function Button({
       'bg-github focus:(ring ring-github/20) text-white dark:(bg-github-light ring-github-light/20 text-github)'
   };
 
-  // Return the button
   return (
     <button
       ref={forwardRef}
@@ -48,10 +44,10 @@ export default function Button({
       onClick={e => {
         // If the button is not loading, disabled or the click handler is undefined, call the click handler
         if (!isLoading && !disabled && clickHandler !== undefined) {
-          clickHandler(e); // Call the click handler
+          clickHandler(e);
         }
       }}
-      disabled={isLoading || disabled} // Disable the button if it is loading or disabled
+      disabled={isLoading || disabled}
       className={classNames(
         'group flex items-center gap-2',
         'transition duration-200 font-medium text-base rounded-xl py-4 px-5',

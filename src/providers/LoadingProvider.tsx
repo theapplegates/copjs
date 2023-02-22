@@ -3,7 +3,6 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 
 import Loader from '@/components/loading/Loader';
 
-// The props for the context
 interface LoadingContextProps {
   isLoading: boolean;
   setLoading: (value: boolean) => any;
@@ -19,7 +18,6 @@ type Props = {
   children: React.ReactNode;
 };
 
-// The provider
 const LoadingProvider = ({ children }: Props) => {
   const [isLoading, setLoading] = useState(false);
 
@@ -35,7 +33,6 @@ const LoadingProvider = ({ children }: Props) => {
     return <Loader />;
   }
 
-  // Return the provider
   return (
     <LoadingContext.Provider
       value={{
@@ -48,8 +45,6 @@ const LoadingProvider = ({ children }: Props) => {
   );
 };
 
-// Get the context
 const useLoading = (): LoadingContextProps => useContext(LoadingContext);
 
-// Export the provider and the context
 export { LoadingProvider, useLoading };

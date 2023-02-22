@@ -1,7 +1,14 @@
+import { zodResolver } from '@hookform/resolvers/zod';
+import type { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import { useSession } from 'next-auth/react';
-import { useEffect, useState } from 'react';
+import { useTranslation } from 'next-i18next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { useEffect } from 'react';
+import { useForm } from 'react-hook-form';
 import { HiOutlineArrowSmLeft, HiOutlineArrowSmRight } from 'react-icons/hi';
+import { z } from 'zod';
+import { makeZodI18nMap } from 'zod-i18n-map';
 
 import Alert from '@/components/atoms/alerts/Alert';
 import Button from '@/components/atoms/buttons/Button';
@@ -14,32 +21,45 @@ import Title from '@/components/atoms/typography/Title';
 import BaseLayout from '@/components/layouts/BaseLayout';
 import Seo from '@/components/layouts/Seo';
 import Loader from '@/components/loading/Loader';
-import { useLocale } from '@/providers/LocaleProvider';
+import RequestPasswordLinkSchema from '@/schema/RequestPasswordLinkSchema';
 import { trpc } from '@/utils/trpc';
 
-// The sign in page
+export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale!, ['common', 'zod']))
+    }
+  };
+};
+
 export default function Index() {
-  const router = useRouter(); // Get the router
+  const router = useRouter();
 
-  const { t } = useLocale(); // Get the translation function
+  const { status } = useSession();
+  const { t } = useTranslation();
 
-  const { status } = useSession(); // Get the session
+  z.setErrorMap(makeZodI18nMap({ t, handlePath: { ns: ['common', 'zod'] } }));
 
-  const [email, setEmail] = useState(''); // State for the email address
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting, isSubmitSuccessful }
+  } = useForm<z.infer<typeof RequestPasswordLinkSchema>>({
+    mode: 'onChange',
+    resolver: zodResolver(RequestPasswordLinkSchema), // Configuration the validation with the zod schema.
+    defaultValues: {}
+  });
 
-  const { mutate, isLoading, data, error } =
-    trpc.auth.requestLink.useMutation();
+  const { mutate, error } = trpc.auth.requestLink.useMutation();
 
   useEffect(() => {
-    // If the user is authenticated
     if (status === 'authenticated') {
-      // Redirect to the housekeeping page
       router.push('/housekeeping');
     }
   }, [status, router]);
 
-  const handleForgotPassword = async () => {
-    mutate({ email });
+  const onSubmit = async (input: z.infer<typeof RequestPasswordLinkSchema>) => {
+    await mutate(input);
   };
 
   // If the session is loading or authenticated, return the loading message
@@ -47,7 +67,6 @@ export default function Index() {
     return <Loader />;
   }
 
-  // Return the sign in page
   return (
     <>
       <Seo title={t('Reset password') || undefined} />
@@ -74,7 +93,7 @@ export default function Index() {
                 </Alert>
               )}
 
-              {data && (
+              {isSubmitSuccessful && (
                 <Alert color="success">
                   {t(
                     "We've sent you an email with a link to reset your password."
@@ -82,31 +101,29 @@ export default function Index() {
                 </Alert>
               )}
 
-              <form
-                onSubmit={async e => {
-                  e.preventDefault();
-
-                  await handleForgotPassword();
-                }}
-              >
-                <div className="mb-5">
+              <form onSubmit={handleSubmit(onSubmit)}>
+                <div className="mt-4">
                   <InputText
                     type="email"
-                    id="email"
                     autoFocus={true}
-                    placeholder={t('Email')}
-                    value={email}
-                    changeHandler={event => setEmail(event.target.value)}
+                    placeholder={t('Email') as string}
                     floatingLabel={true}
                     className="w-full"
+                    name="email"
+                    register={register}
+                    disabled={isSubmitting}
                   />
                 </div>
+                {errors?.email?.message && (
+                  <Alert color="danger">{t(errors?.email?.message)}</Alert>
+                )}
 
                 <Button
                   color="primary"
                   type="submit"
-                  isLoading={isLoading}
-                  className="my-2 w-full justify-center"
+                  disabled={isSubmitting}
+                  isLoading={isSubmitting}
+                  className="mt-4 mb-2 w-full justify-center"
                   rightIcon={<HiOutlineArrowSmRight />}
                 >
                   {t('Send reset link')}

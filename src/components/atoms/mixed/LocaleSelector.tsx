@@ -1,41 +1,40 @@
+import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
-
-import Loader from '@/components/loading/Loader';
-import { useLoading } from '@/providers/LoadingProvider';
+import { setCookie } from 'nookies';
+import { useCallback } from 'react';
 
 export default function LocaleSelector() {
-  const { isLoading, setLoading } = useLoading();
+  const router = useRouter();
 
-  const { i18n } = useTranslation();
+  const { t } = useTranslation();
 
-  const languages = Object.keys(i18n.options.resources || []);
+  const changeLocale = useCallback(
+    (locale: string) => {
+      setCookie(null, 'NEXT_LOCALE', locale);
 
-  const handleLocaleChange = async (locale: string) => {
-    setLoading(true);
-
-    localStorage.setItem('language', locale);
-    i18n.changeLanguage(locale);
-
-    setLoading(false);
-  };
-
-  if (isLoading) {
-    return <Loader />;
-  }
+      router.push(router.asPath, undefined, { locale });
+    },
+    [router.replace, router.reload]
+  );
 
   return (
     <>
-      {languages.map((lang, i: number) => (
-        <div
-          key={i}
-          onClick={() => {
-            handleLocaleChange(lang);
-          }}
-          className="cursor-pointer uppercase"
-        >
-          {lang}
-        </div>
-      ))}
+      <div
+        onClick={() => {
+          changeLocale('de');
+        }}
+        className="cursor-pointer uppercase"
+      >
+        {t('DE')}
+      </div>
+      <div
+        onClick={() => {
+          changeLocale('en');
+        }}
+        className="cursor-pointer uppercase"
+      >
+        {t('EN')}
+      </div>
     </>
   );
 }

@@ -1,9 +1,16 @@
+import { zodResolver } from '@hookform/resolvers/zod';
+import type { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import type { BuiltInProviderType } from 'next-auth/providers';
 import type { ClientSafeProvider, LiteralUnion } from 'next-auth/react';
 import { getProviders, signIn, useSession } from 'next-auth/react';
+import { useTranslation } from 'next-i18next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { HiOutlineArrowSmLeft, HiOutlineArrowSmRight } from 'react-icons/hi';
+import { z } from 'zod';
+import { makeZodI18nMap } from 'zod-i18n-map';
 
 import Alert from '@/components/atoms/alerts/Alert';
 import Button from '@/components/atoms/buttons/Button';
@@ -18,27 +25,40 @@ import BaseLayout from '@/components/layouts/BaseLayout';
 import Seo from '@/components/layouts/Seo';
 import Loader from '@/components/loading/Loader';
 import SignInButtons from '@/components/SignInButtons';
-import { useLocale } from '@/providers/LocaleProvider';
+import SignInInputSchema from '@/schema/SignInInputSchema';
 import { hashPassword } from '@/utils/hash';
 
-// The sign in page
+export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale!, ['common', 'zod']))
+    }
+  };
+};
+
 export default function SignIn() {
-  const router = useRouter(); // Get the router
+  const router = useRouter();
 
-  const { t } = useLocale(); // Get the translation function
+  const [error, setError] = useState('');
 
-  const { status } = useSession(); // Get the session
+  const { t } = useTranslation();
 
-  const [isLoading, setLoading] = useState(false); // Loading state
+  z.setErrorMap(makeZodI18nMap({ t, handlePath: { ns: ['common', 'zod'] } }));
 
-  const [email, setEmail] = useState(''); // State for the email address
-  const [password, setPassword] = useState(''); // State for the password
-  const [error, setError] = useState(''); // State for the error message
+  const { status } = useSession();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting }
+  } = useForm<z.infer<typeof SignInInputSchema>>({
+    mode: 'onChange',
+    resolver: zodResolver(SignInInputSchema), // Configuration the validation with the zod schema.
+    defaultValues: {}
+  });
 
   useEffect(() => {
-    // If the user is authenticated
     if (status === 'authenticated') {
-      // Redirect to the housekeeping page
       router.push('/housekeeping');
       return;
     }
@@ -48,38 +68,29 @@ export default function SignIn() {
     }
   }, [status, router]);
 
-  const handleSignIn = async () => {
-    setLoading(true);
-
-    // Sign in the user
+  const onSubmit = async (input: z.infer<typeof SignInInputSchema>) => {
     const result = await signIn('credentials', {
-      email,
-      password: hashPassword(password),
+      email: input.email,
+      password: hashPassword(input.password),
       redirect: false
     });
 
-    // If the user is not authenticated
     if (result?.error) {
-      // Set the error message
       setError('Invalid credentials.');
-      setLoading(false); // Stop loading
 
       return;
     }
 
-    // Redirect to the housekeeping page if the user is authenticated
     router.push('/housekeeping');
   };
 
-  // Get providers
   const [providers, setProviders] = useState<Record<
     LiteralUnion<BuiltInProviderType, string>,
     ClientSafeProvider
-  > | null>(null); // State for the providers
+  > | null>(null);
 
   useEffect(() => {
     (async () => {
-      // Get the providers and set the state
       setProviders(await getProviders());
     })();
   }, []);
@@ -93,10 +104,9 @@ export default function SignIn() {
     return <Loader />;
   }
 
-  // Return the sign in page
   return (
     <>
-      <Seo title={t('Sign in') || undefined} />
+      <Seo title={t('Sign in') as string} />
 
       <BaseLayout>
         <div className="flex h-full w-full items-center justify-center">
@@ -116,46 +126,48 @@ export default function SignIn() {
                 </Subtitle>
               </div>
 
-              {error && <Alert color="danger">{t(error)}</Alert>}
-              <form
-                onSubmit={async e => {
-                  e.preventDefault();
-
-                  await handleSignIn();
-                }}
-              >
-                <div className="mb-5">
+              {error.length > 0 && <Alert color="danger">{t(error)}</Alert>}
+              <form onSubmit={handleSubmit(onSubmit)}>
+                <div className="mt-4">
                   <InputText
                     type="email"
-                    id="email"
                     autoFocus={true}
-                    placeholder={t('Email')}
-                    value={email}
-                    changeHandler={event => setEmail(event.target.value)}
+                    placeholder={t('Email') as string}
                     floatingLabel={true}
                     className="w-full"
+                    name="email"
+                    register={register}
+                    disabled={isSubmitting}
                   />
                 </div>
-                <div className="mb-5">
+                {errors?.email?.message && (
+                  <Alert color="danger">{t(errors?.email?.message)}</Alert>
+                )}
+
+                <div className="mt-4">
                   <InputText
                     type="password"
-                    id="password"
-                    placeholder={t('Password')}
-                    value={password}
-                    changeHandler={event => setPassword(event.target.value)}
+                    placeholder={t('Password') as string}
                     floatingLabel={true}
                     className="w-full"
+                    name="password"
+                    register={register}
+                    disabled={isSubmitting}
                   />
                 </div>
+                {errors?.password?.message && (
+                  <Alert color="danger">{t(errors?.password?.message)}</Alert>
+                )}
 
-                <Link href="/auth/forgot-password" className="mb-5 block">
+                <Link href="/auth/forgot-password" className="my-5 block">
                   {t('Forgot password?')}
                 </Link>
 
                 <Button
                   color="primary"
                   type="submit"
-                  isLoading={isLoading}
+                  disabled={isSubmitting}
+                  isLoading={isSubmitting}
                   className="my-2 w-full justify-center"
                   rightIcon={<HiOutlineArrowSmRight />}
                 >
@@ -169,7 +181,7 @@ export default function SignIn() {
               >
                 <div className="inline-block duration-300 group-hover:pr-1">
                   <HiOutlineArrowSmLeft />
-                </div>{' '}
+                </div>
                 {t('Back to homepage')}
               </Link>
             </Card>

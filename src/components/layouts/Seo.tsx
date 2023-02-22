@@ -1,6 +1,5 @@
 import { NextSeo } from 'next-seo';
 
-// The props for the SEO component
 type Props = {
   url?: string | undefined; // The URL of the page
   siteName?: string | undefined; // The name of the site
@@ -9,7 +8,6 @@ type Props = {
   canonical?: string | undefined; // The canonical URL of the page
 };
 
-// The SEO component
 export default function Seo({
   url,
   siteName,
@@ -17,7 +15,6 @@ export default function Seo({
   description,
   canonical
 }: Props) {
-  // Return the SEO component with the title and meta tags for SEO purposes and the favicon for the browser
   return (
     <NextSeo
       title={title}

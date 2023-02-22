@@ -1,26 +1,33 @@
+import type { GetServerSideProps } from 'next';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { signOut, useSession } from 'next-auth/react';
+import { useTranslation } from 'next-i18next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useEffect } from 'react';
 
 import Button from '@/components/atoms/buttons/Button';
 import AppLayout from '@/components/layouts/AppLayout';
 import Seo from '@/components/layouts/Seo';
 import Loader from '@/components/loading/Loader';
-import { useLocale } from '@/providers/LocaleProvider';
 
-// The housekeeping page
+export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale!, ['common', 'zod']))
+    }
+  };
+};
+
 export default function Index() {
-  const router = useRouter(); // Get the router
+  const router = useRouter();
 
-  const { t } = useLocale(); // Get the translation function
+  const { t } = useTranslation();
 
-  const { data: session, status } = useSession(); // Get the session
+  const { data: session, status } = useSession();
 
   useEffect(() => {
-    // If the user is not authenticated
     if (status === 'unauthenticated') {
-      // Redirect to the homepage
       router.push('/');
     }
   }, [status, router]);
@@ -30,7 +37,6 @@ export default function Index() {
     return <Loader />;
   }
 
-  // Return the housekeeping page
   return (
     <>
       <Seo title={'App'} />

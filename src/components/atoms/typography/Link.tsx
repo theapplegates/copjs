@@ -1,16 +1,15 @@
 import classNames from 'classnames';
+import NextLink from 'next/link';
 
-// The props for the component
 type Props = {
   children: React.ReactNode;
   className?: string;
 
-  href?: string;
+  href: string;
   title?: string;
   target?: string;
 };
 
-// The link component
 export default function Link({
   children,
   className,
@@ -18,9 +17,8 @@ export default function Link({
   title,
   target
 }: Props) {
-  // Return the link component
   return (
-    <a
+    <NextLink
       href={href}
       title={title}
       target={target}
@@ -30,6 +28,6 @@ export default function Link({
       )}
     >
       {children}
-    </a>
+    </NextLink>
   );
 }

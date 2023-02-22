@@ -25,7 +25,7 @@
   "Email": "E-Mail",
   "Password": "Passwort",
   "Confirm password": "Passwort bestätigen",
-  "Password confirmation incorrect.": "Passwortbestätigung falsch.",
+  "Passwords do not match.": "Passwörter stimmen nicht überein.",
 
   "Welcome back": "Willkommen zurück",
   "You don't have an account?": "Noch keinen Account?",
@@ -43,26 +43,6 @@
   "Reset your password": "Setze dein Passwort zurück",
   "This email address is not registered.": "Diese E-Mail-Adresse ist nicht registriert.",
   "We've sent you an email with a link to reset your password.": "Wir haben dir eine E-Mail mit einem Link zum Zurücksetzen deines Passworts geschickt.",
-
-  "Invalid user ID.": "Ungültige Benutzer-ID.",
-  "User ID is required.": "Benutzer-ID ist erforderlich.",
-  "User ID must be at least 1 character.": "Benutzer-ID muss mindestens 1 Zeichen lang sein.",
-  "User ID must be less than 255 characters.": "Benutzer-ID muss weniger als 255 Zeichen lang sein.",
-
-  "Invalid display name.": "Ungültiger Anzeigename.",
-  "Display name is required.": "Anzeigename ist erforderlich.",
-  "Display name must be at least 3 characters.": "Anzeigename muss mindestens 3 Zeichen lang sein.",
-  "Display name must be less than 100 characters.": "Anzeigename muss weniger als 100 Zeichen lang sein.",
-
-  "Invalid email address.": "Ungültige E-Mail-Adresse.",
-  "Email is required.": "E-Mail ist erforderlich.",
-  "Email must be less than 100 characters.": "E-Mail muss weniger als 100 Zeichen lang sein.",
-
-  "Invalid password.": "Ungültiges Passwort.",
-  "Password is required.": "Passwort ist erforderlich.",
-  "Password must be at least 6 characters.": "Passwort muss mindestens 6 Zeichen lang sein.",
-  "Password must be less than 100 characters.": "Passwort muss weniger als 100 Zeichen lang sein.",
-  "Passwords do not match.": "Passwörter stimmen nicht überein.",
 
   "OAuthAccountNotLinked": "Der Benutzeraccount für diesen Anbieter ist nicht verknüpft.",
   "AccountNotLinked": "Das Konto wurde nicht mit diesem Anbieter verknüpft.",

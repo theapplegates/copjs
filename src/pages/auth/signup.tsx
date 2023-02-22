@@ -1,9 +1,16 @@
+import { zodResolver } from '@hookform/resolvers/zod';
+import type { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import type { BuiltInProviderType } from 'next-auth/providers';
 import type { ClientSafeProvider, LiteralUnion } from 'next-auth/react';
 import { getProviders, signIn, useSession } from 'next-auth/react';
+import { useTranslation } from 'next-i18next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { HiOutlineArrowSmLeft, HiOutlineArrowSmRight } from 'react-icons/hi';
+import { z } from 'zod';
+import { makeZodI18nMap } from 'zod-i18n-map';
 
 import Alert from '@/components/atoms/alerts/Alert';
 import Button from '@/components/atoms/buttons/Button';
@@ -18,62 +25,64 @@ import BaseLayout from '@/components/layouts/BaseLayout';
 import Seo from '@/components/layouts/Seo';
 import Loader from '@/components/loading/Loader';
 import SignInButtons from '@/components/SignInButtons';
-import { useLocale } from '@/providers/LocaleProvider';
+import RegistrationSchema from '@/schema/RegistrationSchema';
 import { trpc } from '@/utils/trpc';
-import { hashPassword } from '@/utils/hash';
 
-// The sign up page
+export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale!, ['common', 'zod']))
+    }
+  };
+};
+
 export default function SignUp() {
-  const router = useRouter(); // Get the router
+  const router = useRouter();
 
-  const { t } = useLocale(); // Get the translation function
+  const { t } = useTranslation();
 
-  const { status } = useSession(); // Get the session
+  z.setErrorMap(makeZodI18nMap({ t, handlePath: { ns: ['common', 'zod'] } }));
 
-  const [name, setName] = useState(''); // State for the display name
-  const [email, setEmail] = useState(''); // State for the email address
-  const [password, setPassword] = useState(''); // State for the password
-  const [passwordConfirm, setPasswordConfirm] = useState(''); // State for the password confirmation
+  const { status } = useSession();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting }
+  } = useForm<z.infer<typeof RegistrationSchema>>({
+    mode: 'onChange',
+    resolver: zodResolver(RegistrationSchema), // Configuration the validation with the zod schema.
+    defaultValues: {}
+  });
 
   useEffect(() => {
-    // If the user is authenticated
     if (status === 'authenticated') {
-      // Redirect to the housekeeping page
       router.push('/housekeeping');
     }
   }, [status, router]);
 
-  const { mutate, isLoading, data, error } = trpc.user.create.useMutation();
+  const { mutate, data, error } = trpc.user.create.useMutation();
 
   useEffect(() => {
     (async () => {
-      // If the data is available
       if (data) {
-        // Sign in the user
         await signIn('credentials', data);
       }
     })();
   }, [data, error]);
 
-  const handleSignUp = async () => {
+  const onSubmit = async (input: z.infer<typeof RegistrationSchema>) => {
     // Send the request to the API to create the user
-    mutate({
-      email,
-      name,
-      password: hashPassword(password),
-      passwordConfirm: hashPassword(passwordConfirm)
-    });
+    await mutate(input);
   };
 
-  // Get providers
   const [providers, setProviders] = useState<Record<
     LiteralUnion<BuiltInProviderType, string>,
     ClientSafeProvider
-  > | null>(null); // State for the providers
+  > | null>(null);
 
   useEffect(() => {
     (async () => {
-      // Get the providers and set the state
       setProviders(await getProviders());
     })();
   }, []);
@@ -87,10 +96,9 @@ export default function SignUp() {
     return <Loader />;
   }
 
-  // Return the sign up page
   return (
     <>
-      <Seo title={t('Sign up') || undefined} />
+      <Seo title={t('Sign up') as string} />
 
       <BaseLayout>
         <div className="flex h-full w-full items-center justify-center">
@@ -110,75 +118,76 @@ export default function SignUp() {
                 </Subtitle>
               </div>
 
-              {error && error.message && error.message.startsWith('[') && (
-                <Alert color="danger">
-                  {JSON.parse(error.message).map((err: any, i: number) => (
-                    <div key={i}>{t(err.message)}</div>
-                  ))}
-                </Alert>
-              )}
-
-              <form
-                onSubmit={async e => {
-                  // Prevent the default behaviour
-                  e.preventDefault();
-
-                  // Handle the sign up
-                  await handleSignUp();
-                }}
-              >
-                <div className="mb-4">
+              <form onSubmit={handleSubmit(onSubmit)}>
+                <div className="mt-4">
                   <InputText
                     type="text"
-                    id="name"
                     autoFocus={true}
-                    placeholder={t('Display name')}
-                    value={name}
-                    changeHandler={event => setName(event.target.value)}
+                    placeholder={t('Display name') as string}
                     floatingLabel={true}
                     className="w-full"
+                    disabled={isSubmitting}
+                    name="name"
+                    register={register}
                   />
                 </div>
-                <div className="mb-4">
+                {errors?.name?.message && (
+                  <Alert color="danger">{t(errors?.name?.message)}</Alert>
+                )}
+
+                <div className="mt-4">
                   <InputText
                     type="email"
-                    id="email"
-                    placeholder={t('Email')}
-                    value={email}
-                    changeHandler={event => setEmail(event.target.value)}
+                    placeholder={t('Email') as string}
                     floatingLabel={true}
                     className="w-full"
+                    disabled={isSubmitting}
+                    name="email"
+                    register={register}
                   />
                 </div>
-                <div className="mb-5">
+                {errors?.email?.message && (
+                  <Alert color="danger">{t(errors?.email?.message)}</Alert>
+                )}
+
+                <div className="mt-4">
                   <InputText
                     type="password"
-                    id="password"
-                    placeholder={t('Password')}
-                    value={password}
-                    changeHandler={event => setPassword(event.target.value)}
+                    placeholder={t('Password') as string}
                     floatingLabel={true}
                     className="w-full"
+                    disabled={isSubmitting}
+                    name="password"
+                    register={register}
                   />
                 </div>
-                <div className="mb-5">
+                {errors?.password?.message && (
+                  <Alert color="danger">{t(errors?.password?.message)}</Alert>
+                )}
+
+                <div className="mt-4">
                   <InputText
                     type="password"
-                    id="password_confirm"
-                    placeholder={t('Confirm password')}
-                    value={passwordConfirm}
-                    changeHandler={event =>
-                      setPasswordConfirm(event.target.value)
-                    }
+                    placeholder={t('Confirm password') as string}
                     floatingLabel={true}
                     className="w-full"
+                    disabled={isSubmitting}
+                    name="passwordConfirm"
+                    register={register}
                   />
                 </div>
+                {errors?.passwordConfirm?.message && (
+                  <Alert color="danger">
+                    {t(errors?.passwordConfirm?.message)}
+                  </Alert>
+                )}
+
                 <Button
                   color="primary"
                   type="submit"
-                  isLoading={isLoading}
-                  className="my-2 w-full justify-center"
+                  disabled={isSubmitting}
+                  isLoading={isSubmitting}
+                  className="mt-4 mb-2 w-full justify-center"
                   rightIcon={<HiOutlineArrowSmRight />}
                 >
                   {t('Sign up')}
@@ -191,7 +200,7 @@ export default function SignUp() {
               >
                 <div className="inline-block duration-300 group-hover:pr-1">
                   <HiOutlineArrowSmLeft />
-                </div>{' '}
+                </div>
                 {t('Back to sign in')}
               </Link>
             </Card>

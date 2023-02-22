@@ -1,20 +1,27 @@
 import { useRouter } from 'next/router';
+import { useTranslation } from 'next-i18next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 import Button from '@/components/atoms/buttons/Button';
 import H1 from '@/components/atoms/typography/headings/H1';
 import BaseLayout from '@/components/layouts/BaseLayout';
 import Seo from '@/components/layouts/Seo';
-import { useLocale } from '@/providers/LocaleProvider';
 
-// The 404 page
+export async function getStaticProps({ locale }: any) {
+  return {
+    props: { ...(await serverSideTranslations(locale, ['error', 'common'])) }
+  };
+}
+
 export default function Error404() {
-  const router = useRouter(); // Get the router
+  const router = useRouter();
 
-  const { t } = useLocale(); // Get the translation function
+  const { t } = useTranslation();
 
   return (
     <>
-      <Seo title={t('Page not found')} />
+      <Seo title={t('Page not found') as string} />
+
       <BaseLayout>
         <div className="flex h-full w-full items-center justify-center">
           <div>

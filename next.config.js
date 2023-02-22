@@ -1,7 +1,10 @@
 const WindiCSSWebpackPlugin = require('windicss-webpack-plugin');
 
+const { i18n } = require('./next-i18next.config');
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  i18n,
   reactStrictMode: true, // https://nextjs.org/docs/api-reference/next.config.js/react-strict-mode
   trailingSlash: true, // https://nextjs.org/docs/api-reference/next.config.js/trailing-slash
 

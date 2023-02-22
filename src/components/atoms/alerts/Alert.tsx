@@ -1,15 +1,12 @@
 import classNames from 'classnames';
 
-// The props for the component
 type Props = {
   children: React.ReactNode;
   className?: string;
   color: 'danger' | 'success' | 'warning' | 'info' | 'primary' | 'secondary';
 };
 
-// The component
 export default function Alert({ children, className, color }: Props) {
-  // Define the color variants
   const colorVariants = {
     danger: 'bg-red-100 text-red-900',
     success: 'bg-green-100 text-green-900',
@@ -19,7 +16,6 @@ export default function Alert({ children, className, color }: Props) {
     secondary: 'bg-secondary text-ebony'
   };
 
-  // Return the component
   return (
     <div
       className={classNames(

@@ -1,31 +1,18 @@
 import { z } from 'zod';
 
 import { prisma } from '@/lib/prisma';
-
+import RegistrationSchema from '@/schema/RegistrationSchema';
 import {
   createTRPCRouter,
   protectedProcedure,
   publicProcedure
 } from '@/server/api/trpc';
-
-import { zValidator } from '@/utils/validate';
+import { hashPassword } from '@/utils/hash';
 
 // User Router
 export const userRouter = createTRPCRouter({
   create: publicProcedure
-    .input(
-      z
-        .object({
-          name: zValidator.name,
-          email: zValidator.email,
-          password: zValidator.password,
-          passwordConfirm: zValidator.password
-        })
-        .refine(data => data.password === data.passwordConfirm, {
-          message: 'Passwords do not match.',
-          path: ['passwordConfirm']
-        })
-    )
+    .input(RegistrationSchema)
     .mutation(async ({ input }) => {
       const { name, email, password } = input;
 
@@ -33,7 +20,7 @@ export const userRouter = createTRPCRouter({
         data: {
           name,
           email,
-          password
+          password: hashPassword(password)
         }
       });
 
@@ -45,7 +32,7 @@ export const userRouter = createTRPCRouter({
   get: protectedProcedure
     .input(
       z.object({
-        id: zValidator.id
+        id: z.string().min(1).max(255)
       })
     )
     .mutation(async ({ input }) => {
@@ -63,7 +50,7 @@ export const userRouter = createTRPCRouter({
   update: protectedProcedure
     .input(
       z.object({
-        id: zValidator.id,
+        id: z.string().min(1).max(255),
         data: z.record(z.any())
       })
     )
@@ -83,7 +70,7 @@ export const userRouter = createTRPCRouter({
   delete: protectedProcedure
     .input(
       z.object({
-        id: zValidator.id
+        id: z.string().min(1).max(255)
       })
     )
     .mutation(async ({ input }) => {

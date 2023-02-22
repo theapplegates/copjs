@@ -3,31 +3,26 @@ import React from 'react';
 
 import style from '@/components/atoms/inputs/InputText.module.css';
 
-// The props for the component
 type Props = {
-  id?: string;
-  value?: string; // The value of the input
-  forwardRef?: any;
-  type?: 'date' | 'email' | 'number' | 'password' | 'tel' | 'text' | 'url'; // The type of the input
-  color?: 'primary'; // The color variant
-  placeholder?: string; // The placeholder
-  changeHandler?: (e: React.ChangeEvent<HTMLInputElement>) => void; // The change handler
-  disabled?: boolean; // If the input is disabled
-  readOnly?: boolean; // If the input is read only
-  autoFocus?: boolean; // If the input should be focused on mount
+  type?: 'date' | 'email' | 'number' | 'password' | 'tel' | 'text' | 'url';
+  color?: 'primary';
+  placeholder?: string;
+  changeHandler?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  disabled?: boolean;
+  readOnly?: boolean;
+  autoFocus?: boolean;
   /*
   leftIcon?: React.ReactNode | null; // The left icon
   rightIcon?: React.ReactNode | null; // The right icon
   */
-  floatingLabel?: boolean; // If the input has a floating label
+  floatingLabel?: boolean; // Whether the label should float
   className?: string;
+
+  name?: string;
+  register?: any;
 };
 
-// The component
 export default function InputText({
-  id,
-  value,
-  forwardRef,
   type = 'text',
   color = 'primary',
   autoFocus = false,
@@ -36,30 +31,26 @@ export default function InputText({
   disabled,
   readOnly,
   floatingLabel,
-  className
+  className,
+  name,
+  register
 }: Props) {
-  const ref = forwardRef || React.createRef();
-
-  // Define the color variants
   const colorVariants = {
     primary:
       'bg-transparent text-ebony ring-1 ring-secondary hover:(ring-2 ring-primary) focus:(ring-2 ring-primary) dark:(ring-gray-600 text-white) dark:hover:(ring-2 ring-primary-300) dark:focus:(ring-2 ring-primary-300) placeholder-gray outline-none'
   };
 
-  // Return the input
   return (
     <>
       <div className={classNames('group relative z-0')}>
         <input
-          id={id}
-          ref={ref}
+          {...register(name)}
           type={type}
-          value={value}
           autoFocus={autoFocus}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
             // If the input is not read only, disabled or the change handler is undefined, call the change handler
             if (!readOnly && !disabled && changeHandler !== undefined) {
-              changeHandler(e); // Call the change handler
+              changeHandler(e);
             }
           }}
           disabled={disabled}
@@ -78,11 +69,9 @@ export default function InputText({
         />
         {floatingLabel && (
           <label
-            htmlFor={id}
+            htmlFor={name}
             onClick={() => {
-              if (forwardRef?.current) {
-                forwardRef.current.focus();
-              }
+              //
             }}
             className={classNames(
               'absolute transform duration-300 px-4',

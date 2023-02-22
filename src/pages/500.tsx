@@ -1,20 +1,27 @@
 import { useRouter } from 'next/router';
+import { useTranslation } from 'next-i18next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 import Button from '@/components/atoms/buttons/Button';
 import H1 from '@/components/atoms/typography/headings/H1';
 import BaseLayout from '@/components/layouts/BaseLayout';
 import Seo from '@/components/layouts/Seo';
-import { useLocale } from '@/providers/LocaleProvider';
 
-// The 500 page
-export default function Error500() {
-  const router = useRouter(); // Get the router
+export async function getStaticProps({ locale }: any) {
+  return {
+    props: { ...(await serverSideTranslations(locale, ['error', 'common'])) }
+  };
+}
 
-  const { t } = useLocale(); // Get the translation function
+export default function Error404() {
+  const router = useRouter();
+
+  const { t } = useTranslation();
 
   return (
     <>
-      <Seo title={t('Internal Error')} />
+      <Seo title={t('Internal Error') as string} />
+
       <BaseLayout>
         <div className="flex h-full w-full items-center justify-center">
           <div>

@@ -1,10 +1,10 @@
 import type { BuiltInProviderType } from 'next-auth/providers';
 import type { ClientSafeProvider, LiteralUnion } from 'next-auth/react';
 import { signIn } from 'next-auth/react';
+import { useTranslation } from 'next-i18next';
 import { FaDiscord, FaGithub } from 'react-icons/fa';
 
 import Button from '@/components/atoms/buttons/Button';
-import { useLocale } from '@/providers/LocaleProvider';
 
 type Props = {
   providers: Record<
@@ -14,7 +14,7 @@ type Props = {
 };
 
 export default function SignInButtons({ providers }: Props) {
-  const { t } = useLocale(); // Get the translation function
+  const { t } = useTranslation();
 
   return (
     <>

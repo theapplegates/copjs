@@ -4,7 +4,7 @@ import Button from '@/components/atoms/buttons/Button';
 import { useTheme } from '@/providers/ThemeProvider';
 
 export default function ThemeToggler() {
-  const { theme, toggleTheme } = useTheme(); // Get the theme
+  const { theme, toggleTheme } = useTheme();
 
   return (
     <>

@@ -2,16 +2,13 @@ import backgroundImage from '@/assets/images/bg.png';
 import MainFooter from '@/components/layouts/MainFooter';
 import { useTheme } from '@/providers/ThemeProvider';
 
-// The props for the base layout
 type Props = {
   children?: React.ReactNode;
 };
 
-// The base layout
 export default function BaseLayout({ children }: Props) {
-  const { theme } = useTheme(); // Get the theme
+  const { theme } = useTheme();
 
-  // Return the base layout
   return (
     <div
       className="dark:(bg-ebony text-white) selection:(bg-primary text-white) h-full w-full"

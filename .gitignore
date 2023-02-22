@@ -43,3 +43,7 @@ yarn-error.log*
 /prisma/*.db
 
 .turbo
+
+public/robots.txt
+public/sitemap-*.xml
+public/sitemap.xml
