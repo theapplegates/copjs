@@ -51,7 +51,7 @@ export default function SignUp() {
     formState: { errors, isSubmitting }
   } = useForm<z.infer<typeof RegistrationSchema>>({
     mode: 'onChange',
-    resolver: zodResolver(RegistrationSchema), // Configuration the validation with the zod schema.
+    resolver: zodResolver(RegistrationSchema),
     defaultValues: {}
   });
 

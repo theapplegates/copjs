@@ -53,7 +53,7 @@ export default function SignIn() {
     formState: { errors, isSubmitting }
   } = useForm<z.infer<typeof SignInInputSchema>>({
     mode: 'onChange',
-    resolver: zodResolver(SignInInputSchema), // Configuration the validation with the zod schema.
+    resolver: zodResolver(SignInInputSchema),
     defaultValues: {}
   });
 

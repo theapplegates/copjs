@@ -46,7 +46,7 @@ export default function Index() {
     formState: { errors, isSubmitting, isSubmitSuccessful }
   } = useForm<z.infer<typeof RequestPasswordLinkSchema>>({
     mode: 'onChange',
-    resolver: zodResolver(RequestPasswordLinkSchema), // Configuration the validation with the zod schema.
+    resolver: zodResolver(RequestPasswordLinkSchema),
     defaultValues: {}
   });
 
@@ -84,14 +84,6 @@ export default function Index() {
                   <Link href="/auth/signin">{t('Sign in')}</Link>
                 </Subtitle>
               </div>
-
-              {error && error.message && error.message.startsWith('[') && (
-                <Alert color="danger">
-                  {JSON.parse(error.message).map((err: any, i: number) => (
-                    <div key={i}>{t(err.message)}</div>
-                  ))}
-                </Alert>
-              )}
 
               {isSubmitSuccessful && (
                 <Alert color="success">
