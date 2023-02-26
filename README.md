@@ -36,6 +36,7 @@ Build web applications that are scalable, efficient and user-friendly with CopJS
 - 💖 [Prettier](https://prettier.io/) Code Formatter
 - 🦊 Husky for Git Hooks
 - 🚫 Lint-staged for running linters on Git staged files
+- 🚨 Invalid Environment Variables Check with Zod
 
 ## Features
 
