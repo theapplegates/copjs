@@ -8,8 +8,7 @@ import { type Session } from 'next-auth';
 import superjson from 'superjson';
 
 import { prisma } from '@/lib/prisma';
-
-import { getServerAuthSession } from '../auth';
+import { getServerAuthSession } from '@/server/auth';
 
 type CreateContextOptions = {
   session: Session | null;

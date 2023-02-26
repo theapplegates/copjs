@@ -1,10 +1,18 @@
-const WindiCSSWebpackPlugin = require('windicss-webpack-plugin');
+// @ts-check
+/**
+ * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation.
+ * This is especially useful for Docker builds.
+ */
+!process.env.SKIP_ENV_VALIDATION && (await import('./src/env.mjs'));
 
-const { i18n } = require('./next-i18next.config');
+import WindiCSSWebpackPlugin from 'windicss-webpack-plugin';
+
+import i18nConfig from './next-i18next.config.js';
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  i18n,
+  i18n: i18nConfig.i18n,
+
   reactStrictMode: true, // https://nextjs.org/docs/api-reference/next.config.js/react-strict-mode
   trailingSlash: true, // https://nextjs.org/docs/api-reference/next.config.js/trailing-slash
 
@@ -27,4 +35,4 @@ const nextConfig = {
   }
 };
 
-module.exports = nextConfig;
+export default nextConfig;

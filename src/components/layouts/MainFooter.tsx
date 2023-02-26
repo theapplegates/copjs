@@ -1,6 +1,6 @@
-import ThemeToggler from '../atoms/buttons/ThemeToggler';
-import LocaleSelector from '../atoms/mixed/LocaleSelector';
-import Footer from './Footer';
+import ThemeToggler from '@/components/atoms/buttons/ThemeToggler';
+import LocaleSelector from '@/components/atoms/mixed/LocaleSelector';
+import Footer from '@/components/layouts/Footer';
 
 export default function MainFooter() {
   return (

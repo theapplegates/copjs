@@ -5,6 +5,7 @@ import CredentialsProvider from 'next-auth/providers/credentials'; // Import the
 import DiscordProvider from 'next-auth/providers/discord'; // Import the Discord provider
 import GithubProvider from 'next-auth/providers/github'; // Import the Discord provider
 
+import { env } from '@/env.mjs';
 import { prisma } from '@/lib/prisma'; // The adapter requires a prisma instance
 import SignInInputSchema from '@/schema/SignInInputSchema';
 
@@ -25,7 +26,7 @@ export function getBaseUrl(req: any): string {
  * @see https://next-auth.js.org/configuration/options
  */
 export const authOptions: NextAuthOptions = {
-  secret: process.env.SECRET, // The secret used to encrypt the cookie
+  secret: env.NEXTAUTH_SECRET, // The secret used to encrypt the cookie
   adapter: PrismaAdapter(prisma), // The adapter is what connects NextAuth to your database
 
   /**
@@ -37,15 +38,15 @@ export const authOptions: NextAuthOptions = {
     // Discord
     DiscordProvider({
       allowDangerousEmailAccountLinking: true,
-      clientId: `${process.env.DISCORD_CLIENT_ID}`, // The client ID can be found on the application page
-      clientSecret: `${process.env.DISCORD_CLIENT_SECRET}` // The client secret can be found on the application page
+      clientId: `${env.DISCORD_CLIENT_ID}`, // The client ID can be found on the application page
+      clientSecret: `${env.DISCORD_CLIENT_SECRET}` // The client secret can be found on the application page
     }),
 
     // Github
     GithubProvider({
       allowDangerousEmailAccountLinking: true,
-      clientId: `${process.env.GITHUB_CLIENT_ID}`, // The client ID can be found on the application page
-      clientSecret: `${process.env.GITHUB_CLIENT_SECRET}` // The client secret can be found on the application page
+      clientId: `${env.GITHUB_CLIENT_ID}`, // The client ID can be found on the application page
+      clientSecret: `${env.GITHUB_CLIENT_SECRET}` // The client secret can be found on the application page
     }),
 
     // Credentials
@@ -126,7 +127,7 @@ export const authOptions: NextAuthOptions = {
   // https://next-auth.js.org/configuration/options#jwt
   jwt: {
     // A secret to use for key generation (you should set this explicitly)
-    secret: process.env.SECRET
+    secret: env.NEXTAUTH_SECRET
   },
 
   /**

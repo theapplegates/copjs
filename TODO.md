@@ -8,3 +8,6 @@
 - Autofill text color for input fields (light/dark)
 
 - Storybook Preview Tailwind Fix
+
+- Fixstylelint
+-
