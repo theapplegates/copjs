@@ -1,5 +1,6 @@
-import { env } from '@/env.mjs';
 import type { IncomingMessage } from 'http';
+
+import { env } from '@/env.mjs';
 
 export default function BasicAuth(
   req: IncomingMessage & {
