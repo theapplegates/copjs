@@ -14,7 +14,7 @@ export const authRouter = createTRPCRouter({
         where: { email }
       });
 
-      await prisma.$disconnect();
+      // await prisma.$disconnect();
 
       if (user && user.password === password) {
         return user;
@@ -31,7 +31,7 @@ export const authRouter = createTRPCRouter({
         where: { email }
       });
 
-      await prisma.$disconnect();
+      // await prisma.$disconnect();
 
       if (user) {
         return user;

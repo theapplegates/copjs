@@ -24,7 +24,7 @@ export const userRouter = createTRPCRouter({
         }
       });
 
-      await prisma.$disconnect();
+      // await prisma.$disconnect();
 
       return user;
     }),
@@ -42,7 +42,7 @@ export const userRouter = createTRPCRouter({
         where: { id }
       });
 
-      await prisma.$disconnect();
+      // await prisma.$disconnect();
 
       return user || null;
     }),
@@ -62,7 +62,7 @@ export const userRouter = createTRPCRouter({
         data
       });
 
-      await prisma.$disconnect();
+      // await prisma.$disconnect();
 
       return user || null;
     }),
@@ -80,7 +80,7 @@ export const userRouter = createTRPCRouter({
         where: { id }
       });
 
-      await prisma.$disconnect();
+      // await prisma.$disconnect();
 
       return true;
     })
