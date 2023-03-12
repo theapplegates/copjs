@@ -10,10 +10,9 @@
 [![Forks](https://img.shields.io/github/forks/caglarop/copjs.svg)](https://github.com/caglarop/copjs)
 [![Issues](https://img.shields.io/github/issues/caglarop/copjs.svg)](https://github.com/caglarop/copjs/issues)
 [![Discord](https://img.shields.io/badge/Discord-Caglar%233780-%235865F2)](https://discordapp.com/users/910960195096674344)
+[![Demo](https://img.shields.io/badge/Demo%20on%20Netlify-%232E51ED)](https://devlifyio.netlify.app)
 
 Build web applications that are scalable, efficient and user-friendly with CopJS. The boilerplate is designed with the latest technologies including [TypeScript](https://www.typescriptlang.org/), [React](https://reactjs.org/), [Next.js](https://nextjs.org/), [Prisma](https://www.prisma.io/), [tRPC](https://trpc.io), and much more. With a built-in theme provider your application will have a sleek and modern feel.
-
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://devlifyio.netlify.app)
 
 ## Dependencies
 
