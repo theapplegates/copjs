@@ -3,11 +3,13 @@
  * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation.
  * This is especially useful for Docker builds.
  */
-!process.env.SKIP_ENV_VALIDATION && (await import('./src/env.mjs'));
-
 import WindiCSSWebpackPlugin from 'windicss-webpack-plugin';
 
+// eslint-disable-next-line import/extensions
 import i18nConfig from './next-i18next.config.js';
+
+// eslint-disable-next-line no-unused-expressions, import/extensions
+!process.env.SKIP_ENV_VALIDATION && (await import('./src/env.mjs'));
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {

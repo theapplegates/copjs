@@ -2,7 +2,6 @@
 
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { getServerSession } from 'next-auth/next';
-
 import { authOptions as nextAuthOptions } from '@/pages/api/auth/[...nextauth]';
 
 const restricted = async (req: NextApiRequest, res: NextApiResponse) => {

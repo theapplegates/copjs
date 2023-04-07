@@ -70,7 +70,8 @@
             "optionalDependencies": false,
             "peerDependencies": false
           }
-        ]
+        ],
+        "import/extensions": "off" // Allow import without extension
       }
     },
     // Configuration for testing

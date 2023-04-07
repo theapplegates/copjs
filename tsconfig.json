@@ -20,7 +20,12 @@
     "paths": {
       "@/*": ["./src/*"],
       "@/public": ["./public/*"]
-    }
+    },
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
   },
   "include": [
     ".eslintrc.cjs",
@@ -28,7 +33,9 @@
     "**/*.ts",
     "**/*.tsx",
     "**/*.cjs",
-    "**/*.mjs"
+    "**/*.mjs",
+    "next.config.mjs",
+    ".next/types/**/*.ts"
   ],
   "exclude": ["node_modules"]
 }
