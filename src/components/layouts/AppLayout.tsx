@@ -41,7 +41,7 @@ export default function AppLayout({ children }: Props) {
     >
       <div className="h-[calc(100%-90px)] overflow-auto">
         <div className="h-full w-full overflow-auto">
-          <div className="lg:(py-[50px]) h-full w-full py-[50px] px-4">
+          <div className="lg:(py-[50px]) h-full w-full px-4 py-[50px]">
             <div className="flex h-full w-full items-center justify-center">
               <div className="p-[50px]">
                 <div>
