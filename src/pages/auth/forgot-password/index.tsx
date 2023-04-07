@@ -19,7 +19,6 @@ import Link from '@/components/atoms/typography/Link';
 import Subtitle from '@/components/atoms/typography/Subtitle';
 import Title from '@/components/atoms/typography/Title';
 import BaseLayout from '@/components/layouts/BaseLayout';
-import Seo from '@/components/layouts/Seo';
 import Loader from '@/components/loading/Loader';
 import RequestPasswordLinkSchema from '@/schema/RequestPasswordLinkSchema';
 import { trpc } from '@/utils/trpc';
@@ -67,10 +66,10 @@ export default function Index() {
     return <Loader />;
   }
 
+  // t('Reset password')
+
   return (
     <>
-      <Seo title={t('Reset password') || undefined} />
-
       <BaseLayout>
         <div className="flex h-full w-full items-center justify-center">
           <div className="mx-auto w-full max-w-[410px]">
@@ -115,7 +114,7 @@ export default function Index() {
                   type="submit"
                   disabled={isSubmitting}
                   isLoading={isSubmitting}
-                  className="mt-4 mb-2 w-full justify-center"
+                  className="mb-2 mt-4 w-full justify-center"
                   rightIcon={<HiOutlineArrowSmRight />}
                 >
                   {t('Send reset link')}

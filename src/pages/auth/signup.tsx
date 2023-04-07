@@ -22,7 +22,6 @@ import Link from '@/components/atoms/typography/Link';
 import Subtitle from '@/components/atoms/typography/Subtitle';
 import Title from '@/components/atoms/typography/Title';
 import BaseLayout from '@/components/layouts/BaseLayout';
-import Seo from '@/components/layouts/Seo';
 import Loader from '@/components/loading/Loader';
 import SignInButtons from '@/components/SignInButtons';
 import RegistrationSchema from '@/schema/RegistrationSchema';
@@ -96,10 +95,9 @@ export default function SignUp() {
     return <Loader />;
   }
 
+  // t('Sign up')
   return (
     <>
-      <Seo title={t('Sign up') as string} />
-
       <BaseLayout>
         <div className="flex h-full w-full items-center justify-center">
           <div className="mx-auto w-full max-w-[410px]">
@@ -187,7 +185,7 @@ export default function SignUp() {
                   type="submit"
                   disabled={isSubmitting}
                   isLoading={isSubmitting}
-                  className="mt-4 mb-2 w-full justify-center"
+                  className="mb-2 mt-4 w-full justify-center"
                   rightIcon={<HiOutlineArrowSmRight />}
                 >
                   {t('Sign up')}

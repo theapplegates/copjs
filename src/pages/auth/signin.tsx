@@ -22,7 +22,6 @@ import Link from '@/components/atoms/typography/Link';
 import Subtitle from '@/components/atoms/typography/Subtitle';
 import Title from '@/components/atoms/typography/Title';
 import BaseLayout from '@/components/layouts/BaseLayout';
-import Seo from '@/components/layouts/Seo';
 import Loader from '@/components/loading/Loader';
 import SignInButtons from '@/components/SignInButtons';
 import SignInInputSchema from '@/schema/SignInInputSchema';
@@ -104,10 +103,10 @@ export default function SignIn() {
     return <Loader />;
   }
 
+  // t('Sign in')
+
   return (
     <>
-      <Seo title={t('Sign in') as string} />
-
       <BaseLayout>
         <div className="flex h-full w-full items-center justify-center">
           <div className="mx-auto w-full max-w-[410px]">

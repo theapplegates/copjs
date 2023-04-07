@@ -42,8 +42,6 @@ Build web applications that are scalable, efficient and user-friendly with CopJS
 - 🌗 Dynamic Theme Provider for Dark Mode
 - 📂 Seamless Absolute Imports using @ Prefix
 - 🗂 Customized VSCode Configuration for Better Coding Experience
-- 🤖 Improved SEO with Next SEO for metadata, JSON-LD, and Open Graph tags
-- 🗺️ Automatic Generation of Sitemap.xml and robots.txt with next-sitemap
 - 🕰️ Activity tracking with Timestamps added to the Prisma schema
 - 🚫 Custom 404 and 500 error pages with localization for improved user experience
 - 🔑 User Roles using next-auth with extended session types
