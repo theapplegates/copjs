@@ -69,6 +69,14 @@ CopJS is a feature-rich and flexible web application boilerplate built on [Next.
 - 🔧 The code is minimal, giving you the freedom to make necessary adjustments to fit your needs and preferences.
 - 🚀 Production-ready and SEO-friendly
 
+## Screenshot
+
+<p align="center">
+  <a href="https://github.com/caglarop/copjs/">
+    <img src="previews/screenshot.png" />
+  </a>
+</p>
+
 ## Getting Started 🚀
 
 Clone the CopJS repository by running the following command in your terminal:
