@@ -104,7 +104,9 @@ export default function PageClient() {
                 <Title className="mb-2">{t('create_an_account')}</Title>
                 <Subtitle>
                   {t('already_registered')}{' '}
-                  <Link href={`/auth/signin`}>{t('sign_in')}</Link>
+                  <Link href={`${params?.lang}/auth/signin`}>
+                    {t('sign_in')}
+                  </Link>
                 </Subtitle>
               </div>
 
@@ -196,7 +198,7 @@ export default function PageClient() {
               </form>
 
               <Link
-                href="/auth/signin"
+                href={`${params?.lang}/auth/signin`}
                 className="group mt-4 flex w-full items-center justify-center gap-2"
               >
                 <div className="inline-block duration-300 group-hover:pr-1">
