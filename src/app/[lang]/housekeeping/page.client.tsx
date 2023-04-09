@@ -52,19 +52,21 @@ export default function PageClient() {
               {t('signed_in_as', { value: session?.user?.email as string })}
             </div>
 
-            <Button
-              color={'secondary'}
-              className="my-2"
-              size="small"
-              clickHandler={() => {
-                signOut({
-                  callbackUrl: `/${params?.lang}`,
-                  redirect: true
-                });
-              }}
-            >
-              {t('sign_out')}
-            </Button>
+            <div className="inline-block">
+              <Button
+                color={'secondary'}
+                className="my-2"
+                size="small"
+                clickHandler={() => {
+                  signOut({
+                    callbackUrl: `/${params?.lang}`,
+                    redirect: true
+                  });
+                }}
+              >
+                {t('sign_out')}
+              </Button>
+            </div>
           </div>
         </div>
       </AppLayout>

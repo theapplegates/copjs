@@ -49,27 +49,26 @@ export default function AppLayout({ children }: Props) {
           <div className="lg:(py-[50px]) h-full w-full px-4 py-[50px]">
             <div className="flex h-full w-full items-center justify-center">
               <div className="p-[50px]">
-                <div>
-                  <div className="mb-3">
-                    {session && (
-                      <>
+                <div className="text-center">
+                  {session && (
+                    <>
+                      <div className="mb-3">
                         <Title className="mb-1">{t('dashboard')}</Title>
                         <Subtitle>
                           {t('welcome', { value: session.user.name as string })}
                         </Subtitle>
-                        {session.user.role}
-                      </>
-                    )}
-                  </div>
+                        <div>{session.user.role}</div>
+                      </div>
+                    </>
+                  )}
 
                   {!session && (
-                    <div>
+                    <div className="mb-3 inline-block">
                       <Button
                         clickHandler={() => {
                           router.push(`${params?.lang}/auth/signin`);
                         }}
                         size="small"
-                        className="mb-3"
                       >
                         {t('sign_in')}
                       </Button>

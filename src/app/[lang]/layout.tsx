@@ -3,9 +3,15 @@ import 'windi.css';
 import '@/styles/globals.css';
 
 import type { Metadata } from 'next';
+import { redirect } from 'next/navigation';
 
 import type { ValidLocale } from '@/i18n';
-import { getDictionaries, getLocalePartsFrom, locales } from '@/i18n';
+import {
+  defaultLocale,
+  getDictionaries,
+  getLocalePartsFrom,
+  locales
+} from '@/i18n';
 import { TrpcProvider } from '@/providers/TrpcProvider';
 import { getTranslator } from '@/utils/localization';
 
@@ -21,6 +27,7 @@ export const generateMetadata = async ({
   params: { lang: ValidLocale };
 }): Promise<Metadata> => {
   const dictionaries = await getDictionaries(params?.lang);
+
   const t = getTranslator(dictionaries);
 
   return {
@@ -40,13 +47,19 @@ export const generateMetadata = async ({
   };
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
   params
 }: {
   children: React.ReactNode;
   params: { lang: ValidLocale };
 }) {
+  const dictionaries = await getDictionaries(params?.lang, true);
+
+  if (!dictionaries) {
+    redirect(`/${defaultLocale}`);
+  }
+
   return (
     <html lang={`${params?.lang}`}>
       <head />

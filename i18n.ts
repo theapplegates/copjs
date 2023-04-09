@@ -2,8 +2,8 @@
 import deDE from './dictionaries/de-DE.json';
 import enUS from './dictionaries/en-US.json';
 
-export const defaultLocale = 'de-DE';
-export const locales = [defaultLocale, 'en-US'] as const;
+export const defaultLocale = 'en-US';
+export const locales = [defaultLocale, 'de-DE'] as const;
 
 export const dictionariesClient: any = {
   'de-DE': deDE,
@@ -52,12 +52,14 @@ for (let i = 0; i < locales.length; i++) {
     import(`dictionaries/${locale}.json`).then(module => module.default);
 }
 
-export const getDictionaries = async (locale: ValidLocale) => {
-  const dictionary = dictionaries[locale]
-    ? await dictionaries[locale]()
-    : await dictionaries[defaultLocale]();
+export const getDictionaries = async (
+  locale: ValidLocale,
+  nullWhenInvalid: boolean = false
+) => {
+  const dictionary = dictionaries[locale] ? await dictionaries[locale]() : null;
+  const def = nullWhenInvalid ? null : await dictionaries[defaultLocale]();
 
-  return dictionary;
+  return dictionary || def;
 };
 
 export const getDictionariesClient = (locale: any) => {
