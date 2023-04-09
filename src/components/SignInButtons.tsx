@@ -37,8 +37,7 @@ export default function SignInButtons({ providers }: Props) {
                 size="small"
                 clickHandler={() =>
                   signIn(provider.id, {
-                    redirect: false,
-                    callbackUrl: `/${params?.lang}/auth/signin/callback/${provider.id}`
+                    redirect: false
                   })
                 }
                 leftIcon={
