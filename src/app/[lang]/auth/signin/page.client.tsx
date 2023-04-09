@@ -109,9 +109,7 @@ export default function PageClient() {
                 <Title className="mb-2">{t('welcome_back')}</Title>
                 <Subtitle>
                   {t('you_dont_have_an_account')}{' '}
-                  <Link href={`${params?.lang}/auth/signup`}>
-                    {t('create_an_account')}
-                  </Link>
+                  <Link href={`/auth/signup`}>{t('create_an_account')}</Link>
                 </Subtitle>
               </div>
 
@@ -148,10 +146,7 @@ export default function PageClient() {
                   <Alert color="danger">{t(errors?.password?.message)}</Alert>
                 )}
 
-                <Link
-                  href={`${params?.lang}/auth/forgot-password`}
-                  className="my-5 block"
-                >
+                <Link href={`/auth/forgot-password`} className="my-5 block">
                   {t('forgot_password')}
                 </Link>
 

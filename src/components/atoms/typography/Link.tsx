@@ -22,7 +22,7 @@ export default function Link({
 
   return (
     <NextLink
-      href={`${params?.lang || ''}${href}`}
+      href={`/${params?.lang || ''}${href}`}
       title={title}
       target={target}
       className={classNames(
