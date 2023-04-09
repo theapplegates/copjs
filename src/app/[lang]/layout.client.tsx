@@ -11,7 +11,7 @@ export default function LayoutClient({
 }) {
   return (
     <>
-      <SessionProvider>
+      <SessionProvider refetchOnWindowFocus={false}>
         <ThemeProvider>{children}</ThemeProvider>
       </SessionProvider>
     </>
