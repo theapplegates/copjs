@@ -16,6 +16,8 @@ const server = z.object({
 
   PORT: z.number().min(1).max(65535).optional(),
 
+  NEXT_PUBLIC_VERCEL_URL: z.string().min(1).optional(),
+
   NEXTAUTH_SECRET:
     process.env.NODE_ENV === 'production'
       ? z.string().min(1)
@@ -62,6 +64,8 @@ const env = {
   SITE_URL: process.env.SITE_URL,
 
   PORT: process.env.PORT,
+
+  NEXT_PUBLIC_VERCEL_URL: process.env.NEXT_PUBLIC_VERCEL_URL,
 
   NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
   NEXTAUTH_URL: process.env.NEXTAUTH_URL,
