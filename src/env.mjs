@@ -11,7 +11,7 @@ const server = z.object({
     .default('development'),
 
   DATABASE_URL: z.string().url(),
-  SITE_URL: z.string().url(),
+  SITE_URL: z.string().url().optional(),
   VERCEL_URL: z.string().min(1).optional(),
 
   PORT: z.number().min(1).max(65535).optional(),
