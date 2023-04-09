@@ -1,5 +1,6 @@
 import classNames from 'classnames';
 import NextLink from 'next/link';
+import { useParams } from 'next/navigation';
 
 type Props = {
   children: React.ReactNode;
@@ -17,9 +18,11 @@ export default function Link({
   title,
   target
 }: Props) {
+  const params = useParams();
+
   return (
     <NextLink
-      href={href}
+      href={`${params?.lang || ''}${href}`}
       title={title}
       target={target}
       className={classNames(

@@ -1,18 +1,18 @@
-import { type GetServerSidePropsContext } from 'next';
-import { getServerSession } from 'next-auth';
+import type { NextApiRequest, NextApiResponse } from 'next';
+import { getServerSession } from 'next-auth/next';
 
 import { authOptions } from '@/pages/api/auth/[...nextauth]';
 
-/**
- * Wrapper for getServerSession, used in trpc createContext and the
- * restricted API route
- *
- * @see https://next-auth.js.org/configuration/nextjs
- */
-
-export const getServerAuthSession = async (ctx: {
-  req: GetServerSidePropsContext['req'];
-  res: GetServerSidePropsContext['res'];
+export const getServerAuthSession = async ({
+  req,
+  res
+}: {
+  req: NextApiRequest;
+  res: NextApiResponse;
 }) => {
-  return getServerSession(ctx.req, ctx.res, authOptions);
+  if (!req || !res) {
+    return null;
+  }
+
+  return getServerSession(req, res, authOptions);
 };

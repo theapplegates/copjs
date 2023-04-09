@@ -1,3 +1,5 @@
+'use client';
+
 import classNames from 'classnames';
 import { parseCookies, setCookie } from 'nookies';
 import React, { createContext, useContext, useEffect, useState } from 'react';

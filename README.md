@@ -12,7 +12,15 @@
 [![Discord](https://img.shields.io/badge/Discord-Caglar%233780-%235865F2)](https://discordapp.com/users/910960195096674344)
 [![Demo](https://img.shields.io/badge/Demo%20on%20Netlify-%232E51ED)](https://devlifyio.netlify.app)
 
-Build web applications that are scalable, efficient and user-friendly with CopJS. The boilerplate is designed with the latest technologies including [TypeScript](https://www.typescriptlang.org/), [React](https://reactjs.org/), [Next.js](https://nextjs.org/), [Prisma](https://www.prisma.io/), [tRPC](https://trpc.io), and much more. With a built-in theme provider your application will have a sleek and modern feel.
+CopJS is a feature-rich and flexible web application boilerplate built on [Next.js](https://nextjs.org/) 13.3, designed to streamline your development process. With a modern app directory structure and Metadata API, CopJS empowers you to build web applications with ease.
+
+<b>Some notable features of CopJS include:</b>
+
+- <b>Enhanced Code Writing</b>: CopJS includes page.client.tsx, making it simple to write client-side code for your pages.
+- <b>Robust Error Handling</b>: CopJS integrates tRPC and zod for handling errors and includes translations for error messages, ensuring a smooth user experience.
+- <b>Efficient Database Management</b>: CopJS leverages Prisma as the ORM for seamless and efficient database operations.
+- <b>Secure and Scalable</b>: CopJS includes protected routes based on user roles, allowing you to build secure and scalable applications.
+- <b>Beautiful UI with Dark/Light Theme</b>: CopJS comes with a built-in ThemeProvider for easy implementation of dark and light modes, offering a visually appealing user interface.
 
 ## Dependencies
 
@@ -21,16 +29,15 @@ Build web applications that are scalable, efficient and user-friendly with CopJS
 - [Turbo](https://turbo.build/): 🏋️‍♀️ High-performance build system for JavaScript and TypeScript codebases.
 - [tRPC](https://trpc.io): 🔌 A TypeScript-based RPC framework for building scalable and type-safe APIs with minimal boilerplate.
 - [Zod](https://github.com/colinhacks/zod): 🧩 A TypeScript-first schema builder for static type safety.
-- [Zod Internationalization](https://github.com/aiji42/zod-i18n): 🧩 Internationalization for Zod.
 - [Prisma](https://www.prisma.io/): 🗄️ A powerful and flexible database toolkit that makes it easy to work with databases in your application.
 - [Next-Auth](https://next-auth.js.org/): 🔒 A complete authentication solution for Next.js that supports multiple providers and local authentication.
-- [Next-i18next](https://next.i18next.com/): 🌍 An internationalization (i18n) library for Next.js that makes it easy to translate your application.
 - [Windicss](https://windicss.org/): 🎨 A modern and customizable styling solution for Next.js applications.
 - [Storybook](https://storybook.js.org/): 📚 Storybook is a frontend workshop for building UI components and pages in isolation.
 
 ## Developer Experience
 
-- 💅 [Classnames](https://www.npmjs.com/package/classnames) A utility for conditionally joining class names together.
+- 🌍 Internationalization that makes it easy to translate your application
+- 💅 [Classnames](https://www.npmjs.com/package/classnames) A utility for conditionally joining class names together
 - 📏 [Eslint](https://eslint.org/) Linter (default NextJS, NextJS Core Web Vitals)
 - 💖 [Prettier](https://prettier.io/) Code Formatter
 - 🦊 Husky for Git Hooks

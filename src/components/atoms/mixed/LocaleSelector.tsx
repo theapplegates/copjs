@@ -1,39 +1,36 @@
-import { useRouter } from 'next/router';
-import { useTranslation } from 'next-i18next';
-import { setCookie } from 'nookies';
+import { useParams, useRouter } from 'next/navigation';
 import { useCallback } from 'react';
+
+import { getDictionariesClient } from '@/i18n';
+import { getTranslator } from '@/utils/localization';
 
 export default function LocaleSelector() {
   const router = useRouter();
+  const params = useParams();
 
-  const { t } = useTranslation();
+  const t = getTranslator(getDictionariesClient(params?.lang));
 
-  const changeLocale = useCallback(
-    (locale: string) => {
-      setCookie(null, 'NEXT_LOCALE', locale);
-
-      router.push(router.asPath, undefined, { locale });
-    },
-    [router.replace, router.reload]
-  );
+  const changeLocale = useCallback((locale: string) => {
+    router.push(`/${locale}`);
+  }, []);
 
   return (
     <>
       <div
         onClick={() => {
-          changeLocale('de');
+          changeLocale('de-DE');
         }}
         className="cursor-pointer uppercase"
       >
-        {t('DE')}
+        {t('language.de-DE')}
       </div>
       <div
         onClick={() => {
-          changeLocale('en');
+          changeLocale('en-US');
         }}
         className="cursor-pointer uppercase"
       >
-        {t('EN')}
+        {t('language.en-US')}
       </div>
     </>
   );

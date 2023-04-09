@@ -1,20 +1,25 @@
-import { useRouter } from 'next/router';
+'use client';
+
+import { useParams, useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
-import { useTranslation } from 'next-i18next';
 
 import backgroundImage from '@/assets/images/bg.png';
 import Button from '@/components/atoms/buttons/Button';
 import Subtitle from '@/components/atoms/typography/Subtitle';
 import Title from '@/components/atoms/typography/Title';
 import MainFooter from '@/components/layouts/MainFooter';
+import { getDictionariesClient } from '@/i18n';
 import { useTheme } from '@/providers/ThemeProvider';
+import { getTranslator } from '@/utils/localization';
 
 type Props = {
   children?: React.ReactNode;
 };
 
 export default function AppLayout({ children }: Props) {
-  const { t } = useTranslation();
+  const params = useParams();
+
+  const t = getTranslator(getDictionariesClient(params?.lang));
 
   const { data: session } = useSession();
 
@@ -48,11 +53,9 @@ export default function AppLayout({ children }: Props) {
                   <div className="mb-3">
                     {session && (
                       <>
-                        <Title className="mb-1">{t('Dashboard')}</Title>
+                        <Title className="mb-1">{t('dashboard')}</Title>
                         <Subtitle>
-                          {t('Welcome, {{name}}!', {
-                            name: session.user.name
-                          })}
+                          {t('welcome', { value: session.user.name as string })}
                         </Subtitle>
                         {session.user.role}
                       </>
@@ -60,15 +63,17 @@ export default function AppLayout({ children }: Props) {
                   </div>
 
                   {!session && (
-                    <Button
-                      clickHandler={() => {
-                        router.push(`/auth/signin`);
-                      }}
-                      size="small"
-                      className="mb-3"
-                    >
-                      {t('Sign in')}
-                    </Button>
+                    <div>
+                      <Button
+                        clickHandler={() => {
+                          router.push(`${params?.lang}/auth/signin`);
+                        }}
+                        size="small"
+                        className="mb-3"
+                      >
+                        {t('sign_in')}
+                      </Button>
+                    </div>
                   )}
 
                   <div className="relative">{children}</div>

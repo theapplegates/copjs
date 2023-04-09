@@ -10,8 +10,6 @@ const server = z.object({
     .enum(['development', 'test', 'production'])
     .default('development'),
 
-  BUILD_ID: z.string().optional(),
-
   DATABASE_URL: z.string().url(),
   SITE_URL: z.string().url(),
   VERCEL_URL: z.string().min(1).optional(),
@@ -58,8 +56,6 @@ const client = z.object({
  */
 const env = {
   NODE_ENV: process.env.NODE_ENV,
-
-  BUILD_ID: process.env.BUILD_ID,
 
   VERCEL_URL: process.env.VERCEL_URL,
   DATABASE_URL: process.env.DATABASE_URL,

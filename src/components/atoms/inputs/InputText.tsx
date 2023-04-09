@@ -53,6 +53,12 @@ export default function InputText({
               changeHandler(e);
             }
           }}
+          onKeyUp={(e: React.KeyboardEvent<HTMLInputElement>) => {
+            // If the input is not read only, disabled or the change handler is undefined, call the change handler
+            if (!readOnly && !disabled && changeHandler !== undefined) {
+              changeHandler(e as any);
+            }
+          }}
           disabled={disabled}
           readOnly={readOnly}
           placeholder={floatingLabel ? ' ' : placeholder}

@@ -1,10 +1,12 @@
+import { useParams } from 'next/navigation';
 import type { BuiltInProviderType } from 'next-auth/providers';
 import type { ClientSafeProvider, LiteralUnion } from 'next-auth/react';
 import { signIn } from 'next-auth/react';
-import { useTranslation } from 'next-i18next';
 import { FaDiscord, FaGithub } from 'react-icons/fa';
 
 import Button from '@/components/atoms/buttons/Button';
+import { getDictionariesClient } from '@/i18n';
+import { getTranslator } from '@/utils/localization';
 
 type Props = {
   providers: Record<
@@ -14,7 +16,9 @@ type Props = {
 };
 
 export default function SignInButtons({ providers }: Props) {
-  const { t } = useTranslation();
+  const params = useParams();
+
+  const t = getTranslator(getDictionariesClient(params?.lang));
 
   return (
     <>
@@ -38,9 +42,7 @@ export default function SignInButtons({ providers }: Props) {
                   null
                 }
               >
-                {t('Sign in with {{provider}}', {
-                  provider: provider.name
-                })}
+                {t('sign_in_with', { value: provider.name as string })}
               </Button>
             </div>
           ))}

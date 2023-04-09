@@ -1,10 +1,12 @@
+'use client';
+
 import ThemeToggler from '@/components/atoms/buttons/ThemeToggler';
 import LocaleSelector from '@/components/atoms/mixed/LocaleSelector';
 import Footer from '@/components/layouts/Footer';
 import { trpc } from '@/utils/trpc';
 
 export default function MainFooter() {
-  const { data: buildVersion } = trpc.build.version.useQuery();
+  const { data: version } = trpc.info.version.useQuery();
 
   return (
     <>
@@ -16,14 +18,16 @@ export default function MainFooter() {
               Devlify.io
             </a>
           </div>
-          {buildVersion && buildVersion.length > 0 && (
+          {version && version.length > 0 && (
             <div>
-              <div className="inline-block rounded bg-gray-50 p-1 text-[11px]">
-                {buildVersion}
+              <div className="dark:(bg-primary text-white) inline-block rounded bg-gray-50 p-1 text-[11px]">
+                {version}
               </div>
             </div>
           )}
-          <ThemeToggler />
+          <div>
+            <ThemeToggler />
+          </div>
           <LocaleSelector />
         </div>
       </Footer>

@@ -6,10 +6,9 @@ import {
   createTRPCRouter,
   protectedProcedure,
   publicProcedure
-} from '@/server/api/trpc';
+} from '@/server/trpc';
 import { hashPassword } from '@/utils/hash';
 
-// User Router
 export const userRouter = createTRPCRouter({
   create: publicProcedure
     .input(RegistrationSchema)
@@ -23,8 +22,6 @@ export const userRouter = createTRPCRouter({
           password: hashPassword(password)
         }
       });
-
-      // await prisma.$disconnect();
 
       return user;
     }),
@@ -41,8 +38,6 @@ export const userRouter = createTRPCRouter({
       const user = await prisma.user.findFirst({
         where: { id }
       });
-
-      // await prisma.$disconnect();
 
       return user || null;
     }),
@@ -62,8 +57,6 @@ export const userRouter = createTRPCRouter({
         data
       });
 
-      // await prisma.$disconnect();
-
       return user || null;
     }),
 
@@ -79,8 +72,6 @@ export const userRouter = createTRPCRouter({
       await prisma.user.delete({
         where: { id }
       });
-
-      // await prisma.$disconnect();
 
       return true;
     })

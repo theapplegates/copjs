@@ -5,18 +5,17 @@
  */
 import WindiCSSWebpackPlugin from 'windicss-webpack-plugin';
 
-// eslint-disable-next-line import/extensions
-import i18nConfig from './next-i18next.config.js';
-
 // eslint-disable-next-line no-unused-expressions, import/extensions
 !process.env.SKIP_ENV_VALIDATION && (await import('./src/env.mjs'));
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  i18n: i18nConfig.i18n,
-
   reactStrictMode: true, // https://nextjs.org/docs/api-reference/next.config.js/react-strict-mode
   trailingSlash: true, // https://nextjs.org/docs/api-reference/next.config.js/trailing-slash
+
+  experimental: {
+    appDir: true
+  },
 
   // https://nextjs.org/docs/api-reference/next.config.js/images
   images: {

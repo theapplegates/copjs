@@ -1,9 +1,8 @@
 import { prisma } from '@/lib/prisma';
 import CheckCredentialsSchema from '@/schema/CheckCredentialsSchema';
 import RequestPasswordLinkSchema from '@/schema/RequestPasswordLinkSchema';
-import { createTRPCRouter, publicProcedure } from '@/server/api/trpc';
+import { createTRPCRouter, publicProcedure } from '@/server/trpc';
 
-// Auth Router
 export const authRouter = createTRPCRouter({
   checkCredentials: publicProcedure
     .input(CheckCredentialsSchema)
@@ -13,8 +12,6 @@ export const authRouter = createTRPCRouter({
       const user = await prisma.user.findFirst({
         where: { email }
       });
-
-      // await prisma.$disconnect();
 
       if (user && user.password === password) {
         return user;
@@ -30,8 +27,6 @@ export const authRouter = createTRPCRouter({
       const user = await prisma.user.findFirst({
         where: { email }
       });
-
-      // await prisma.$disconnect();
 
       if (user) {
         return user;
