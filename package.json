@@ -41,6 +41,7 @@
     "react-hook-form": "^7.43.2",
     "react-icons": "^4.7.1",
     "server-only": "^0.0.1",
+    "sharp": "^0.32.0",
     "superjson": "^1.12.2",
     "windicss": "^3.5.6",
     "windicss-webpack-plugin": "^1.7.8",
