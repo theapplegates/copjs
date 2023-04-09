@@ -128,12 +128,11 @@ export const authOptions: NextAuthOptions = {
   jwt: {
     // A secret to use for key generation (you should set this explicitly)
     secret: env.NEXTAUTH_SECRET
-  }
+  },
 
   /**
    * @see https://next-auth.js.org/configuration/pages
    */
-  /*
   pages: {
     signIn: '/de-DE/auth/signin',
     signOut: '/de-DE/auth/signout',
@@ -141,7 +140,6 @@ export const authOptions: NextAuthOptions = {
     verifyRequest: '/de-DE/auth/verify-request', // (used for check email message)
     newUser: '/de-DE/housekeeping' // New users will be directed here on first sign in (leave the property out if not of interest)
   }
-  */
 };
 
 export default NextAuth(authOptions);
