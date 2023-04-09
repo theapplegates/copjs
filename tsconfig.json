@@ -16,7 +16,7 @@
     "jsx": "preserve",
     "incremental": true,
     "noUncheckedIndexedAccess": true,
-    "baseUrl": ".",
+    "baseUrl": "https://copjs.vercel.app",
     "paths": {
       "@/*": ["./src/*"],
       "@/i18n": ["./i18n"],
