@@ -1,4 +1,4 @@
-# 🔥 CopJS - A Modern and Flexible Web Application Boilerplate
+# 🔥 CopJS - Next.js 13.3 Based Boilerplate for Modern Web Applications
 
 <p align="center">
   <a href="https://github.com/caglarop/copjs/">
