@@ -8,3 +8,7 @@
 - Autofill text color for input fields (light/dark)
 
 - Storybook Preview WindiCSS Fix
+
+# Bugs
+
+- TrpcProvider NEXT_PUBLIC_SITE_URL = undefined
