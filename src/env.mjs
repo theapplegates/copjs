@@ -11,7 +11,7 @@ const server = z.object({
     .default('development'),
 
   DATABASE_URL: z.string().url(),
-  SITE_URL: z.string().url().optional(),
+  NEXT_PUBLIC_SITE_URL: z.string().url().optional(),
   VERCEL_URL: z.string().min(1).optional(),
 
   PORT: z.number().min(1).max(65535).optional(),
@@ -61,7 +61,7 @@ const env = {
 
   VERCEL_URL: process.env.VERCEL_URL,
   DATABASE_URL: process.env.DATABASE_URL,
-  SITE_URL: process.env.SITE_URL,
+  NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL,
 
   PORT: process.env.PORT,
 
