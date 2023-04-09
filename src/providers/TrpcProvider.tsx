@@ -19,6 +19,10 @@ export const TrpcProvider: React.FC<{ children: React.ReactNode }> = ({
       })
   );
 
+  const url = env.NEXT_PUBLIC_VERCEL_URL
+    ? `${env.NEXT_PUBLIC_VERCEL_URL}/api/trpc`
+    : `/api/trpc`;
+
   const [trpcClient] = useState(() =>
     trpc.createClient({
       links: [
@@ -26,9 +30,7 @@ export const TrpcProvider: React.FC<{ children: React.ReactNode }> = ({
           enabled: () => true
         }),
         httpBatchLink({
-          url: env.NEXT_PUBLIC_VERCEL_URL
-            ? `https://${env.NEXT_PUBLIC_VERCEL_URL}/api/trpc`
-            : `api/trpc`,
+          url,
           fetch: async (input, init?) => {
             const fetch = getFetch();
             return fetch(input, {
