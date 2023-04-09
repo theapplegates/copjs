@@ -134,11 +134,11 @@ export const authOptions: NextAuthOptions = {
    * @see https://next-auth.js.org/configuration/pages
    */
   pages: {
-    signIn: '/auth/signin',
-    signOut: '/auth/signout',
-    error: '/auth/signin?error=', // Error code passed in query string as ?error=
-    verifyRequest: '/auth/verify-request', // (used for check email message)
-    newUser: '/housekeeping' // New users will be directed here on first sign in (leave the property out if not of interest)
+    signIn: '/de-DE/auth/signin',
+    signOut: '/de-DE/auth/signout',
+    error: '/de-DE/auth/signin?error=', // Error code passed in query string as ?error=
+    verifyRequest: '/de-DE/auth/verify-request', // (used for check email message)
+    newUser: '/de-DE/housekeeping' // New users will be directed here on first sign in (leave the property out if not of interest)
   }
 };
 

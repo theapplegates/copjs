@@ -35,11 +35,7 @@ export default function SignInButtons({ providers }: Props) {
                   'primary'
                 }
                 size="small"
-                clickHandler={() =>
-                  signIn(provider.id, {
-                    redirect: false
-                  })
-                }
+                clickHandler={() => signIn(provider.id, {})}
                 leftIcon={
                   (provider.id === 'discord' && <FaDiscord size={16} />) ||
                   (provider.id === 'github' && <FaGithub size={16} />) ||
